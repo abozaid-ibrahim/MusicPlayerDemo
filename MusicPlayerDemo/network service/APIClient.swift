@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import RxSwift
 import RxOptional
+import RxSwift
 
 class HTTPClient {
     private let disposeBag = DisposeBag()
     func getData(of request: RequestBuilder) -> Observable<ArtistsRespose?> {
-        return excute(request).map {$0?.toModel() }.filterNil()
+        return excute(request).map { $0?.toModel() }.filterNil()
     }
 
     private func excute(_ request: RequestBuilder) -> Observable<Data?> {
@@ -23,12 +23,16 @@ class HTTPClient {
 
                 if let error = error {
                     print(error)
+                    observer.onError(error)
+
                     return
                 }
                 guard let httpResponse = response as? HTTPURLResponse,
                     (200...299).contains(httpResponse.statusCode) else {
                     print(response)
                     /// self.handleServerError(response)
+                    observer.onError(NetworkFailure.generalFailure)
+
                     return
                 }
                 observer.onNext(data)

@@ -103,6 +103,7 @@ public struct User: Codable {
     public let permalinkUrl: String?
     public let avatarUrl: String?
 
+    var songsCount:Int = 0
     enum CodingKeys: String, CodingKey {
         case id
         case permalink

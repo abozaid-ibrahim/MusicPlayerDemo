@@ -10,12 +10,19 @@ import UIKit
 
 class FeedTableCell: UITableViewCell {
 
+    @IBOutlet weak var artistImgView: UIImageView!
+    @IBOutlet weak var aristNameLbl: UILabel!
+    @IBOutlet weak var songsCountLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        artistImgView.layer.cornerRadius = 12
+        artistImgView.layer.borderColor = UIColor.darkGray.cgColor
+        artistImgView.layer.borderWidth = 1
     }
-    func setData(with model:String){
-        
+    func setData(with model:User){
+        artistImgView.setImage(with: model.avatarUrl)
+        aristNameLbl.text = model.username
+        songsCountLbl.text = String(model.songsCount)
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

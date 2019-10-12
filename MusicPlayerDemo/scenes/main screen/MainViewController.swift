@@ -18,7 +18,8 @@ class MainViewController: UIViewController {
     lazy var feedsView = FeedViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
-//        addFeedsView()
+        addFeedsView()
+
     }
 
     private func addFeedsView() {

@@ -16,12 +16,16 @@ final class FeedViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerNib(FeedTableCell.self.description())
+        
+        tableView.registerNib(String(describing: FeedTableCell.self))
         viewModel.feedsList
-            .bind(to: tableView.rx.items(cellIdentifier:  FeedTableCell.self.description(), cellType:  FeedTableCell.self)){ row, model, cell  in
+            .bind(to: tableView.rx.items(cellIdentifier: String(describing: FeedTableCell.self),
+                                         cellType:  FeedTableCell.self)){ row, model, cell  in
 
-                cell.setData(with: "model")
+                cell.setData(with: model)
         }.disposed(by: disposeBag)
+        
+//        tableView.rx.modelSelected(User.self)
         
     }
 }
