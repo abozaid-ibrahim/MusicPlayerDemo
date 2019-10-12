@@ -28,6 +28,7 @@
 		6C60E4E42351CCE7007DDCF6 /* FeedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4E22351CCE7007DDCF6 /* FeedTableCell.swift */; };
 		6C60E4E52351CCE7007DDCF6 /* FeedTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C60E4E32351CCE7007DDCF6 /* FeedTableCell.xib */; };
 		6C60E4E72351D49D007DDCF6 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4E62351D49D007DDCF6 /* MainCoordinator.swift */; };
+		6C60E4E92351DAEE007DDCF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C60E4E82351DAEE007DDCF6 /* Main.storyboard */; };
 		A0DF090FA53F64A0BCB6B857 /* Pods_MusicPlayerDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454AC20087976A6444604290 /* Pods_MusicPlayerDemo.framework */; };
 		DAB0FADC2C32242C3F6D5EDA /* Pods_MusicPlayerDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991EF841B6DBE37F9A30B49A /* Pods_MusicPlayerDemoTests.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 		6C60E4E22351CCE7007DDCF6 /* FeedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableCell.swift; sourceTree = "<group>"; };
 		6C60E4E32351CCE7007DDCF6 /* FeedTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedTableCell.xib; sourceTree = "<group>"; };
 		6C60E4E62351D49D007DDCF6 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		6C60E4E82351DAEE007DDCF6 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		991EF841B6DBE37F9A30B49A /* Pods_MusicPlayerDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicPlayerDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0657C80D1383644995781A3 /* Pods-MusicPlayerDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicPlayerDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-MusicPlayerDemoTests/Pods-MusicPlayerDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D8595E28E2CF133DD80D3725 /* Pods-MusicPlayerDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicPlayerDemoTests.release.xcconfig"; path = "Target Support Files/Pods-MusicPlayerDemoTests/Pods-MusicPlayerDemoTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				6C60E4A72351B85B007DDCF6 /* Assets.xcassets */,
 				6C60E4A92351B85B007DDCF6 /* LaunchScreen.storyboard */,
 				6C60E4AC2351B85B007DDCF6 /* Info.plist */,
+				6C60E4E82351DAEE007DDCF6 /* Main.storyboard */,
 			);
 			path = MusicPlayerDemo;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C60E4E92351DAEE007DDCF6 /* Main.storyboard in Resources */,
 				6C60E4AB2351B85B007DDCF6 /* LaunchScreen.storyboard in Resources */,
 				6C60E4D82351C379007DDCF6 /* MainViewController.xib in Resources */,
 				6C60E4CD2351C23B007DDCF6 /* FeedViewController.xib in Resources */,
@@ -566,7 +570,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = abuzeid.MusicPlayerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -584,7 +588,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = abuzeid.MusicPlayerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
