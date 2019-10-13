@@ -8,25 +8,22 @@
 
 import UIKit
 
-class SongTableCell: UITableViewCell {
+final class SongTableCell: UITableViewCell {
     @IBOutlet private var songImgView: UIImageView!
     @IBOutlet private var songNameLbl: UILabel!
     @IBOutlet private var autherLbl: UILabel!
+    @IBOutlet private var durationLbl: UILabel!
 
-    func setData(_ icon: String?, name: String?, auther: String?) {
+    func setData(_ icon: String?, name: String?, auther: String?, duration: String?) {
         self.songImgView.setImage(with: icon)
         self.autherLbl.text = auther
         self.songNameLbl.text = name
+        self.durationLbl.text = duration
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        selectionStyle = .blue
+        songImgView.circle()
     }
 }

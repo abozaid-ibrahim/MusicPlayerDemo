@@ -9,25 +9,17 @@
 import UIKit
 
 class FeedTableCell: UITableViewCell {
-
-    @IBOutlet weak var artistImgView: UIImageView!
-    @IBOutlet weak var aristNameLbl: UILabel!
-    @IBOutlet weak var songsCountLbl: UILabel!
+    @IBOutlet var artistImgView: UIImageView!
+    @IBOutlet var aristNameLbl: UILabel!
+    @IBOutlet var songsCountLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        artistImgView.layer.cornerRadius = 12
-        artistImgView.layer.borderColor = UIColor.darkGray.cgColor
-        artistImgView.layer.borderWidth = 1
+        artistImgView.circle()
     }
-    func setData(with model:User){
+
+    func setData(with model: User) {
         artistImgView.setImage(with: model.avatarUrl)
         aristNameLbl.text = model.username
         songsCountLbl.text = String(model.songsCount)
     }
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }

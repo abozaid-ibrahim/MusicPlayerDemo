@@ -1,31 +1,30 @@
 //
-//  MainScreenCoordinator.swift
+//  SongsCoordinator.swift
 //  MusicPlayerDemo
 //
-//  Created by abuzeid on 10/12/19.
+//  Created by abuzeid on 10/13/19.
 //  Copyright © 2019 abuzeid. All rights reserved.
 //
 
 import Foundation
 import UIKit
-//
-class MainCoordinator: MainCoordinatorType {
 
+class SongsCoordinator: SongsCoordinatorType {
     private weak var rootNavigationController: UINavigationController?
 
     /// Creates and returns a new coordinator
     ///
     /// - Parameter rootNavigationController: The root navigation controller
-    init(rootNavigationController: UINavigationController?) {
+    init(rootNavigationController: UINavigationController?, songs: [FeedResposeElement]) {
+        self.songs = songs
         self.rootNavigationController = rootNavigationController
     }
 
+    var songs: [FeedResposeElement]
     func start(completion: (() -> Void)?) {
         guard let rootNavigationController = rootNavigationController else { completion?(); return }
-//        let socketManager = SocketManager()
-//        let viewModel = MapViewModel(socketManager: socketManager, coordinator: self)
-        let viewController = MainViewController()
-//        viewController.viewModel = SongsListViewModel(player: AudioPlayer.shared, songs:[])
+        let viewController = SongsViewController()
+//        viewController.viewModel = SongsListViewModel(songs: songs)
         rootNavigationController.setViewControllers([viewController], animated: false)
         completion?()
     }
@@ -35,5 +34,4 @@ class MainCoordinator: MainCoordinatorType {
     }
 }
 
-protocol MainCoordinatorType: Coordinator {
-}
+protocol SongsCoordinatorType: Coordinator {}

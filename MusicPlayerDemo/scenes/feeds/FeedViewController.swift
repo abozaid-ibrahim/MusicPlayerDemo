@@ -8,7 +8,7 @@
 
 import RxSwift
 import UIKit
-final class FeedViewController: UIViewController {
+final class FeedViewController: UIViewController, Loadable {
     @IBOutlet private var tableView: UITableView!
     private let disposeBag = DisposeBag()
     private var viewModel = FeedListViewModel()
@@ -17,26 +17,25 @@ final class FeedViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.registerNib(FeedTableCell.self)
+        tableView.seperatorStyle()
+        viewModel.showProgress.bind(onNext: showLoading(show:)).disposed(by: disposeBag)
 
-        viewModel.feedsList
+        viewModel.songsList
+            .map { self.viewModel.sortMusicByArtist($0) }
             .bind(to: tableView.rx.items(cellIdentifier: String(describing: FeedTableCell.self),
                                          cellType: FeedTableCell.self)) { _, model, cell in
-
                 cell.setData(with: model)
             }.disposed(by: disposeBag)
 
-        tableView.rx.modelSelected(User.self).subscribe(onNext: { [unowned self] value in
-            self.showSongsList(element: self.viewModel.songsOf(user: value))
-
-        }).disposed(by: disposeBag)
+        tableView.rx.modelSelected(User.self).bind(onNext: viewModel.songsOf(user:)).disposed(by: disposeBag)
+        viewModel.artist.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
+        viewModel.loadData()
     }
 
-    private func showSongsList(element: Observable<[FeedResposeElement]>) {
+    private func showSongsList(element: [FeedResposeElement]) {
         let songsView = SongsViewController()
-        let songsViewModel = SongsListViewModel(player: AudioPlayer(), songs: element)
+        let songsViewModel = SongsListViewModel(songs: element)
         songsView.viewModel = songsViewModel
-        addChild(songsView)
-        view.addSubview(songsView.view)
+        navigationController?.pushViewController(songsView, animated: true)
     }
 }
-

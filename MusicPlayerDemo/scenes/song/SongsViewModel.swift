@@ -11,24 +11,20 @@ import RxSwift
 
 protocol SongsViewModel {}
 
-class SongsListViewModel: SongsViewModel {
+final class SongsListViewModel: SongsViewModel {
     private let disposeBag = DisposeBag()
     var showProgress = PublishSubject<Bool>()
     var songsList = BehaviorSubject<ArtistsRespose>(value: [])
+    var artist = BehaviorSubject<User?>(value:.none)
 
-    private var player: AudioPlayer
-    var currentUser: User?
-    init(player: AudioPlayer, songs: Observable<[FeedResposeElement]>) {
-        self.player = player
-        songs.bind(to: songsList).disposed(by: disposeBag)
+    init(songs: [FeedResposeElement]) {
+        songsList.onNext(songs)
+        self.artist.onNext(songs.first?.user)
     }
 
-    func playSong(action: Observable<IndexPath>) {
-        Observable.combineLatest(songsList, action)
-            //            .map {  }
-            .subscribe(onNext: { [unowned self] value, _ in
-                let songs = value.map { URL(string: $0.streamUrl ?? "")! }
-                self.player.playAudio(songs)
-            }).disposed(by: disposeBag)
+    func playSong(index: IndexPath) {
+        songsList.subscribe(onNext: { value in
+            AudioPlayer.shared.playAudio(value)
+        }).disposed(by: disposeBag)
     }
 }

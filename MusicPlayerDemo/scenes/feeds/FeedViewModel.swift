@@ -19,28 +19,25 @@ protocol FeedViewModel {}
 class FeedListViewModel: FeedViewModel {
     private let disposeBag = DisposeBag()
     var showProgress = PublishSubject<Bool>()
-    private let network:HTTPClient
+    private let network: HTTPClient
     var page = 0
     var countPerPage = 20
-    var allSongsList = PublishSubject<ArtistsRespose>()
-    var songsList = PublishSubject<ArtistsRespose>()
+    var songsList = BehaviorSubject<ArtistsRespose>(value: [])
+    var artist = PublishSubject<[FeedResposeElement]>()
+
     var currentUser: User?
+
     init(apiClient: HTTPClient = HTTPClient()) {
         self.network = apiClient
     }
 
-    var feedsList: Observable<[User]> {
-        return Observable<[User]>.create { [unowned self] observer in
-
-            self.showProgress.onNext(true)
-            self.network.getData(of: Feed.feed(type: "popular", page: self.page, count: self.countPerPage))
-                .subscribe(onNext: { [unowned self] value in
-                    self.allSongsList.onNext(value ?? [])
-                    observer.onNext(self.sortMusicByArtist(value ?? []))
-                    self.showProgress.onNext(false)
-                }).disposed(by: self.disposeBag)
-            return Disposables.create()
-        }
+    func loadData() {
+        self.showProgress.onNext(true)
+        self.network.getData(of: Feed.feed(type: "popular", page: self.page, count: self.countPerPage))
+            .subscribe(onNext: { [unowned self] value in
+                self.songsList.onNext(value ?? [])
+                self.showProgress.onNext(false)
+            }).disposed(by: self.disposeBag)
     }
 
     func sortMusicByArtist(_ feed: ArtistsRespose) -> [User] {
@@ -48,6 +45,7 @@ class FeedListViewModel: FeedViewModel {
         for song in feed {
             if var raw = users[song.userId ?? ""] {
                 raw.songsCount += 1
+                users[song.userId ?? ""] = raw
             } else {
                 var user = song.user
                 user?.songsCount += 1
@@ -58,10 +56,10 @@ class FeedListViewModel: FeedViewModel {
         return users.values.map { $0 }
     }
 
-    func songsOf(user: User) -> Observable<[FeedResposeElement]> {
-        currentUser = user
-        return allSongsList.map {
+    func songsOf(user: User) {
+        self.currentUser = user
+        self.songsList.map {
             $0.filter { $0.userId == user.id }
-        }
+        }.bind(to: self.artist).disposed(by: self.disposeBag)
     }
 }

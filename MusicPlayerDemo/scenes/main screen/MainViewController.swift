@@ -6,33 +6,45 @@
 //  Copyright © 2019 abuzeid. All rights reserved.
 //
 
+import RxSwift
 import UIKit
-
 class MainViewController: UIViewController {
     @IBOutlet private var miniPlayerView: UIView!
     @IBOutlet private var mainViewContainer: UIView!
+    private let disposeBag = DisposeBag()
 
-    // MARK: vars
-
-    lazy var miniPlayer: MiniPlayerViewController = MiniPlayerViewController()
-    lazy var feedsView = FeedViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
         addFeedsView()
-
-    }
-
-    private func addFeedsView() {
-        addChild(feedsView)
-        mainViewContainer.addSubview(feedsView.view)
-        feedsView.view.equalToSuperViewEdges()
-    }
-
-    private func addMiniPlayer() {
-        addChild(miniPlayer)
-        miniPlayerView.addSubview(miniPlayer.view)
-        miniPlayer.view.equalToSuperViewEdges()
+        addMiniPlayer()
     }
 }
 
-extension MainViewController {}
+private extension MainViewController {
+    private func addFeedsView() {
+        let feedsView = FeedViewController()
+        feedsView.title = "Music"
+        let navigationController = UINavigationController(rootViewController: feedsView)
+        addChild(navigationController)
+        mainViewContainer.addSubview(navigationController.view)
+        navigationController.view.equalToSuperViewEdges()
+    }
+
+    private func addMiniPlayer() {
+        let miniPlayer: MiniPlayerViewController = MiniPlayerViewController()
+        addChild(miniPlayer)
+        miniPlayerView.addSubview(miniPlayer.view)
+        miniPlayer.view.equalToSuperViewEdges()
+
+        AudioPlayer.shared.state
+            .map {
+                if case .sleep = $0 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            .bind(to: miniPlayerView.rx.isHidden)
+            .disposed(by: disposeBag)
+    }
+}

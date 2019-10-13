@@ -35,6 +35,7 @@ class HTTPClient {
 
                     return
                 }
+                print(String(data: data!, encoding: .utf8))
                 observer.onNext(data)
             }
 

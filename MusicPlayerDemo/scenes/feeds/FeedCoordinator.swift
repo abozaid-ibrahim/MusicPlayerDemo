@@ -1,15 +1,15 @@
 //
-//  MainScreenCoordinator.swift
+//  FeedCoordinator.swift
 //  MusicPlayerDemo
 //
-//  Created by abuzeid on 10/12/19.
+//  Created by abuzeid on 10/13/19.
 //  Copyright © 2019 abuzeid. All rights reserved.
 //
 
 import Foundation
 import UIKit
-//
-class MainCoordinator: MainCoordinatorType {
+
+class FeedCoordinator: FeedCoordinatorType {
 
     private weak var rootNavigationController: UINavigationController?
 
@@ -24,8 +24,8 @@ class MainCoordinator: MainCoordinatorType {
         guard let rootNavigationController = rootNavigationController else { completion?(); return }
 //        let socketManager = SocketManager()
 //        let viewModel = MapViewModel(socketManager: socketManager, coordinator: self)
-        let viewController = MainViewController()
-//        viewController.viewModel = SongsListViewModel(player: AudioPlayer.shared, songs:[])
+        let viewController = SongsViewController()//.instantiateFromStoryboard()
+//        viewController.viewModel = viewModel
         rootNavigationController.setViewControllers([viewController], animated: false)
         completion?()
     }
@@ -35,5 +35,5 @@ class MainCoordinator: MainCoordinatorType {
     }
 }
 
-protocol MainCoordinatorType: Coordinator {
+protocol FeedCoordinatorType: Coordinator {
 }
