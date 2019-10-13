@@ -7,29 +7,36 @@
 //
 
 import RxCocoa
+import RxGesture
 import RxSwift
 import UIKit
-import RxGesture
+
+/// mini view appears at the bottom of the application to show audio controls to the current song
 final class MiniPlayerViewController: UIViewController {
     private let disposeBag = DisposeBag()
+
+    // MARK: Outlets
+
     @IBOutlet private var playPauseBtn: UIButton!
     @IBOutlet private var forwardBtn: UIButton!
     @IBOutlet private var backwardBtn: UIButton!
-
-    
     @IBOutlet private var titleLbl: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-      bind()
+        bind()
     }
-    private func bind(){
+
+    /// bind view attributes to view model
+    private func bind() {
         AudioPlayer.shared.state
-                  .bind(onNext: updateIcon(for:)).disposed(by: disposeBag)
+            .bind(onNext: updateIcon(for:)).disposed(by: disposeBag)
         AudioPlayer.shared.playPause(playPauseBtn.rx.tapGesture().asObservable())
-            
-        
     }
-    func updateIcon(for state: AudioPlayer.State) {
+
+    /// update mini player icons according to state recieved from the audio player
+    /// - Parameter state: the new state of the audio player
+    private func updateIcon(for state: AudioPlayer.State) {
         switch state {
         case .playing(let item):
             playPauseBtn.setImage(UIImage(named: "pauseIcon"), for: .normal)
@@ -41,5 +48,4 @@ final class MiniPlayerViewController: UIViewController {
             print("TODO")
         }
     }
-
 }

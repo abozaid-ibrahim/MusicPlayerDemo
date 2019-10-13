@@ -45,8 +45,6 @@ extension Feed: RequestBuilder {
             myURL?.queryItems = items
             
             let request = URLRequest(url: endpoint, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 300)
-//            request.allHTTPHeaderFields = header
-//            request.httpBody = prmDic
             return request
         }
     }

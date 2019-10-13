@@ -14,6 +14,7 @@ class FeedTableCell: UITableViewCell {
     @IBOutlet var songsCountLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .none
         artistImgView.circle()
     }
 

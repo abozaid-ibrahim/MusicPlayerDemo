@@ -9,19 +9,24 @@
 import Foundation
 import RxSwift
 
-protocol SongsViewModel {}
+protocol SongsViewModel {
+    func playSong(index: IndexPath)
+}
 
+/// viewModel of songs list,
 final class SongsListViewModel: SongsViewModel {
     private let disposeBag = DisposeBag()
     var showProgress = PublishSubject<Bool>()
     var songsList = BehaviorSubject<ArtistsRespose>(value: [])
-    var artist = BehaviorSubject<Artist?>(value:.none)
+    var artist = BehaviorSubject<Artist?>(value: .none)
 
     init(songs: [SongEntity]) {
         songsList.onNext(songs)
-        self.artist.onNext(songs.first?.user)
+        artist.onNext(songs.first?.user)
     }
 
+    /// fire audio player to start playing the seleced song
+    /// - Parameter index: the item index that player should start playing from
     func playSong(index: IndexPath) {
         songsList.subscribe(onNext: { value in
             AudioPlayer.shared.playAudio(value)

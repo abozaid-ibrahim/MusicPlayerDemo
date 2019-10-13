@@ -21,7 +21,6 @@
 		6C60E4CF2351C259007DDCF6 /* UIView+Constrains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4CE2351C259007DDCF6 /* UIView+Constrains.swift */; };
 		6C60E4D72351C379007DDCF6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4D52351C379007DDCF6 /* MainViewController.swift */; };
 		6C60E4D82351C379007DDCF6 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C60E4D62351C379007DDCF6 /* MainViewController.xib */; };
-		6C60E4DA2351C4E1007DDCF6 /* MainScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4D92351C4E1007DDCF6 /* MainScreenCoordinator.swift */; };
 		6C60E4DD2351C61B007DDCF6 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4DC2351C61B007DDCF6 /* RequestBuilder.swift */; };
 		6C60E4DF2351CB26007DDCF6 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4DE2351CB26007DDCF6 /* FeedViewModel.swift */; };
 		6C60E4E12351CC7C007DDCF6 /* UITableView+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4E02351CC7C007DDCF6 /* UITableView+Cell.swift */; };
@@ -39,8 +38,6 @@
 		6C60E4FE235270C5007DDCF6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4FD235270C5007DDCF6 /* AudioPlayer.swift */; };
 		6C60E5002353138C007DDCF6 /* FeedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E4FF2353138C007DDCF6 /* FeedViewModelTests.swift */; };
 		6C60E50223532EE1007DDCF6 /* MiniPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E50123532EE1007DDCF6 /* MiniPlayerViewModel.swift */; };
-		6C60E50423533243007DDCF6 /* SongsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E50323533243007DDCF6 /* SongsCoordinator.swift */; };
-		6C60E5062353325C007DDCF6 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E5052353325C007DDCF6 /* FeedCoordinator.swift */; };
 		6CD07EDB23539E54005040CF /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD07EDA23539E54005040CF /* ActivityIndicator.swift */; };
 		6CD07EDD2353B1CD005040CF /* UIView+layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD07EDC2353B1CD005040CF /* UIView+layer.swift */; };
 		DAB0FADC2C32242C3F6D5EDA /* Pods_MusicPlayerDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991EF841B6DBE37F9A30B49A /* Pods_MusicPlayerDemoTests.framework */; };
@@ -92,7 +89,6 @@
 		6C60E4CE2351C259007DDCF6 /* UIView+Constrains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constrains.swift"; sourceTree = "<group>"; };
 		6C60E4D52351C379007DDCF6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		6C60E4D62351C379007DDCF6 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		6C60E4D92351C4E1007DDCF6 /* MainScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenCoordinator.swift; sourceTree = "<group>"; };
 		6C60E4DC2351C61B007DDCF6 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		6C60E4DE2351CB26007DDCF6 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		6C60E4E02351CC7C007DDCF6 /* UITableView+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Cell.swift"; sourceTree = "<group>"; };
@@ -108,8 +104,6 @@
 		6C60E4FD235270C5007DDCF6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		6C60E4FF2353138C007DDCF6 /* FeedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModelTests.swift; sourceTree = "<group>"; };
 		6C60E50123532EE1007DDCF6 /* MiniPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewModel.swift; sourceTree = "<group>"; };
-		6C60E50323533243007DDCF6 /* SongsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsCoordinator.swift; sourceTree = "<group>"; };
-		6C60E5052353325C007DDCF6 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		6CD07EDA23539E54005040CF /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		6CD07EDC2353B1CD005040CF /* UIView+layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+layer.swift"; sourceTree = "<group>"; };
 		991EF841B6DBE37F9A30B49A /* Pods_MusicPlayerDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicPlayerDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -243,7 +237,6 @@
 				6C60E4DE2351CB26007DDCF6 /* FeedViewModel.swift */,
 				6C60E4E22351CCE7007DDCF6 /* FeedTableCell.swift */,
 				6C60E4E32351CCE7007DDCF6 /* FeedTableCell.xib */,
-				6C60E5052353325C007DDCF6 /* FeedCoordinator.swift */,
 			);
 			path = feeds;
 			sourceTree = "<group>";
@@ -253,7 +246,6 @@
 			children = (
 				6C60E4D52351C379007DDCF6 /* MainViewController.swift */,
 				6C60E4D62351C379007DDCF6 /* MainViewController.xib */,
-				6C60E4D92351C4E1007DDCF6 /* MainScreenCoordinator.swift */,
 			);
 			path = "main screen";
 			sourceTree = "<group>";
@@ -294,7 +286,6 @@
 				6C60E4F623526C84007DDCF6 /* SongsViewController.swift */,
 				6C60E4F723526C84007DDCF6 /* SongsViewController.xib */,
 				6C60E4FA23526C97007DDCF6 /* SongsViewModel.swift */,
-				6C60E50323533243007DDCF6 /* SongsCoordinator.swift */,
 			);
 			path = song;
 			sourceTree = "<group>";
@@ -485,7 +476,6 @@
 				6C60E4E72351D49D007DDCF6 /* AppCoordinator.swift in Sources */,
 				6C60E50223532EE1007DDCF6 /* MiniPlayerViewModel.swift in Sources */,
 				6C60E4F823526C84007DDCF6 /* SongsViewController.swift in Sources */,
-				6C60E50423533243007DDCF6 /* SongsCoordinator.swift in Sources */,
 				6C60E4ED235226A0007DDCF6 /* ImageLoader.swift in Sources */,
 				6CD07EDD2353B1CD005040CF /* UIView+layer.swift in Sources */,
 				6C60E4C32351B8A3007DDCF6 /* FeedJsonResponse.swift in Sources */,
@@ -500,8 +490,6 @@
 				6C60E4FE235270C5007DDCF6 /* AudioPlayer.swift in Sources */,
 				6C60E4CC2351C23B007DDCF6 /* FeedViewController.swift in Sources */,
 				6C60E4DD2351C61B007DDCF6 /* RequestBuilder.swift in Sources */,
-				6C60E4DA2351C4E1007DDCF6 /* MainScreenCoordinator.swift in Sources */,
-				6C60E5062353325C007DDCF6 /* FeedCoordinator.swift in Sources */,
 				6C60E4F423526950007DDCF6 /* SongTableCell.swift in Sources */,
 				6C60E4CF2351C259007DDCF6 /* UIView+Constrains.swift in Sources */,
 				6C60E4D72351C379007DDCF6 /* MainViewController.swift in Sources */,

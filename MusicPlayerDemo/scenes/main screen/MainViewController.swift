@@ -36,15 +36,7 @@ private extension MainViewController {
         miniPlayerView.addSubview(miniPlayer.view)
         miniPlayer.view.equalToSuperViewEdges()
 
-        AudioPlayer.shared.state
-            .map {
-                if case .sleep = $0 {
-                    return true
-                } else {
-                    return false
-                }
-            }
-            .bind(to: miniPlayerView.rx.isHidden)
+        AudioPlayer.shared.state.map { $0 == .sleep }.bind(to: miniPlayerView.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }

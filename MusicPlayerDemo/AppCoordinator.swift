@@ -34,7 +34,7 @@ extension Coordinator {
 class AppCoordinator: Coordinator {
     weak var window: UIWindow?
 
-    private(set) weak var rootNavigationController: UINavigationController?
+    private(set) weak var rootNavigationController: MainViewController?
 
     /// Creates a new instance of the App Coordinator
     ///
@@ -45,19 +45,10 @@ class AppCoordinator: Coordinator {
 
     func start(completion: (() -> Void)?) {
         guard let window = self.window else { completion?(); return }
-
-//        let rootNavigationController = UINavigationController()
-//        self.rootNavigationController = rootNavigationController
-//        rootNavigationController.isNavigationBarHidden = false
         let main = MainViewController()
-//        rootNavigationController.viewControllers = [main]
-        window.rootViewController = main
-                    completion?()
-
-//        Mainco(rootNavigationController: rootNavigationController, songs: <#[SongEntity]#>).start {
-//            window.rootViewController = rootNavigationController
-//            completion?()
-//        }
+        rootNavigationController = main
+        window.rootViewController = rootNavigationController
+        completion?()
     }
 
     func finish(completion: (() -> Void)?) {

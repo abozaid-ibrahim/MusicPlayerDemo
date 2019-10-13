@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
-extension UIView{
-    func circle(){
+extension UIView {
+    /// set the view to be circle and set a white border to it
+    func circle() {
         self.layer.cornerRadius = min(bounds.height, bounds.width) / 2
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 1.5

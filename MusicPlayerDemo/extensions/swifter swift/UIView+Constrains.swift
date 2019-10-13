@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 extension UIView {
+    
+    /// set the constrains of subview to it's parent view
+    /// - Parameter insets: the margin needed between the view and i'ts subview
     func equalToSuperViewEdges(insets: UIEdgeInsets = .zero) {
         guard let parent = self.superview else {
             return

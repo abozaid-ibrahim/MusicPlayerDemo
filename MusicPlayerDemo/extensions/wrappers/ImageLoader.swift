@@ -8,7 +8,11 @@
 
 import Kingfisher
 import UIKit
+
 extension UIImageView {
+    
+    /// wrapper for kingfisher setImage
+    /// - Parameter url: url of the image
     func setImage(with url: String?) {
         self.kf.setImage(with: URL(string: url ?? ""))
     }

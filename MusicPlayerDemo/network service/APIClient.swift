@@ -10,39 +10,34 @@ import Foundation
 import RxOptional
 import RxSwift
 
-class HTTPClient {
+/// api handler, wrapper for the Url session
+final class HTTPClient {
     private let disposeBag = DisposeBag()
     func getData(of request: RequestBuilder) -> Observable<ArtistsRespose?> {
         return excute(request).map { $0?.toModel() }.filterNil()
     }
 
+    /// fire the http request and return observable of the data or emit an error
+    /// - Parameter request: the request that have all the details that need to call the remote api
     private func excute(_ request: RequestBuilder) -> Observable<Data?> {
         return Observable<Data?>.create { (observer) -> Disposable in
-
-            let task = URLSession.shared.dataTask(with: request.task) { [weak self] data, response, error in
-
+            let task = URLSession.shared.dataTask(with: request.task) { data, response, error in
                 if let error = error {
-                    print(error)
                     observer.onError(error)
-
                     return
                 }
                 guard let httpResponse = response as? HTTPURLResponse,
                     (200...299).contains(httpResponse.statusCode) else {
-                    print(response)
-                    /// self.handleServerError(response)
                     observer.onError(NetworkFailure.generalFailure)
-
                     return
                 }
-                print(String(data: data!, encoding: .utf8))
+                print(String(data: data!, encoding: .utf8) ?? "")
                 observer.onNext(data)
             }
-
             task.resume()
             return Disposables.create()
         }
-        .share(replay: 0, scope: .whileConnected)
+        .share(replay: 0, scope: .forever)
     }
 }
 
