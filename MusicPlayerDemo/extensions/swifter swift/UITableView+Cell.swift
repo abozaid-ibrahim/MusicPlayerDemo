@@ -9,8 +9,13 @@
 import Foundation
 import UIKit
 
-extension UITableView{
-    func registerNib(_ name:String){
-        self.register(UINib(nibName: name, bundle: .none), forCellReuseIdentifier: name)
+extension UITableView {
+    func registerNib(_ name: UITableViewCell.Type) {
+        self.register(UINib(nibName: String(describing: name.self), bundle: .none),
+                      forCellReuseIdentifier: String(describing: name.self))
+    }
+    func seperatorStyle(){
+        self.separatorStyle = .none
+        self.tableFooterView = UIView()
     }
 }

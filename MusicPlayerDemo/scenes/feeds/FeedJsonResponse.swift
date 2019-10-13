@@ -11,7 +11,7 @@ import Foundation
 import Foundation
 
 // MARK: - ArtistsResposeElement
-
+public typealias ArtistsRespose = [FeedResposeElement]
 public struct FeedResposeElement: Codable {
     public let id: String?
     public let createdAt: String?
@@ -91,6 +91,34 @@ public struct FeedResposeElement: Codable {
         self.favorited = favorited
         self.commentCount = commentCount
     }
+
+    public init(id: String?,  userId: String?, user: User?, streamUrl: String?) {
+           self.id = id
+        self.createdAt = .none
+           self.userId = userId
+           self.duration =  .none
+           self.permalink =  .none
+           self.artistsResposeDescription =  .none
+           self.downloadable =  .none
+           self.genre =  .none
+           self.genreSlush =  .none
+           self.title =  .none
+           self.uri =  .none
+           self.permalinkUrl =  .none
+           self.artworkUrl =  .none
+           self.backgroundUrl =  .none
+           self.waveformData =  .none
+           self.waveformUrl =  .none
+           self.user = user
+           self.streamUrl = streamUrl
+           self.downloadUrl =  .none
+           self.playbackCount =  .none
+           self.downloadCount =  .none
+           self.favoritingsCount =  .none
+           self.favorited =  .none
+           self.commentCount =  .none
+       }
+
 }
 
 // MARK: - User
@@ -123,4 +151,3 @@ public struct User: Codable {
     }
 }
 
-public typealias ArtistsRespose = [FeedResposeElement]
