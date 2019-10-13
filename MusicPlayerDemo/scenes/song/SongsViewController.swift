@@ -15,7 +15,7 @@ final class SongsViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     private let disposeBag = DisposeBag()
     var viewModel: SongsListViewModel?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
@@ -34,7 +34,10 @@ final class SongsViewController: UIViewController {
         viewModel!.songsList
             .bind(to: tableView.rx.items(cellIdentifier:
                 String(describing: SongTableCell.self), cellType: SongTableCell.self)) { _, model, cell in
-                cell.setData(model.artworkUrl, name: model.title, auther: model.user?.username, duration: model.duration)
+                cell.setData(model.artworkUrl,
+                             name: model.title,
+                             auther: model.user?.username,
+                             duration: (model.duration ?? "").songDurationFormat)
             }.disposed(by: disposeBag)
 
         tableView.rx.itemSelected.bind(onNext: viewModel!.playSong(index:)).disposed(by: disposeBag)
