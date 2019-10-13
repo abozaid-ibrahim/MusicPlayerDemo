@@ -5,6 +5,9 @@ PODS:
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
+  - RxGesture (3.0.0):
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
   - RxOptional (4.0.0):
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
@@ -15,6 +18,7 @@ PODS:
 DEPENDENCIES:
   - Kingfisher
   - RxCocoa
+  - RxGesture
   - RxOptional
   - RxSwift
 
@@ -22,6 +26,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Kingfisher
     - RxCocoa
+    - RxGesture
     - RxOptional
     - RxRelay
     - RxSwift
@@ -29,10 +34,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Kingfisher: 3adc15096595f5aed800bb0d5cb757fc58b2d2dd
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
+  RxGesture: 0cd8e37ff9a266e1c31f46bcaed6de1c536bc81e
   RxOptional: 9904e2219d59260c3c171273d475b2126de187e8
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
 
-PODFILE CHECKSUM: 8c2138a5ec2e38c6779d76617456bc56e1ed0df4
+PODFILE CHECKSUM: 6f2d99e2fac3e6e403a1a0657d615cc2c2955782
 
 COCOAPODS: 1.7.2

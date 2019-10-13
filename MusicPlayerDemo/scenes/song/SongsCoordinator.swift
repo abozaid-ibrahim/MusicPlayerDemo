@@ -15,12 +15,12 @@ class SongsCoordinator: SongsCoordinatorType {
     /// Creates and returns a new coordinator
     ///
     /// - Parameter rootNavigationController: The root navigation controller
-    init(rootNavigationController: UINavigationController?, songs: [FeedResposeElement]) {
+    init(rootNavigationController: UINavigationController?, songs: [SongEntity]) {
         self.songs = songs
         self.rootNavigationController = rootNavigationController
     }
 
-    var songs: [FeedResposeElement]
+    var songs: [SongEntity]
     func start(completion: (() -> Void)?) {
         guard let rootNavigationController = rootNavigationController else { completion?(); return }
         let viewController = SongsViewController()

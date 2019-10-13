@@ -15,9 +15,9 @@ final class SongsListViewModel: SongsViewModel {
     private let disposeBag = DisposeBag()
     var showProgress = PublishSubject<Bool>()
     var songsList = BehaviorSubject<ArtistsRespose>(value: [])
-    var artist = BehaviorSubject<User?>(value:.none)
+    var artist = BehaviorSubject<Artist?>(value:.none)
 
-    init(songs: [FeedResposeElement]) {
+    init(songs: [SongEntity]) {
         songsList.onNext(songs)
         self.artist.onNext(songs.first?.user)
     }

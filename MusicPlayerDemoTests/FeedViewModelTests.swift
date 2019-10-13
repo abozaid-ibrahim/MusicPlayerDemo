@@ -22,9 +22,9 @@ viewModel = FeedListViewModel()
     }
 
     func testFilterAtistsFromAllMusic() {
-        let data = [FeedResposeElement.init(id: "1", userId: "100", user: .none, streamUrl: ""),FeedResposeElement.init(id: "2", userId: "101", user: .none, streamUrl: ""),
-        FeedResposeElement.init(id: "3", userId: "100", user: .none, streamUrl: ""),
-        FeedResposeElement.init(id: "4", userId: "102", user: .none, streamUrl: "")]
+        let data = [SongEntity.init(id: "1", userId: "100", user: .none, streamUrl: ""),SongEntity.init(id: "2", userId: "101", user: .none, streamUrl: ""),
+        SongEntity.init(id: "3", userId: "100", user: .none, streamUrl: ""),
+        SongEntity.init(id: "4", userId: "102", user: .none, streamUrl: "")]
 //        let expected = []
 //        XCTAssertEqual(reuslt, expected.count)
     }

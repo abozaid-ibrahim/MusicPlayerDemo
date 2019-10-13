@@ -17,8 +17,8 @@ class MiniPlayerViewModel: PlayerViewModel {
     var songsList = BehaviorSubject<ArtistsRespose>(value: [])
 
     private var player: AudioPlayer
-    var currentUser: User?
-    init(player: AudioPlayer, songs: [FeedResposeElement]) {
+    var currentUser: Artist?
+    init(player: AudioPlayer, songs: [SongEntity]) {
         self.player = player
         songsList.onNext(songs)
     }

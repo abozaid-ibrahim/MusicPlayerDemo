@@ -9,6 +9,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MiniPlayerViewController" customModule="MusicPlayerDemo" customModuleProvider="target">
             <connections>
+                <outlet property="backwardBtn" destination="FzG-Xc-Suh" id="tnc-dG-9c6"/>
+                <outlet property="forwardBtn" destination="akG-Zx-7em" id="oB0-Aj-urp"/>
                 <outlet property="playPauseBtn" destination="XsP-Nr-ZSh" id="Jhv-Vo-wy7"/>
                 <outlet property="titleLbl" destination="dS8-dc-ohP" id="ZdO-uC-KBj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -20,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jkB-aR-ouJ">
-                    <rect key="frame" x="12" y="0.0" width="390" height="130"/>
+                    <rect key="frame" x="12" y="4" width="390" height="122"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Song" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dS8-dc-ohP">
                             <rect key="frame" x="0.0" y="0.0" width="390" height="20.5"/>
@@ -29,24 +31,21 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xh8-Gv-zxQ">
-                            <rect key="frame" x="0.0" y="30.5" width="390" height="99.5"/>
+                            <rect key="frame" x="0.0" y="30.5" width="390" height="91.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FzG-Xc-Suh">
-                                    <rect key="frame" x="0.0" y="0.0" width="130" height="99.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="130" height="91.5"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="backward"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XsP-Nr-ZSh">
-                                    <rect key="frame" x="130" y="0.0" width="130" height="99.5"/>
+                                    <rect key="frame" x="130" y="0.0" width="130" height="91.5"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="playicon"/>
-                                    <connections>
-                                        <action selector="onPlayPauseClicked:" destination="-1" eventType="touchUpInside" id="ZYC-GB-tTd"/>
-                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akG-Zx-7em">
-                                    <rect key="frame" x="260" y="0.0" width="130" height="99.5"/>
+                                    <rect key="frame" x="260" y="0.0" width="130" height="91.5"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="forwards"/>
                                 </button>
@@ -58,8 +57,8 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="jkB-aR-ouJ" secondAttribute="trailing" constant="12" id="AWL-vE-Gff"/>
-                <constraint firstItem="jkB-aR-ouJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="PpP-w0-XVq"/>
-                <constraint firstAttribute="bottom" secondItem="jkB-aR-ouJ" secondAttribute="bottom" id="n7o-xr-uRO"/>
+                <constraint firstItem="jkB-aR-ouJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="4" id="PpP-w0-XVq"/>
+                <constraint firstAttribute="bottom" secondItem="jkB-aR-ouJ" secondAttribute="bottom" constant="4" id="n7o-xr-uRO"/>
                 <constraint firstItem="jkB-aR-ouJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="ySq-qv-7ga"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

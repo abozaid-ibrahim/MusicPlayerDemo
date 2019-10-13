@@ -10,6 +10,7 @@ target 'MusicPlayerDemo' do
   pod 'RxOptional'
   pod 'RxCocoa'
   pod 'Kingfisher'
+  pod "RxGesture"
 
 
   target 'MusicPlayerDemoTests' do

@@ -9,17 +9,26 @@
 import RxCocoa
 import RxSwift
 import UIKit
-
-class MiniPlayerViewController: UIViewController {
+import RxGesture
+final class MiniPlayerViewController: UIViewController {
     private let disposeBag = DisposeBag()
     @IBOutlet private var playPauseBtn: UIButton!
+    @IBOutlet private var forwardBtn: UIButton!
+    @IBOutlet private var backwardBtn: UIButton!
+
+    
     @IBOutlet private var titleLbl: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        AudioPlayer.shared.state
-            .bind(onNext: updateIcon(for:)).disposed(by: disposeBag)
+      bind()
     }
-
+    private func bind(){
+        AudioPlayer.shared.state
+                  .bind(onNext: updateIcon(for:)).disposed(by: disposeBag)
+        AudioPlayer.shared.playPause(playPauseBtn.rx.tapGesture().asObservable())
+            
+        
+    }
     func updateIcon(for state: AudioPlayer.State) {
         switch state {
         case .playing(let item):
@@ -33,7 +42,4 @@ class MiniPlayerViewController: UIViewController {
         }
     }
 
-    @IBAction func onPlayPauseClicked(_ sender: Any) {
-        AudioPlayer.shared.playNext()
-    }
 }

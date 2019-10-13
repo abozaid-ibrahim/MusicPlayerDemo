@@ -54,7 +54,7 @@ class AppCoordinator: Coordinator {
         window.rootViewController = main
                     completion?()
 
-//        Mainco(rootNavigationController: rootNavigationController, songs: <#[FeedResposeElement]#>).start {
+//        Mainco(rootNavigationController: rootNavigationController, songs: <#[SongEntity]#>).start {
 //            window.rootViewController = rootNavigationController
 //            completion?()
 //        }

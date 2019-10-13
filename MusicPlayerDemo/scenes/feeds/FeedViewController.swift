@@ -27,12 +27,12 @@ final class FeedViewController: UIViewController, Loadable {
                 cell.setData(with: model)
             }.disposed(by: disposeBag)
 
-        tableView.rx.modelSelected(User.self).bind(onNext: viewModel.songsOf(user:)).disposed(by: disposeBag)
+        tableView.rx.modelSelected(Artist.self).bind(onNext: viewModel.songsOf(user:)).disposed(by: disposeBag)
         viewModel.artist.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
         viewModel.loadData()
     }
 
-    private func showSongsList(element: [FeedResposeElement]) {
+    private func showSongsList(element: [SongEntity]) {
         let songsView = SongsViewController()
         let songsViewModel = SongsListViewModel(songs: element)
         songsView.viewModel = songsViewModel

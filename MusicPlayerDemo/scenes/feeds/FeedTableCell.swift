@@ -17,7 +17,7 @@ class FeedTableCell: UITableViewCell {
         artistImgView.circle()
     }
 
-    func setData(with model: User) {
+    func setData(with model: Artist) {
         artistImgView.setImage(with: model.avatarUrl)
         aristNameLbl.text = model.username
         songsCountLbl.text = String(model.songsCount)

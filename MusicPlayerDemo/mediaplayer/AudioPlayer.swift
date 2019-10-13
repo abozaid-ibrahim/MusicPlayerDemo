@@ -16,14 +16,14 @@ final class AudioPlayer: NSObject {
     static let shared = AudioPlayer()
     private var audioPlayer: AVPlayer?
     private var items: [AVPlayerItem] = []
-    private var list: [FeedResposeElement] = []
-
+    private var list: [SongEntity] = []
+    
     private var currentSongIndex = 0
     var state = BehaviorSubject<State>(value: .sleep)
     
     //    MARK: - Action Methods
     
-    func playAudio(_ list: [FeedResposeElement], startFrom: Int = 0) {
+    func playAudio(_ list: [SongEntity], startFrom: Int = 0) {
         self.currentSongIndex = startFrom
         self.items.removeAll()
         let songs = list.map { URL(string: $0.streamUrl ?? "")! }
@@ -34,7 +34,7 @@ final class AudioPlayer: NSObject {
             self.audioPlayer = AVPlayer(playerItem: self.items[startFrom])
             self.audioPlayer?.play()
             self.state.onNext(.playing(item: list[startFrom]))
-            notifyUI()
+            self.notifyUI()
         } catch {
             print(error)
         }
@@ -43,9 +43,11 @@ final class AudioPlayer: NSObject {
     func stopAudio() {
         self.audioPlayer?.pause()
     }
-    private func notifyUI(){
-        self.state.onNext(.playing(item: list[currentSongIndex]))
+    
+    private func notifyUI() {
+        self.state.onNext(.playing(item: self.list[currentSongIndex]))
     }
+    
     func playNext() {
         guard (self.currentSongIndex + 1) < self.items.count else {
             return
@@ -53,7 +55,7 @@ final class AudioPlayer: NSObject {
         self.currentSongIndex += 1
         self.audioPlayer?.replaceCurrentItem(with: self.items[currentSongIndex])
         self.audioPlayer?.play()
-        notifyUI()
+        self.notifyUI()
     }
     
     func playPrev() {
@@ -63,10 +65,10 @@ final class AudioPlayer: NSObject {
         self.currentSongIndex -= 1
         self.audioPlayer?.replaceCurrentItem(with: self.items[currentSongIndex])
         self.audioPlayer?.play()
-        notifyUI()
+        self.notifyUI()
     }
     
-    func playPause(action: Observable<Void>) {
+    func playPause(_ action: Observable<UITapGestureRecognizer>) {
         Observable.combineLatest(self.state, action).subscribe(onNext: { [unowned self] state, _ in
             if case .playing = state {
                 self.stopAudio()
@@ -90,6 +92,6 @@ final class AudioPlayer: NSObject {
             }
         }
         
-        case playing(item: FeedResposeElement), paused(item: FeedResposeElement), sleep
+        case playing(item: SongEntity), paused(item: SongEntity), sleep
     }
 }

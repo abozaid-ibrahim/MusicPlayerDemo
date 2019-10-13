@@ -11,7 +11,7 @@ import UIKit
 extension UIView{
     func circle(){
         self.layer.cornerRadius = min(bounds.height, bounds.width) / 2
-        layer.borderColor = UIColor.lightGray.cgColor
+        layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 1.5
         layer.masksToBounds = true
     }

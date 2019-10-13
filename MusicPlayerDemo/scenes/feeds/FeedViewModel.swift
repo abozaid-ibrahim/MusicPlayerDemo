@@ -23,9 +23,9 @@ class FeedListViewModel: FeedViewModel {
     var page = 0
     var countPerPage = 20
     var songsList = BehaviorSubject<ArtistsRespose>(value: [])
-    var artist = PublishSubject<[FeedResposeElement]>()
+    var artist = PublishSubject<[SongEntity]>()
 
-    var currentUser: User?
+    var currentUser: Artist?
 
     init(apiClient: HTTPClient = HTTPClient()) {
         self.network = apiClient
@@ -40,8 +40,8 @@ class FeedListViewModel: FeedViewModel {
             }).disposed(by: self.disposeBag)
     }
 
-    func sortMusicByArtist(_ feed: ArtistsRespose) -> [User] {
-        var users: [String: User] = [:]
+    func sortMusicByArtist(_ feed: ArtistsRespose) -> [Artist] {
+        var users: [String: Artist] = [:]
         for song in feed {
             if var raw = users[song.userId ?? ""] {
                 raw.songsCount += 1
@@ -56,7 +56,7 @@ class FeedListViewModel: FeedViewModel {
         return users.values.map { $0 }
     }
 
-    func songsOf(user: User) {
+    func songsOf(user: Artist) {
         self.currentUser = user
         self.songsList.map {
             $0.filter { $0.userId == user.id }
