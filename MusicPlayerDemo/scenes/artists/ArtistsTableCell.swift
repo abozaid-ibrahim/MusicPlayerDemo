@@ -1,5 +1,5 @@
 //
-//  FeedTableCell.swift
+//  ArtistsTableCell.swift
 //  MusicPlayerDemo
 //
 //  Created by abuzeid on 10/12/19.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class FeedTableCell: UITableViewCell {
-    @IBOutlet var artistImgView: UIImageView!
-    @IBOutlet var aristNameLbl: UILabel!
-    @IBOutlet var songsCountLbl: UILabel!
+final class ArtistsTableCell: UITableViewCell {
+    @IBOutlet private var artistImgView: UIImageView!
+    @IBOutlet private var aristNameLbl: UILabel!
+    @IBOutlet private var songsCountLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
@@ -21,6 +21,6 @@ class FeedTableCell: UITableViewCell {
     func setData(with model: Artist) {
         artistImgView.setImage(with: model.avatarUrl)
         aristNameLbl.text = model.username
-        songsCountLbl.text = String(model.songsCount)
+        songsCountLbl.text = String(model.songsCount) + " track"
     }
 }

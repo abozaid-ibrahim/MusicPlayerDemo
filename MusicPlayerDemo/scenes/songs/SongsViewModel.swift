@@ -16,8 +16,7 @@ protocol SongsViewModel {
 /// viewModel of songs list,
 final class SongsListViewModel: SongsViewModel {
     private let disposeBag = DisposeBag()
-    var showProgress = PublishSubject<Bool>()
-    var songsList = BehaviorSubject<ArtistsRespose>(value: [])
+    var songsList = BehaviorSubject<SongsList>(value: [])
     var artist = BehaviorSubject<Artist?>(value: .none)
 
     init(songs: [SongEntity]) {

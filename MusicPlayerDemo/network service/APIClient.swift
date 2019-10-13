@@ -13,7 +13,7 @@ import RxSwift
 /// api handler, wrapper for the Url session
 final class HTTPClient {
     private let disposeBag = DisposeBag()
-    func getData(of request: RequestBuilder) -> Observable<ArtistsRespose?> {
+    func getData(of request: RequestBuilder) -> Observable<SongsList?> {
         return excute(request).map { $0?.toModel() }.filterNil()
     }
 

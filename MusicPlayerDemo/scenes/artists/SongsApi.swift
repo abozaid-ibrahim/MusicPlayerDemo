@@ -1,5 +1,5 @@
 //
-//  FeedApi.swift
+//  SongsApi.swift
 //  MusicPlayerDemo
 //
 //  Created by abuzeid on 10/12/19.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum Feed {
+enum SongsApi {
     case feed(type: String, page: Int, count: Int)
 }
 
-extension Feed: RequestBuilder {
+extension SongsApi: RequestBuilder {
     public var baseURL: URL {
         return URL(string: APIConstants.baseURL)!
     }

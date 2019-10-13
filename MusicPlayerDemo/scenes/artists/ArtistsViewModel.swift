@@ -10,19 +10,22 @@ import Foundation
 import RxOptional
 import RxSwift
 
-enum FeedType: String {
-    case popular
+protocol ArtistsViewModel {
+    func loadData()
+    func songsOf(user: Artist)
+    func sortMusicByArtist(_ feed: SongsList) -> [Artist]
+    var showProgress: PublishSubject<Bool> { get }
+    var songsList: BehaviorSubject<SongsList> { get }
+    var artist: PublishSubject<[SongEntity]> { get }
 }
 
-protocol FeedViewModel {}
-
-class FeedListViewModel: FeedViewModel {
+final class ArtistsListViewModel: ArtistsViewModel {
     private let disposeBag = DisposeBag()
     var showProgress = PublishSubject<Bool>()
     private let network: HTTPClient
-    var page = 0
-    var countPerPage = 20
-    var songsList = BehaviorSubject<ArtistsRespose>(value: [])
+    private var page = 0
+    private var countPerPage = 20
+    var songsList = BehaviorSubject<SongsList>(value: [])
     var artist = PublishSubject<[SongEntity]>()
 
     var currentUser: Artist?
@@ -33,14 +36,14 @@ class FeedListViewModel: FeedViewModel {
 
     func loadData() {
         self.showProgress.onNext(true)
-        self.network.getData(of: Feed.feed(type: "popular", page: self.page, count: self.countPerPage))
+        self.network.getData(of: SongsApi.feed(type: "popular", page: self.page, count: self.countPerPage))
             .subscribe(onNext: { [unowned self] value in
                 self.songsList.onNext(value ?? [])
                 self.showProgress.onNext(false)
             }).disposed(by: self.disposeBag)
     }
 
-    func sortMusicByArtist(_ feed: ArtistsRespose) -> [Artist] {
+    func sortMusicByArtist(_ feed: SongsList) -> [Artist] {
         var users: [String: Artist] = [:]
         for song in feed {
             if var raw = users[song.userId ?? ""] {
@@ -53,7 +56,7 @@ class FeedListViewModel: FeedViewModel {
             }
         }
 
-        return users.values.map { $0 }
+        return users.values.sorted { $0.songsCount > $1.songsCount }
     }
 
     func songsOf(user: Artist) {

@@ -31,7 +31,7 @@ extension Coordinator {
 }
 
 /// The App Coordinator creates the The Root ViewController of the Window
-class AppCoordinator: Coordinator {
+final class AppCoordinator: Coordinator {
     weak var window: UIWindow?
 
     private(set) weak var rootNavigationController: MainViewController?

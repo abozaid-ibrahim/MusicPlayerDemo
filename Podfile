@@ -15,7 +15,12 @@ target 'MusicPlayerDemo' do
 
   target 'MusicPlayerDemoTests' do
     inherit! :search_paths
-    # Pods for testing
+
+    pod 'RxBlocking'
+#    pod 'RxTest'
+#    pod 'Quick'
+#    pod 'Nimble'
+#    pod 'RxNimble'
   end
 
 end

@@ -22,9 +22,10 @@ class MainViewController: UIViewController {
 
 private extension MainViewController {
     private func addFeedsView() {
-        let feedsView = FeedViewController()
-        feedsView.title = "Artists"
-        let navigationController = UINavigationController(rootViewController: feedsView)
+        let artistsController = ArtistsViewController()
+        artistsController.title = "Artists"
+        artistsController.viewModel = ArtistsListViewModel()
+        let navigationController = UINavigationController(rootViewController: artistsController)
         addChild(navigationController)
         mainViewContainer.addSubview(navigationController.view)
         navigationController.view.equalToSuperViewEdges()

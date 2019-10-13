@@ -1,5 +1,5 @@
 //
-//  FeedViewController.swift
+//  ArtistsViewController.swift
 //  MusicPlayerDemo
 //
 //  Created by abuzeid on 10/12/19.
@@ -10,15 +10,15 @@ import RxSwift
 import UIKit
 
 /// list of artists
-final class FeedViewController: UIViewController, Loadable {
+final class ArtistsViewController: UIViewController, Loadable {
     @IBOutlet private var tableView: UITableView!
     private let disposeBag = DisposeBag()
-    private var viewModel = FeedListViewModel()
+    var viewModel: ArtistsViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.registerNib(FeedTableCell.self)
+        tableView.registerNib(ArtistsTableCell.self)
         tableView.seperatorStyle()
         viewModel.showProgress
             .observeOn(MainScheduler.instance)
@@ -26,8 +26,8 @@ final class FeedViewController: UIViewController, Loadable {
 
         viewModel.songsList
             .map { self.viewModel.sortMusicByArtist($0) }
-            .bind(to: tableView.rx.items(cellIdentifier: String(describing: FeedTableCell.self),
-                                         cellType: FeedTableCell.self)) { _, model, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: String(describing: ArtistsTableCell.self),
+                                         cellType: ArtistsTableCell.self)) { _, model, cell in
                 cell.setData(with: model)
             }.disposed(by: disposeBag)
 
@@ -35,7 +35,7 @@ final class FeedViewController: UIViewController, Loadable {
         viewModel.artist.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
         viewModel.loadData()
     }
-    
+
     /// show list of songs for spacific arist
     /// - Parameter element: list of songs for the artist
     private func showSongsList(element: [SongEntity]) {

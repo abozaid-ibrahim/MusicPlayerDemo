@@ -10,16 +10,16 @@ import Foundation
 
 import Foundation
 
-// MARK: - ArtistsResposeElement
+// MARK: - SongsListElement
 
-public typealias ArtistsRespose = [SongEntity]
+public typealias SongsList = [SongEntity]
 public struct SongEntity: Codable {
     public let id: String?
     public let createdAt: String?
     public let userId: String?
     public let duration: String?
     public let permalink: String?
-    public let artistsResposeDescription: String?
+    public let SongsListDescription: String?
     public let downloadable: String?
     public let genre: String?
     public let genreSlush: String?
@@ -45,7 +45,7 @@ public struct SongEntity: Codable {
         case userId = "user_id"
         case duration
         case permalink
-        case artistsResposeDescription = "description"
+        case SongsListDescription = "description"
         case downloadable
         case genre
         case genreSlush = "genre_slush"
@@ -66,13 +66,13 @@ public struct SongEntity: Codable {
         case commentCount = "comment_count"
     }
 
-    public init(id: String?, createdAt: String?, userId: String?, duration: String?, permalink: String?, artistsResposeDescription: String?, downloadable: String?, genre: String?, genreSlush: String?, title: String?, uri: String?, permalinkUrl: String?, artworkUrl: String?, backgroundUrl: String?, waveformData: String?, waveformUrl: String?, user: Artist?, streamUrl: String?, downloadUrl: String?, playbackCount: String?, downloadCount: String?, favoritingsCount: String?, favorited: Bool?, commentCount: String?) {
+    public init(id: String?, createdAt: String?, userId: String?, duration: String?, permalink: String?, SongsListDescription: String?, downloadable: String?, genre: String?, genreSlush: String?, title: String?, uri: String?, permalinkUrl: String?, artworkUrl: String?, backgroundUrl: String?, waveformData: String?, waveformUrl: String?, user: Artist?, streamUrl: String?, downloadUrl: String?, playbackCount: String?, downloadCount: String?, favoritingsCount: String?, favorited: Bool?, commentCount: String?) {
         self.id = id
         self.createdAt = createdAt
         self.userId = userId
         self.duration = duration
         self.permalink = permalink
-        self.artistsResposeDescription = artistsResposeDescription
+        self.SongsListDescription = SongsListDescription
         self.downloadable = downloadable
         self.genre = genre
         self.genreSlush = genreSlush
@@ -99,7 +99,7 @@ public struct SongEntity: Codable {
         self.userId = userId
         self.duration = .none
         self.permalink = .none
-        self.artistsResposeDescription = .none
+        self.SongsListDescription = .none
         self.downloadable = .none
         self.genre = .none
         self.genreSlush = .none
