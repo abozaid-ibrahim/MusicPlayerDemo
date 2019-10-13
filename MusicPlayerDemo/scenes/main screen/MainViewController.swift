@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
 private extension MainViewController {
     private func addFeedsView() {
         let feedsView = FeedViewController()
-        feedsView.title = "Music"
+        feedsView.title = "Artists"
         let navigationController = UINavigationController(rootViewController: feedsView)
         addChild(navigationController)
         mainViewContainer.addSubview(navigationController.view)

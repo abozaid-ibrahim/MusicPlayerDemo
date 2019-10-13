@@ -17,9 +17,9 @@ final class MiniPlayerViewController: UIViewController {
 
     // MARK: Outlets
 
-    @IBOutlet private var playPauseBtn: UIButton!
-    @IBOutlet private var forwardBtn: UIButton!
-    @IBOutlet private var backwardBtn: UIButton!
+    @IBOutlet private var playPauseBtn: UIImageView!
+    @IBOutlet private var forwardBtn: UIImageView!
+    @IBOutlet private var backwardBtn: UIImageView!
     @IBOutlet private var titleLbl: UILabel!
 
     override func viewDidLoad() {
@@ -39,10 +39,10 @@ final class MiniPlayerViewController: UIViewController {
     private func updateIcon(for state: AudioPlayer.State) {
         switch state {
         case .playing(let item):
-            playPauseBtn.setImage(UIImage(named: "pauseIcon"), for: .normal)
+            playPauseBtn.setImage(with: "pauseIcon")
             titleLbl.text = item.title
         case .paused(let item):
-            playPauseBtn.setImage(UIImage(named: "playicon"), for: .normal)
+            playPauseBtn.setImage(with: "playicon")
             titleLbl.text = item.title
         default:
             print("TODO")

@@ -8,6 +8,8 @@
 
 import RxSwift
 import UIKit
+
+/// list of artists
 final class FeedViewController: UIViewController, Loadable {
     @IBOutlet private var tableView: UITableView!
     private let disposeBag = DisposeBag()
@@ -18,7 +20,9 @@ final class FeedViewController: UIViewController, Loadable {
 
         tableView.registerNib(FeedTableCell.self)
         tableView.seperatorStyle()
-        viewModel.showProgress.bind(onNext: showLoading(show:)).disposed(by: disposeBag)
+        viewModel.showProgress
+            .observeOn(MainScheduler.instance)
+            .bind(onNext: showLoading(show:)).disposed(by: disposeBag)
 
         viewModel.songsList
             .map { self.viewModel.sortMusicByArtist($0) }
@@ -31,7 +35,9 @@ final class FeedViewController: UIViewController, Loadable {
         viewModel.artist.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
         viewModel.loadData()
     }
-
+    
+    /// show list of songs for spacific arist
+    /// - Parameter element: list of songs for the artist
     private func showSongsList(element: [SongEntity]) {
         let songsView = SongsViewController()
         let songsViewModel = SongsListViewModel(songs: element)

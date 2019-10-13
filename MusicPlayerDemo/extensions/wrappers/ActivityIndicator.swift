@@ -31,10 +31,12 @@ extension Loadable where Self: UIViewController {
         activityView.center = self.view.center
         self.view.addSubview(activityView)
         activityView.startAnimating()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
 
     /// stop animation the indicator view and remove it from the parent view
     private func hideLoading() {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         guard let firstView = self.view.subviews.filter({ type(of: $0) == UIActivityIndicatorView.self }).first,
             let progress = firstView as? UIActivityIndicatorView else { return }
         progress.stopAnimating()
