@@ -21,20 +21,24 @@ protocol ArtistsViewModel {
 }
 
 final class ArtistsListViewModel: ArtistsViewModel {
+    
+    /// MARK: private state
     private let disposeBag = DisposeBag()
-    var showProgress = PublishSubject<Bool>()
     private let network: HTTPClient
     private var page = 1
     private let countPerPage = 15
+    private var allSongsList: [SongEntity] = []
+    private var currentUser: Artist?
+    private var isFetchingData = false
+
+    // MARK: Observers
+
     var artistsList = BehaviorSubject<[Artist]>(value: [])
     var artistSongsList = PublishSubject<[SongEntity]>()
-    private var allSongsList: [SongEntity] = []
     var currentCount: Int = 0
+    var showProgress = PublishSubject<Bool>()
 
-    var currentUser: Artist?
-    var isFetchingData = false
-
-    /// init
+    /// initializier
     /// - Parameter apiClient: network handler
     init(apiClient: HTTPClient = HTTPClient()) {
         self.network = apiClient
