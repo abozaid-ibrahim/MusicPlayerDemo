@@ -14,6 +14,7 @@ import RxSwift
 final class HTTPClient {
     private let disposeBag = DisposeBag()
     func getData(of request: RequestBuilder) -> Observable<SongsList?> {
+        print("REQ>>\(request)")
         return excute(request).map { $0?.toModel() }.filterNil()
     }
 

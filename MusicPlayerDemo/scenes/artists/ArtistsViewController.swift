@@ -14,26 +14,28 @@ final class ArtistsViewController: UIViewController, Loadable {
     @IBOutlet private var tableView: UITableView!
     private let disposeBag = DisposeBag()
     var viewModel: ArtistsViewModel!
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.prefetchDataSource = self
 
         tableView.registerNib(ArtistsTableCell.self)
         tableView.seperatorStyle()
+        bind()
+        viewModel.loadData(showLoader: true)
+    }
+
+    /// bind views to viewmodel attributes
+    private func bind() {
         viewModel.showProgress
             .observeOn(MainScheduler.instance)
             .bind(onNext: showLoading(show:)).disposed(by: disposeBag)
-
-        viewModel.songsList
-            .map { self.viewModel.sortMusicByArtist($0) }
-            .bind(to: tableView.rx.items(cellIdentifier: String(describing: ArtistsTableCell.self),
-                                         cellType: ArtistsTableCell.self)) { _, model, cell in
+        viewModel.artistsList
+            .observeOn(MainScheduler.instance)
+            .bind(to: tableView.rx.items(cellIdentifier: String(describing: ArtistsTableCell.self), cellType: ArtistsTableCell.self)) { _, model, cell in
                 cell.setData(with: model)
             }.disposed(by: disposeBag)
-
         tableView.rx.modelSelected(Artist.self).bind(onNext: viewModel.songsOf(user:)).disposed(by: disposeBag)
-        viewModel.artist.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
-        viewModel.loadData()
+        viewModel.artistSongsList.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
     }
 
     /// show list of songs for spacific arist
@@ -43,5 +45,19 @@ final class ArtistsViewController: UIViewController, Loadable {
         let songsViewModel = SongsListViewModel(songs: element)
         songsView.viewModel = songsViewModel
         navigationController?.pushViewController(songsView, animated: true)
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+
+extension ArtistsViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell) {
+            viewModel.loadData(showLoader: false)
+        }
+    }
+
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= viewModel.currentCount
     }
 }

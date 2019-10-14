@@ -44,7 +44,7 @@ extension SongsApi: RequestBuilder {
             }
             myURL?.queryItems = items
             
-            let request = URLRequest(url: endpoint, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 300)
+            let request = URLRequest(url: endpoint, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
             return request
         }
     }
