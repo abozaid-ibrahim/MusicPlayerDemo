@@ -9,9 +9,12 @@
 import Foundation
 import RxOptional
 import RxSwift
+protocol ApiClient {
+    func getData(of request: RequestBuilder) -> Observable<SongsList?>
+}
 
 /// api handler, wrapper for the Url session
-final class HTTPClient {
+final class HTTPClient: ApiClient {
     private let disposeBag = DisposeBag()
     func getData(of request: RequestBuilder) -> Observable<SongsList?> {
         print("REQ>>\(request)")

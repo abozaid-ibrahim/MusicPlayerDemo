@@ -17,14 +17,16 @@ protocol ArtistsViewModel {
     var showProgress: PublishSubject<Bool> { get }
     var artistsList: BehaviorSubject<[Artist]> { get }
     var artistSongsList: PublishSubject<[SongEntity]> { get }
+    var error: PublishSubject<Error> { get }
+
     var currentCount: Int { get }
 }
 
 final class ArtistsListViewModel: ArtistsViewModel {
-    
-    /// MARK: private state
+    // MARK: private state
+
     private let disposeBag = DisposeBag()
-    private let network: HTTPClient
+    private let apiClient: ApiClient
     private var page = 1
     private let countPerPage = 15
     private var allSongsList: [SongEntity] = []
@@ -37,11 +39,12 @@ final class ArtistsListViewModel: ArtistsViewModel {
     var artistSongsList = PublishSubject<[SongEntity]>()
     var currentCount: Int = 0
     var showProgress = PublishSubject<Bool>()
+    var error = PublishSubject<Error>()
 
     /// initializier
     /// - Parameter apiClient: network handler
-    init(apiClient: HTTPClient = HTTPClient()) {
-        self.network = apiClient
+    init(apiClient: ApiClient = HTTPClient()) {
+        self.apiClient = apiClient
     }
 
     /// load the data from the endpoint
@@ -54,7 +57,7 @@ final class ArtistsListViewModel: ArtistsViewModel {
         if showLoader {
             self.showProgress.onNext(true)
         }
-        self.network.getData(of: SongsApi.feed(type: "popular", page: self.page, count: self.countPerPage))
+        self.apiClient.getData(of: SongsApi.feed(type: "popular", page: self.page, count: self.countPerPage))
             .subscribe(onNext: { [unowned self] value in
                 self.allSongsList.append(contentsOf: value ?? [])
                 if showLoader {
@@ -64,6 +67,8 @@ final class ArtistsListViewModel: ArtistsViewModel {
                 self.page += 1
                 self.updateUIWithArtists()
 
+            }, onError: { err in
+                self.error.onNext(err)
             }).disposed(by: self.disposeBag)
     }
 
@@ -79,9 +84,9 @@ final class ArtistsListViewModel: ArtistsViewModel {
     func sortMusicByArtist(_ list: SongsList) -> [Artist] {
         var users: [String: Artist] = [:]
         for song in list {
-            if var raw = users[song.userId ?? ""] {
-                raw.songsCount += 1
-                users[song.userId ?? ""] = raw
+            if var user = users[song.userId ?? ""] {
+                user.songsCount += 1
+                users[song.userId ?? ""] = user
             } else {
                 var user = song.user
                 user?.songsCount += 1
