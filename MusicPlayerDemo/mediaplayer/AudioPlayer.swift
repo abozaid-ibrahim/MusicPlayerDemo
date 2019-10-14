@@ -39,7 +39,7 @@ final class AudioPlayer: NSObject {
             self.state.onNext(.playing(item: list[startFrom]))
             self.notifyUI()
         } catch {
-            print(error)
+            self.state.onNext(.error(error.localizedDescription))
         }
     }
     
@@ -91,7 +91,7 @@ final class AudioPlayer: NSObject {
     
     /// enum to define the current state of the player
     enum State: Equatable {
-        case playing(item: SongEntity), paused(item: SongEntity), sleep
+        case playing(item: SongEntity), paused(item: SongEntity), sleep, error(String)
         static func == (lhs: AudioPlayer.State, rhs: AudioPlayer.State) -> Bool {
             switch (lhs, rhs) {
                 case let (.playing(a), .playing(item: b)),
@@ -99,6 +99,8 @@ final class AudioPlayer: NSObject {
                     return a.id == b.id
                 case (.sleep, .sleep):
                     return true
+                case let (.error(a), .error(item: b)):
+                    return a == b
                 default:
                     return false
             }
