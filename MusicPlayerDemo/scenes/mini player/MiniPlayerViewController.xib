@@ -21,6 +21,13 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8x9-mm-g62">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                    <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="jiu-XI-hbu"/>
+                    </constraints>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jkB-aR-ouJ">
                     <rect key="frame" x="12" y="8" width="390" height="68"/>
                     <subviews>
@@ -52,8 +59,11 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="8x9-mm-g62" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5BN-G0-HmG"/>
+                <constraint firstItem="8x9-mm-g62" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="867-e1-gI3"/>
                 <constraint firstAttribute="trailing" secondItem="jkB-aR-ouJ" secondAttribute="trailing" constant="12" id="AWL-vE-Gff"/>
                 <constraint firstItem="jkB-aR-ouJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="PpP-w0-XVq"/>
+                <constraint firstItem="8x9-mm-g62" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cOT-IW-wbP"/>
                 <constraint firstAttribute="bottom" secondItem="jkB-aR-ouJ" secondAttribute="bottom" constant="8" id="n7o-xr-uRO"/>
                 <constraint firstItem="jkB-aR-ouJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="ySq-qv-7ga"/>
             </constraints>
