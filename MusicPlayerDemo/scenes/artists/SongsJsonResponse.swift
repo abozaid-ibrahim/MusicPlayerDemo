@@ -20,7 +20,6 @@ public struct SongEntity: Codable {
     public let duration: String?
     public let permalink: String?
     public let SongsListDescription: String?
-    public let downloadable: String?
     public let genre: String?
     public let genreSlush: String?
     public let title: String?
@@ -33,11 +32,7 @@ public struct SongEntity: Codable {
     public let user: Artist?
     public let streamUrl: String?
     public let downloadUrl: String?
-    public let playbackCount: String?
-    public let downloadCount: String?
-    public let favoritingsCount: String?
     public let favorited: Bool?
-    public let commentCount: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -46,7 +41,6 @@ public struct SongEntity: Codable {
         case duration
         case permalink
         case SongsListDescription = "description"
-        case downloadable
         case genre
         case genreSlush = "genre_slush"
         case title
@@ -59,21 +53,16 @@ public struct SongEntity: Codable {
         case user
         case streamUrl = "stream_url"
         case downloadUrl = "download_url"
-        case playbackCount = "playback_count"
-        case downloadCount = "download_count"
-        case favoritingsCount = "favoritings_count"
         case favorited
-        case commentCount = "comment_count"
     }
 
-    public init(id: String?, createdAt: String?, userId: String?, duration: String?, permalink: String?, SongsListDescription: String?, downloadable: String?, genre: String?, genreSlush: String?, title: String?, uri: String?, permalinkUrl: String?, artworkUrl: String?, backgroundUrl: String?, waveformData: String?, waveformUrl: String?, user: Artist?, streamUrl: String?, downloadUrl: String?, playbackCount: String?, downloadCount: String?, favoritingsCount: String?, favorited: Bool?, commentCount: String?) {
+    public init(id: String?, createdAt: String?, userId: String?, duration: String?, permalink: String?, SongsListDescription: String?, genre: String?, genreSlush: String?, title: String?, uri: String?, permalinkUrl: String?, artworkUrl: String?, backgroundUrl: String?, waveformData: String?, waveformUrl: String?, user: Artist?, streamUrl: String?, downloadUrl: String?, favorited: Bool?) {
         self.id = id
         self.createdAt = createdAt
         self.userId = userId
         self.duration = duration
         self.permalink = permalink
         self.SongsListDescription = SongsListDescription
-        self.downloadable = downloadable
         self.genre = genre
         self.genreSlush = genreSlush
         self.title = title
@@ -86,11 +75,8 @@ public struct SongEntity: Codable {
         self.user = user
         self.streamUrl = streamUrl
         self.downloadUrl = downloadUrl
-        self.playbackCount = playbackCount
-        self.downloadCount = downloadCount
-        self.favoritingsCount = favoritingsCount
+
         self.favorited = favorited
-        self.commentCount = commentCount
     }
 
     public init(id: String?, userId: String?, user: Artist?, streamUrl: String?) {
@@ -100,7 +86,6 @@ public struct SongEntity: Codable {
         self.duration = .none
         self.permalink = .none
         self.SongsListDescription = .none
-        self.downloadable = .none
         self.genre = .none
         self.genreSlush = .none
         self.title = .none
@@ -113,11 +98,7 @@ public struct SongEntity: Codable {
         self.user = user
         self.streamUrl = streamUrl
         self.downloadUrl = .none
-        self.playbackCount = .none
-        self.downloadCount = .none
-        self.favoritingsCount = .none
         self.favorited = .none
-        self.commentCount = .none
     }
 }
 
