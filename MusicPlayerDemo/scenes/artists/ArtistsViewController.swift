@@ -18,8 +18,8 @@ final class ArtistsViewController: UIViewController, Loadable {
     var viewModel: ArtistsViewModel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.prefetchDataSource = self
-
+        
+//        tableView.rx.prefetchRows.sbsc
         tableView.registerNib(ArtistsTableCell.self)
         tableView.seperatorStyle()
         bind()
@@ -63,5 +63,14 @@ extension ArtistsViewController: UITableViewDataSourcePrefetching {
 
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
         return indexPath.row >= viewModel.currentCount
+    }
+}
+extension ArtistsViewController: UISearchResultsUpdating {
+
+func updateSearchResults(for searchController: UISearchController) {
+    print("Searching with: " + (searchController.searchBar.text ?? ""))
+    let searchText = (searchController.searchBar.text ?? "")
+//    self.currentSearchText = searchText
+//    search(searchText)
     }
 }

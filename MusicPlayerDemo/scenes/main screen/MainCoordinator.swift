@@ -8,28 +8,6 @@
 
 import Foundation
 import UIKit
-
-protocol Coordinator: class {
-    /// Starts the coordinator
-    ///
-    /// - Parameter completion: completion handler called after the coordinator has started
-    func start(completion: (() -> Void)?)
-    /// Finishes the coordinator
-    ///
-    /// - Parameter completion: completion handler called after the coordinator has finished
-    func finish(completion: (() -> Void)?)
-}
-
-extension Coordinator {
-    func start() {
-        start(completion: nil)
-    }
-
-    func finish() {
-        finish(completion: nil)
-    }
-}
-
 /// The App Coordinator creates the The Root ViewController of the Window
 final class AppCoordinator: Coordinator {
     weak var window: UIWindow?
@@ -47,7 +25,9 @@ final class AppCoordinator: Coordinator {
         guard let window = self.window else { completion?(); return }
         let main = MainViewController()
         rootNavigationController = main
+        
         window.rootViewController = rootNavigationController
+        
         completion?()
     }
 

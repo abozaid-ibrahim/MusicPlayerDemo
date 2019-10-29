@@ -11,16 +11,16 @@ target 'MusicPlayerDemo' do
   pod 'RxCocoa'
   pod 'Kingfisher'
   pod "RxGesture"
-
+  pod 'RxSwiftExt', '~> 5'
 
   target 'MusicPlayerDemoTests' do
     inherit! :search_paths
 
     pod 'RxBlocking'
-#    pod 'RxTest'
-#    pod 'Quick'
-#    pod 'Nimble'
-#    pod 'RxNimble'
+    pod 'RxTest'
+    pod 'Quick'
+    pod 'Nimble'
+    pod 'RxNimble'
   end
 
 end

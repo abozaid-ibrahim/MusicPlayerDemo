@@ -22,9 +22,9 @@ class MainViewController: UIViewController {
 
 private extension MainViewController {
     private func addFeedsView() {
-        let artistsController = ArtistsViewController()
-        artistsController.title = "Artists"
-        artistsController.viewModel = ArtistsListViewModel()
+        let artistsController = AlbumsViewController()
+        artistsController.title = "Your Albums"
+        artistsController.viewModel = AlbumsListViewModel()
         let navigationController = UINavigationController(rootViewController: artistsController)
         addChild(navigationController)
         mainViewContainer.addSubview(navigationController.view)
