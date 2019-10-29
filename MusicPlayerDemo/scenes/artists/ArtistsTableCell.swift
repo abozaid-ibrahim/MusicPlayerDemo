@@ -19,8 +19,8 @@ final class ArtistsTableCell: UITableViewCell {
     }
 
     func setData(with model: Artist) {
-        artistImgView.setImage(with: model.avatarUrl)
-        aristNameLbl.text = model.username
-        songsCountLbl.text = String(model.songsCount) + " track"
+//        artistImgView.setImage(with: model.avatarUrl)
+//        aristNameLbl.text = model.username
+//        songsCountLbl.text = String(model.songsCount) + " track"
     }
 }

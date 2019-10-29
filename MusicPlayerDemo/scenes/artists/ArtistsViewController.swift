@@ -23,7 +23,7 @@ final class ArtistsViewController: UIViewController, Loadable {
         tableView.registerNib(ArtistsTableCell.self)
         tableView.seperatorStyle()
         bind()
-        viewModel.loadData(showLoader: true)
+        viewModel.loadData(showLoader: true, for: "")
     }
 
     /// bind views to viewmodel attributes
@@ -37,19 +37,19 @@ final class ArtistsViewController: UIViewController, Loadable {
                 cell.setData(with: model)
             }.disposed(by: disposeBag)
         tableView.rx.modelSelected(Artist.self).bind(onNext: viewModel.songsOf(user:)).disposed(by: disposeBag)
-        viewModel.artistSongsList.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
+//        viewModel.artistSongsList.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
         viewModel.error.map { $0.localizedDescription }.bind(to: errorLbl.rx.text).disposed(by: disposeBag)
         viewModel.artistsList.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
     }
 
     /// show list of songs for spacific arist
     /// - Parameter element: list of songs for the artist
-    private func showSongsList(element: [SongEntity]) {
-        let songsView = SongsViewController()
-        let songsViewModel = SongsListViewModel(songs: element)
-        songsView.viewModel = songsViewModel
-        navigationController?.pushViewController(songsView, animated: true)
-    }
+//    private func showSongsList(element: [SongEntity]) {
+//        let songsView = SongsViewController()
+//        let songsViewModel = SongsListViewModel(songs: element)
+//        songsView.viewModel = songsViewModel
+//        navigationController?.pushViewController(songsView, animated: true)
+//    }
 }
 
 // MARK: - UITableViewDataSourcePrefetching
@@ -57,7 +57,7 @@ final class ArtistsViewController: UIViewController, Loadable {
 extension ArtistsViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if indexPaths.contains(where: isLoadingCell) {
-            viewModel.loadData(showLoader: false)
+//            viewModel.loadData(showLoader: false)
         }
     }
 

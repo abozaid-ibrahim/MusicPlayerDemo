@@ -8,126 +8,142 @@
 
 import Foundation
 
-import Foundation
+// MARK: - Respose
 
-// MARK: - SongsListElement
+public struct ArtistsSearchRespose: Codable {
+    public let results: ArtistsSearchResults?
+}
 
-public typealias SongsList = [SongEntity]
-public struct SongEntity: Codable {
-    public let id: String?
-    public let createdAt: String?
-    public let userId: String?
-    public let duration: String?
-    public let permalink: String?
-    public let SongsListDescription: String?
-    public let genre: String?
-    public let genreSlush: String?
-    public let title: String?
-    public let uri: String?
-    public let permalinkUrl: String?
-    public let artworkUrl: String?
-    public let backgroundUrl: String?
-    public let waveformData: String?
-    public let waveformUrl: String?
-    public let user: Artist?
-    public let streamUrl: String?
-    public let downloadUrl: String?
-    public let favorited: Bool?
+// MARK: - Results
+
+public struct ArtistsSearchResults: Codable {
+    public let opensearchQuery: OpensearchQuery?
+    public let opensearchTotalResults: String?
+    public let opensearchStartIndex: String?
+    public let opensearchItemsPerPage: String?
+    public let artistmatches: Artistmatches?
+    public let attr: Attr?
 
     enum CodingKeys: String, CodingKey {
-        case id
-        case createdAt = "created_at"
-        case userId = "user_id"
-        case duration
-        case permalink
-        case SongsListDescription = "description"
-        case genre
-        case genreSlush = "genre_slush"
-        case title
-        case uri
-        case permalinkUrl = "permalink_url"
-        case artworkUrl = "artwork_url"
-        case backgroundUrl = "background_url"
-        case waveformData = "waveform_data"
-        case waveformUrl = "waveform_url"
-        case user
-        case streamUrl = "stream_url"
-        case downloadUrl = "download_url"
-        case favorited
+        case opensearchQuery = "opensearch:Query"
+        case opensearchTotalResults = "opensearch:totalResults"
+        case opensearchStartIndex = "opensearch:startIndex"
+        case opensearchItemsPerPage = "opensearch:itemsPerPage"
+        case artistmatches
+        case attr = "@attr"
     }
 
-    public init(id: String?, createdAt: String?, userId: String?, duration: String?, permalink: String?, SongsListDescription: String?, genre: String?, genreSlush: String?, title: String?, uri: String?, permalinkUrl: String?, artworkUrl: String?, backgroundUrl: String?, waveformData: String?, waveformUrl: String?, user: Artist?, streamUrl: String?, downloadUrl: String?, favorited: Bool?) {
-        self.id = id
-        self.createdAt = createdAt
-        self.userId = userId
-        self.duration = duration
-        self.permalink = permalink
-        self.SongsListDescription = SongsListDescription
-        self.genre = genre
-        self.genreSlush = genreSlush
-        self.title = title
-        self.uri = uri
-        self.permalinkUrl = permalinkUrl
-        self.artworkUrl = artworkUrl
-        self.backgroundUrl = backgroundUrl
-        self.waveformData = waveformData
-        self.waveformUrl = waveformUrl
-        self.user = user
-        self.streamUrl = streamUrl
-        self.downloadUrl = downloadUrl
-
-        self.favorited = favorited
-    }
-
-    public init(id: String?, userId: String?, user: Artist?, streamUrl: String?) {
-        self.id = id
-        self.createdAt = .none
-        self.userId = userId
-        self.duration = .none
-        self.permalink = .none
-        self.SongsListDescription = .none
-        self.genre = .none
-        self.genreSlush = .none
-        self.title = .none
-        self.uri = .none
-        self.permalinkUrl = .none
-        self.artworkUrl = .none
-        self.backgroundUrl = .none
-        self.waveformData = .none
-        self.waveformUrl = .none
-        self.user = user
-        self.streamUrl = streamUrl
-        self.downloadUrl = .none
-        self.favorited = .none
+    public init(opensearchQuery: OpensearchQuery?, opensearchTotalResults: String?, opensearchStartIndex: String?, opensearchItemsPerPage: String?, artistmatches: Artistmatches?, attr: Attr?) {
+        self.opensearchQuery = opensearchQuery
+        self.opensearchTotalResults = opensearchTotalResults
+        self.opensearchStartIndex = opensearchStartIndex
+        self.opensearchItemsPerPage = opensearchItemsPerPage
+        self.artistmatches = artistmatches
+        self.attr = attr
     }
 }
 
-// MARK: - User
+// MARK: - Artistmatches
 
-public struct Artist: Codable {
-    public let id: String?
-    public let permalink: String?
-    public let username: String?
-    public let uri: String?
-    public let permalinkUrl: String?
-    public let avatarUrl: String?
+public struct Artistmatches: Codable {
+    public let artist: [Artist]?
 
-    var songsCount: Int = 0
     enum CodingKeys: String, CodingKey {
-        case id
-        case permalink
-        case username
-        case uri
-        case permalinkUrl = "permalink_url"
-        case avatarUrl = "avatar_url"
+        case artist
     }
 
-    public init(id: String?, permalink: String?, username: String?, uri: String?, permalinkUrl: String?, avatarUrl: String?) {
-        self.id = id
-        self.permalink = permalink
-        self.username = username
-        self.uri = uri
-        self.permalinkUrl = permalinkUrl
-        self.avatarUrl = avatarUrl
+    public init(artist: [Artist]?) {
+        self.artist = artist
+    }
+}
+
+// MARK: - Artist
+
+public struct Artist: Codable {
+    public let name: String?
+    public let listeners: String?
+    public let mbid: String?
+    public let url: String?
+    public let streamable: String?
+    public let image: [Image]?
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case listeners
+        case mbid
+        case url
+        case streamable
+        case image
+    }
+
+    public init(name: String?, listeners: String?, mbid: String?, url: String?, streamable: String?, image: [Image]?) {
+        self.name = name
+        self.listeners = listeners
+        self.mbid = mbid
+        self.url = url
+        self.streamable = streamable
+        self.image = image
+    }
+}
+
+// MARK: - Image
+
+public struct Image: Codable {
+    public let text: String?
+    public let size: Size?
+
+    enum CodingKeys: String, CodingKey {
+        case text = "#text"
+        case size
+    }
+
+    public init(text: String?, size: Size?) {
+        self.text = text
+        self.size = size
+    }
+}
+
+public enum Size: String, Codable {
+    case extralarge
+    case large
+    case medium
+    case mega
+    case small
+}
+
+// MARK: - Attr
+
+public struct Attr: Codable {
+    public let attrFor: String?
+
+    enum CodingKeys: String, CodingKey {
+        case attrFor = "for"
+    }
+
+    public init(attrFor: String?) {
+        self.attrFor = attrFor
+    }
+}
+
+// MARK: - OpensearchQuery
+
+public struct OpensearchQuery: Codable {
+    public let text: String?
+    public let role: String?
+    public let searchTerms: String?
+    public let startPage: String?
+
+    enum CodingKeys: String, CodingKey {
+        case text = "#text"
+        case role
+        case searchTerms
+        case startPage
+    }
+
+    public init(text: String?, role: String?, searchTerms: String?, startPage: String?) {
+        self.text = text
+        self.role = role
+        self.searchTerms = searchTerms
+        self.startPage = startPage
     }
 }

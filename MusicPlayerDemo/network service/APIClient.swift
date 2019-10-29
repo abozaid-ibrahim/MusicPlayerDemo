@@ -10,13 +10,14 @@ import Foundation
 import RxOptional
 import RxSwift
 protocol ApiClient {
-    func getData(of request: RequestBuilder) -> Observable<SongsList?>
+    func getData<T:Decodable>(of request: RequestBuilder) -> Observable<T?>
+//    func getData<T:Decodable>(of request: RequestBuilder) -> Observable<T?>
 }
 
 /// api handler, wrapper for the Url session
 final class HTTPClient: ApiClient {
     private let disposeBag = DisposeBag()
-    func getData(of request: RequestBuilder) -> Observable<SongsList?> {
+    func getData<T:Decodable>(of request: RequestBuilder) -> Observable<T?> {
         print("REQ>>\(request)")
         return excute(request).map { $0?.toModel() }.filterNil()
     }

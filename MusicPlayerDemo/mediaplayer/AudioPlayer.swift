@@ -96,7 +96,8 @@ final class AudioPlayer: NSObject {
             switch (lhs, rhs) {
                 case let (.playing(a), .playing(item: b)),
                      let (.paused(a), .paused(b)):
-                    return a.id == b.id
+//                    return a.id == b.id
+                    return true;
                 case (.sleep, .sleep):
                     return true
                 case let (.error(a), .error(item: b)):
@@ -106,4 +107,8 @@ final class AudioPlayer: NSObject {
             }
         }
     }
+}
+struct SongEntity {
+    var streamUrl:String?
+    let title:String
 }

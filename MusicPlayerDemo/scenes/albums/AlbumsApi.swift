@@ -18,7 +18,7 @@ extension AlbumsApi: RequestBuilder {
     }
     
     public var path: String {
-        return "feed"
+        return "https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=Cher&api_key=faa9a8a5cdd536094362c2b4da41c2e5&format=json"
     }
     
     var endpoint: URL {

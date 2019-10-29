@@ -25,5 +25,7 @@ public enum HttpMethod:String {
 }
 
 struct APIConstants {
-    static let baseURL = "https://api-v2.hearthis.at/"
+    static let baseURL = "https://ws.audioscrobbler.com/2.0/"
+    static let apiKey = "faa9a8a5cdd536094362c2b4da41c2e5"
 }
+

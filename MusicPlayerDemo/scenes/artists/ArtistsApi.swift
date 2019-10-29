@@ -8,17 +8,17 @@
 
 import Foundation
 
-enum SongsApi {
-    case feed(type: String, page: Int, count: Int)
+enum ArtistsApi {
+    case searchFor(artist: String, page: Int, count: Int)
 }
 
-extension SongsApi: RequestBuilder {
+extension ArtistsApi: RequestBuilder {
     public var baseURL: URL {
         return URL(string: APIConstants.baseURL)!
     }
     
     public var path: String {
-        return "feed"
+        return "?method=artist.search"
     }
     
     var endpoint: URL {
@@ -31,9 +31,11 @@ extension SongsApi: RequestBuilder {
     
     public var task: URLRequest {
         switch self {
-        case .feed(let prm):
+        case .searchFor(let prm):
             let prmDic = [
-                "type": prm.type,
+                "api_key":APIConstants.apiKey,
+                "format":"json",
+                "artist": prm.artist,
                 "page": prm.page,
                 "count": prm.count
             ] as [String: Any]
