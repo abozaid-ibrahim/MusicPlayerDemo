@@ -36,14 +36,16 @@ final class MiniPlayerTests: QuickSpec {
                     player.playAudio(form: MocksRepo.songs)
                     schedular.start()
                     expect(stateObserver.events)
-                        .to(equal([Recorded.next(0, .sleep),Recorded.next(0, AudioPlayer.State.playing(item: MocksRepo.songs.first!))]))
+                        .to(equal([Recorded.next(0, .sleep),
+                                   Recorded.next(0, AudioPlayer.State.playing(item: MocksRepo.songs.first!))]))
                 }
                 it("play music in spacific index") {
                     player.state.bind(to: stateObserver).disposed(by: disposeBag)
                     schedular.start()
                     player.playAudio(form: MocksRepo.songs,startFrom: 2)
                     expect(stateObserver.events)
-                        .to(equal([Recorded.next(0, .sleep),Recorded.next(0, AudioPlayer.State.playing(item: MocksRepo.songs[2]))]))
+                        .to(equal([Recorded.next(0, .sleep),
+                                   Recorded.next(0, AudioPlayer.State.playing(item: MocksRepo.songs[2]))]))
                     
                 }
                 
