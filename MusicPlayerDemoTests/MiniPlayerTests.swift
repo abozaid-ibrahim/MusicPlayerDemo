@@ -16,51 +16,38 @@ import RxSwift
 import RxSwiftExt
 import RxTest
 
-class MiniPlayerTests: QuickSpec {
+final class MiniPlayerTests: QuickSpec {
     override func spec() {
         describe("Music Player") {
             context("Connection is stable and user have song to play") {
                 var player: AudioPlayer!
                 var schedular: TestScheduler!
-                var songsObserver: TestableObserver<[SongEntity]>!
-                var songsViewModel: SongsViewModel!
+                var stateObserver: TestableObserver<AudioPlayer.State>!
                 var disposeBag = DisposeBag()
                 beforeEach {
                     player = AudioPlayer()
                     schedular = TestScheduler(initialClock: 0)
-                    songsObserver = schedular.createObserver([SongEntity].self)
-                    songsViewModel = SongsListViewModel(songs: MocksRepo.songs)
+                    stateObserver = schedular.createObserver(AudioPlayer.State.self)
                     disposeBag = DisposeBag()
                 }
-                it("send play command to music player") {
-                    let musicObserver = schedular.createObserver([SongEntity].self)
+                it("send play command to music player and reiceve playing statae") {
+                    
+                    player.state.bind(to: stateObserver).disposed(by: disposeBag)
+                    player.playAudio(form: MocksRepo.songs)
                     schedular.start()
-                    AudioPlayer.shared.playAudio(form: MocksRepo.songs)
-////                    expect(AudioPlayer.shared.state).to(equal( [
-//                        Recorded.next(0, AudioPlayer.State.playing(item: musicObserver.first!)),
-//                    ]))
+                    expect(stateObserver.events)
+                        .to(equal([Recorded.next(0, .sleep),Recorded.next(0, AudioPlayer.State.playing(item: MocksRepo.songs.first!))]))
                 }
                 it("play music in spacific index") {
-//                    let music = schedular.createObserver([SongEntity].self)
-//                    player.playAudio(form: music.tol)
-//                    schedular.start()
-//                    expect(player.state).to(equal([
-//                        Recorded.next(0, AudioPlayer.State.playing(item: music.first!)),
-//                    ]))
+                    player.state.bind(to: stateObserver).disposed(by: disposeBag)
+                    schedular.start()
+                    player.playAudio(form: MocksRepo.songs,startFrom: 2)
+                    expect(stateObserver.events)
+                        .to(equal([Recorded.next(0, .sleep),Recorded.next(0, AudioPlayer.State.playing(item: MocksRepo.songs[2]))]))
+                    
                 }
                 
-                context("Music player has no connection") {
-                    it("it emits an error for the user") {
-//                        let text = schedular.createObserver(String.self)
-//                        
-//                        songsViewModel.chooses.asObservable().subscribe(text).disposed(by: disposeBag)
-//                        schedular.start()
-//                        songsViewModel.combineSelection(with: ("Arnage", "Arnage"))
-//                        expect(text.events).to(equal([
-//                            Recorded.next(0, "Model: \(manufacturer.1)\n\("Arnage"): \("Arnage")"),
-//                        ]))
-                    }
-                }
+            
                 
             }
         }
@@ -70,5 +57,8 @@ class MiniPlayerTests: QuickSpec {
 struct MocksRepo{
     static let songs = [SongEntity.init(id: "11", userId: "11", user: nil, streamUrl: "http:ww"),
                         SongEntity.init(id: "12", userId: "11", user: nil, streamUrl: "http:ww"),
-                        SongEntity.init(id: "13", userId: "11", user: nil, streamUrl: "http:ww")]
+                        SongEntity.init(id: "13", userId: "11", user: nil, streamUrl: "http:ww"),
+                        SongEntity.init(id: "14", userId: "11", user: nil, streamUrl: nil),
+                        SongEntity.init(id: "15", userId: "11", user: nil, streamUrl: "http:ww")
+    ]
 }

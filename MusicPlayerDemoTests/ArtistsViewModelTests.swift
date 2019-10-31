@@ -11,7 +11,7 @@ import RxBlocking
 import RxSwift
 import XCTest
 
-class FeedViewModelTests: XCTestCase {
+final class FeedViewModelTests: XCTestCase {
     var viewModel: ArtistsViewModel!
     override func setUp() {
         viewModel = ArtistsListViewModel(apiClient: MockedApi())
@@ -35,9 +35,9 @@ class FeedViewModelTests: XCTestCase {
         let user0 = Artist(id: "100", permalink: .none, username: .none, uri: .none, permalinkUrl: .none, avatarUrl: .none)
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.4) {
             self.viewModel.songsOf(user: user0)
-            self.viewModel.artistSongsList.onCompleted()
+            self.viewModel.didSelectArtistsAlbum.onCompleted()
         }
-        let songs = try! viewModel.artistSongsList.toBlocking(timeout: 1).first()!
+        let songs = try! viewModel.didSelectArtistsAlbum.toBlocking(timeout: 1).first()!
         viewModel.songsOf(user: user0)
         XCTAssertEqual(songs.count, 3)
     }
