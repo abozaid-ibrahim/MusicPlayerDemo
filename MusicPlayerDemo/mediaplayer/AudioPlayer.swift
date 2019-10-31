@@ -18,6 +18,7 @@ final class AudioPlayer: NSObject {
     private var list: [SongEntity] = []
     private var currentSongIndex = 0
     var state = BehaviorSubject<State>(value: .sleep)
+    private var localState:State = .sleep
     static let shared = AudioPlayer()
     
     //    MARK: - Action Methods
@@ -84,11 +85,13 @@ final class AudioPlayer: NSObject {
     /// play or pause according to the current player state
     /// - Parameter action: the tap gesture event from the ui
     func playPause(_ action: Observable<UITapGestureRecognizer>) {
-        Observable.combineLatest(state, action).subscribe(onNext: { [unowned self] state, _ in
+        action.withLatestFrom(state).subscribe(onNext: {[unowned self] state in
             if case .playing = state {
                 self.stopAudio()
             } else if case .paused = state {
                 self.resume()
+            }else{
+                
             }
             
         }).disposed(by: disposeBag)

@@ -47,7 +47,18 @@ final class MiniPlayerTests: QuickSpec {
                     
                 }
                 
-            
+                it("pause item when it recieve pause action") {
+                    player.state.bind(to: stateObserver).disposed(by: disposeBag)
+                    let action = schedular.createColdObservable([Recorded.next(4, UITapGestureRecognizer())])
+                    player.playAudio(form: MocksRepo.songs,startFrom: 2)
+                    player.playPause(action.asObservable())
+                    schedular.start()
+                    expect(stateObserver.events)
+                        .to(equal([Recorded.next(0, .sleep),
+                                   Recorded.next(0, AudioPlayer.State.playing(item: MocksRepo.songs[2])),
+                                   Recorded.next(4, AudioPlayer.State.paused(item: MocksRepo.songs[2]))]))
+                    
+                }
                 
             }
         }
