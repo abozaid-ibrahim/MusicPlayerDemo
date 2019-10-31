@@ -30,17 +30,17 @@ final class ArtistsViewController: UIViewController, Loadable {
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: showLoading(show:)).disposed(by: disposeBag)
         viewModel.artistsList
-            .observeOn(MainScheduler.instance)
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(cellIdentifier: String(describing: ArtistsTableCell.self), cellType: ArtistsTableCell.self)) { _, model, cell in
                 cell.setData(with: model)
             }.disposed(by: disposeBag)
+       tableView.rx.prefetchRows.bind(onNext: viewModel.loadMoreCells(prefetchRowsAt:)).disposed(by: disposeBag)
+
         tableView.rx.modelSelected(Artist.self).bind(onNext: viewModel.songsOf(user:)).disposed(by: disposeBag)
         viewModel.artistSongsList.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
 
         viewModel.error.map { $0.localizedDescription }.bind(to: errorLbl.rx.text).disposed(by: disposeBag)
         viewModel.artistsList.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
-        tableView.rx.prefetchRows.bind(onNext: viewModel.loadMoreCells(prefetchRowsAt:)).disposed(by: disposeBag)
     }
 
     /// show list of songs for spacific arist

@@ -26,7 +26,7 @@ final class AudioPlayer: NSObject {
     /// initialize the audio palyer and set default values of the player attributes
     /// - Parameter list: list of songs model
     /// - Parameter startFrom: the index that should start playing the song from
-    func playAudio(_ list: [SongEntity], startFrom: Int = 0) {
+    func playAudio(form list: [SongEntity], startFrom: Int = 0) {
         currentSongIndex = startFrom
         items.removeAll()
         let songs = list.map { URL(string: $0.streamUrl ?? "")! }

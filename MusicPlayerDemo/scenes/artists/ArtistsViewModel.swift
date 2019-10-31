@@ -20,6 +20,7 @@ protocol ArtistsViewModel {
     var artistSongsList: PublishSubject<[SongEntity]> { get }
     var error: PublishSubject<Error> { get }
     func loadMoreCells(prefetchRowsAt indexPaths: [IndexPath])
+    
 }
 
 final class ArtistsListViewModel: ArtistsViewModel {
@@ -30,6 +31,7 @@ final class ArtistsListViewModel: ArtistsViewModel {
     // MARK: private state
     
     private let disposeBag = DisposeBag()
+    private let showLoader = PublishSubject<Bool>()
     private let apiClient: ApiClient
     private var page = Page()
     private var allSongsList: [SongEntity] = []
@@ -39,7 +41,6 @@ final class ArtistsListViewModel: ArtistsViewModel {
     
     let artistsList = BehaviorSubject<[Artist]>(value: [])
     let artistSongsList = PublishSubject<[SongEntity]>()
-    private let showLoader = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
     
     /// initializier
