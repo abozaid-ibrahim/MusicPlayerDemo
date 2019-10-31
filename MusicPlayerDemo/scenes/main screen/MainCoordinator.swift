@@ -32,14 +32,16 @@ final class MainCoordinator: Coordinator {
         mainController = main
         window.rootViewController = mainController
         setMainContainer()    
-        completion?()
         showAlbums(for: nil)
+        completion?()
+
     }
     func showAlbums(for artist:Artist?){
         albumsCoordinator.start(completion: nil, for: artist)
     }
     private func setMainContainer() {
         mainController?.addChild(navigationController)
+        mainController?.loadViewIfNeeded()
         mainController?.addToMainContainer(navigationController.view)
         navigationController.view.equalToSuperViewEdges()
     }

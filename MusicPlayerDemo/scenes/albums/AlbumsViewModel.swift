@@ -12,7 +12,6 @@ import RxSwift
 
 protocol AlbumsViewModel {
     func loadData(showLoader: Bool)
-    func songsOf(user: Artist)
     var showProgress: PublishSubject<Bool> { get }
     var albums: BehaviorSubject<[Album]> { get }
     var error: PublishSubject<Error> { get }
@@ -55,7 +54,7 @@ final class AlbumsListViewModel: AlbumsViewModel {
         if showLoader {
             self.showProgress.onNext(true)
         }
-        let result :Observable<AlbumsResponse?> = apiClient.getData(of: AlbumsApi.albumsFor(artist: currentArtist?.name ?? "", page: 0, count: 0))
+        let result :Observable<AlbumsResponse?> = apiClient.getData(of: AlbumsApi.albumsFor(artist: currentArtist?.name ?? "C", page: 0, count: 0))
         
         
        result.subscribe(onNext: { [unowned self] value in
@@ -81,10 +80,5 @@ final class AlbumsListViewModel: AlbumsViewModel {
     }
 
  
-    /// return songs list for th singer
-    /// - Parameter user: the current user that will display his songs
-    func songsOf(user: Artist) {
-
-        
-    }
+   
 }

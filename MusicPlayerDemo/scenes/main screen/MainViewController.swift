@@ -8,7 +8,7 @@
 
 import RxSwift
 import UIKit
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
     @IBOutlet private var miniPlayerView: UIView!
     @IBOutlet private var mainViewContainer: UIView!
     private var subView: UIView?
@@ -16,16 +16,12 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addToMainContainer(self.subView)
         addMiniPlayer()
     }
 
     func addToMainContainer(_ subView: UIView?) {
-        self.subView = subView
-        if isViewLoaded {
-            mainViewContainer.addSubview(subView!)
-            subView?.equalToSuperViewEdges()
-        }
+        mainViewContainer.addSubview(subView!)
+        subView?.equalToSuperViewEdges()
     }
 }
 

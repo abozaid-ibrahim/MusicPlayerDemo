@@ -31,29 +31,20 @@ final class ArtistsViewController: UIViewController, Loadable {
             .bind(onNext: showLoading(show:)).disposed(by: disposeBag)
         viewModel.artistsList
             .observeOn(MainScheduler.instance)
-            .debug("artists>>>", trimOutput: true)
             .bind(to: tableView.rx.items(cellIdentifier: String(describing: ArtistsTableCell.self), cellType: ArtistsTableCell.self)) { _, model, cell in
                 cell.setData(with: model)
             }.disposed(by: disposeBag)
-        tableView.rx.modelSelected(Artist.self).bind(onNext: songsOf(user:)).disposed(by: disposeBag)
-//                viewModel.artistSongsList.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
+        tableView.rx.modelSelected(Artist.self).bind(onNext: showAlbumsOf).disposed(by: disposeBag)
         viewModel.error.map { $0.localizedDescription }.bind(to: errorLbl.rx.text).disposed(by: disposeBag)
         viewModel.artistsList.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
     }
-    func songsOf(user: Artist) {
-        (self.parent as? UISearchController)?.isActive = false
-        AlbumsCoordinator(self.navigationController).start(completion: nil, for: user)
+
+    private func showAlbumsOf(_ artist: Artist) {
+//        (parent as? UISearchController)?.isActive = false
+        DispatchQueue.main.async {
+            AlbumsCoordinator(self.navigationController).start(completion: nil, for: artist)
+        }
     }
-
-
-    /// show list of songs for spacific arist
-    /// - Parameter element: list of songs for the artist
-    //    private func showSongsList(element: [SongEntity]) {
-    //        let songsView = SongsViewController()
-    //        let songsViewModel = SongsListViewModel(songs: element)
-    //        songsView.viewModel = songsViewModel
-    //        navigationController?.pushViewController(songsView, animated: true)
-    //    }
 }
 
 // MARK: - UITableViewDataSourcePrefetching
@@ -72,7 +63,6 @@ extension ArtistsViewController: UITableViewDataSourcePrefetching {
 
 extension ArtistsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print("Searching with: " + (searchController.searchBar.text ?? ""))
         let searchText = (searchController.searchBar.text ?? "")
         viewModel.loadData(showLoader: true, for: searchText)
     }

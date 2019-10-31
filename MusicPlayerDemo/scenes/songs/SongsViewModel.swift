@@ -19,7 +19,7 @@ final class SongsListViewModel: SongsViewModel {
     var songsList = BehaviorSubject<[String]>(value: [])
     var artist = BehaviorSubject<Artist?>(value: .none)
 
-    init(songs: [SongEntity]) {
+    init(album: Album) {
 //        songsList.onNext(songs)
 //        artist.onNext(songs.first?.user)
     }

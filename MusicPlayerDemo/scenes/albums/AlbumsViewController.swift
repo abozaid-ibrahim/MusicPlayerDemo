@@ -12,7 +12,7 @@ import UIKit
 /// list of artists
 final class AlbumsViewController: UIViewController, Loadable {
     @IBOutlet private var albumsCollectionView: UICollectionView!
-
+    private let hPadding = CGFloat(4)
     @IBOutlet private var errorLbl: UILabel!
     private let disposeBag = DisposeBag()
     var viewModel: AlbumsViewModel!
@@ -21,27 +21,31 @@ final class AlbumsViewController: UIViewController, Loadable {
         albumsCollectionView.register(UINib(nibName: cellId, bundle: .none), forCellWithReuseIdentifier: cellId)
         bindToViewModel()
         viewModel.loadData(showLoader: true)
-        self.addSearchToNavigationBar()
+        addSearchToNavigationBar()
     }
 
     private lazy var results: ArtistsViewController = {
-        return ArtistCoordinator(self.navigationController).getArtistView()
+        ArtistCoordinator(self.navigationController).getArtistView()
     }()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //self.navigationController?.setNavigationBarHidden(false, animated: true)
+        //navigationItem.searchController?.isActive = true
+    }
+
     private func addSearchToNavigationBar() {
         let searchController = UISearchController(searchResultsController: results)
         searchController.searchResultsUpdater = results
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search artists"
-        self.navigationItem.searchController = searchController
-        self.definesPresentationContext = true
-//ios10
-        navigationItem.titleView = searchController.searchBar;
+        navigationItem.searchController = searchController
+        definesPresentationContext = false
+        searchController.dimsBackgroundDuringPresentation = true // The default is true.
 
+        // ios10
+        navigationItem.titleView = searchController.searchBar
     }
 
-    @objc private func search(_ text: String){
-        let results = (0...100).map{"\($0)"}
-    }
     private var cellId: String {
         return String(describing: AlbumCollectionCell.self)
     }
@@ -52,22 +56,22 @@ final class AlbumsViewController: UIViewController, Loadable {
             .drive(onNext: showLoading(show:)).disposed(by: disposeBag)
 
         viewModel.albums
-            .bind(to: albumsCollectionView.rx.items(cellIdentifier: cellId, cellType: AlbumCollectionCell.self)) { index, model, cell in
+            .bind(to: albumsCollectionView.rx.items(cellIdentifier: cellId, cellType: AlbumCollectionCell.self)) { _, model, cell in
                 cell.setData(model)
             }.disposed(by: disposeBag)
 
         // add this line you can provide the cell size from delegate method
         albumsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
-        albumsCollectionView.rx.modelSelected(Album.self).bind(onNext:showSongsList(album:)).disposed(by: disposeBag)
+        albumsCollectionView.rx.modelSelected(Album.self).bind(onNext: showSongsList(album:)).disposed(by: disposeBag)
         viewModel.error.map { $0.localizedDescription }.bind(to: errorLbl.rx.text).disposed(by: disposeBag)
         viewModel.albums.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
     }
 
-   
     private func showSongsList(album: Album) {
-       //detail page
-        
+        let songs = SongsViewController()
+        songs.viewModel = SongsListViewModel(album: album)
+        navigationController?.pushViewController(songs, animated: true)
     }
 }
 
@@ -76,7 +80,15 @@ final class AlbumsViewController: UIViewController, Loadable {
 extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        let cellWidth = (width - 30) / 3 // compute your cell width
-        return CGSize(width: cellWidth, height: cellWidth / 0.6)
+        let cellWidth = width / 3
+        return CGSize(width: cellWidth - hPadding, height: cellWidth / 0.8)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return hPadding
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }

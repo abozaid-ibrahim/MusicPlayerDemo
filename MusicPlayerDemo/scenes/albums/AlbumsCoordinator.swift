@@ -9,23 +9,24 @@
 import Foundation
 import UIKit
 /// The App Coordinator creates the The Root ViewController of the Window
-final class AlbumsCoordinator:Coordinator {
+final class AlbumsCoordinator: Coordinator {
     func start(completion: (() -> Void)?) {
         start(completion: completion, for: .none)
     }
-    
-   
+
     private(set) weak var albumsController: AlbumsViewController?
     var nv: UINavigationController?
-    init(_ nv:UINavigationController?){
-        self.nv = nv;
+    init(_ nv: UINavigationController?) {
+        self.nv = nv
     }
+
     func start(completion: (() -> Void)?, for artist: Artist?) {
         let albumsController = AlbumsViewController()
-        albumsController.title = "Your Albums"
+        albumsController.title = artist == nil ? "Your Albums" : "A albums"
         albumsController.viewModel = AlbumsListViewModel(artist: artist, co: self)
         self.albumsController = albumsController
         nv?.pushViewController(albumsController, animated: true)
+
         completion?()
     }
 

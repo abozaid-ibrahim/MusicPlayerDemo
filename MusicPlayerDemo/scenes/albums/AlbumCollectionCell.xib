@@ -17,26 +17,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="149" height="156"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GCe-Qx-IPb">
-                        <rect key="frame" x="8" y="8" width="133" height="140"/>
-                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GCe-Qx-IPb">
+                        <rect key="frame" x="0.0" y="0.0" width="149" height="156"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojO-3Q-2vQ">
-                        <rect key="frame" x="8" y="130" width="133" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojO-3Q-2vQ">
+                        <rect key="frame" x="8" y="91" width="133" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="GCe-Qx-IPb" secondAttribute="trailing" constant="8" id="0uh-au-h4F"/>
-                <constraint firstItem="GCe-Qx-IPb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="Lk0-XN-pgs"/>
-                <constraint firstAttribute="bottom" secondItem="GCe-Qx-IPb" secondAttribute="bottom" constant="8" id="ORa-jq-B6s"/>
-                <constraint firstAttribute="bottom" secondItem="ojO-3Q-2vQ" secondAttribute="bottom" constant="8" id="QJM-iE-Wus"/>
+                <constraint firstAttribute="trailing" secondItem="GCe-Qx-IPb" secondAttribute="trailing" id="0uh-au-h4F"/>
+                <constraint firstItem="ojO-3Q-2vQ" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="Jzn-pO-6Tr"/>
+                <constraint firstItem="ojO-3Q-2vQ" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="LCT-lC-BpE"/>
+                <constraint firstItem="GCe-Qx-IPb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Lk0-XN-pgs"/>
+                <constraint firstAttribute="bottom" secondItem="GCe-Qx-IPb" secondAttribute="bottom" id="ORa-jq-B6s"/>
                 <constraint firstItem="ojO-3Q-2vQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="bTu-rf-78J"/>
                 <constraint firstAttribute="trailing" secondItem="ojO-3Q-2vQ" secondAttribute="trailing" constant="8" id="hdw-Oe-Gh2"/>
-                <constraint firstItem="GCe-Qx-IPb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="lyr-oB-XcG"/>
+                <constraint firstItem="GCe-Qx-IPb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="lyr-oB-XcG"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="149" height="156"/>
