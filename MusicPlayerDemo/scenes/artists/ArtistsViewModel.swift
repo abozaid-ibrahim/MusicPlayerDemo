@@ -17,7 +17,7 @@ protocol ArtistsViewModel {
     
     var showProgress: Observable<Bool> { get }
     var artistsList: BehaviorSubject<[Artist]> { get }
-    var artistSongsList: PublishSubject<[SongEntity]> { get }
+    var didSelectArtistsAlbum: PublishSubject<[SongEntity]> { get }
     var error: PublishSubject<Error> { get }
     func loadMoreCells(prefetchRowsAt indexPaths: [IndexPath])
     
@@ -40,7 +40,7 @@ final class ArtistsListViewModel: ArtistsViewModel {
     // MARK: Observers
     
     let artistsList = BehaviorSubject<[Artist]>(value: [])
-    let artistSongsList = PublishSubject<[SongEntity]>()
+    let didSelectArtistsAlbum = PublishSubject<[SongEntity]>()
     let error = PublishSubject<Error>()
     
     /// initializier
@@ -57,28 +57,30 @@ final class ArtistsListViewModel: ArtistsViewModel {
         }
         page.isFetchingData = true
         showLoader ? self.showLoader.onNext(true) : ()
-        apiClient.getData(of: SongsApi.feed(type: "popular", page: page.currentPage, count: page.countPerPage))
+        let apiEndpoint = SongsApi.feed(type: "popular", page: page.currentPage, count: page.countPerPage)
+        apiClient.getData(of: apiEndpoint)
             .subscribe(onNext: { [unowned self] value in
                 self.allSongsList.append(contentsOf: value ?? [])
-                if showLoader {
-                    self.showLoader.onNext(false)
-                }
-                self.page.isFetchingData = false
-                self.page.currentPage += 1
-                self.updateUIWithArtists()
+                showLoader ? self.showLoader.onNext(false) : ()
+                self.handleApiResponse()
                 
                 }, onError: { err in
                     self.error.onNext(err)
             }).disposed(by: disposeBag)
     }
-    
+    private func updatePage(with count:Int){
+        self.page.isFetchingData = false
+        self.page.currentPage += 1
+        page.fetchedItemsCount = count
+        
+    }
     /// emit values to ui to fill the table view if the data is a littlet reload untill fill the table
-    private func updateUIWithArtists() {
+    private func handleApiResponse() {
         let artists = sortMusicByArtist(allSongsList)
         artistsList.onNext(artists)
-        page.fetchedItemsCount = artists.count
+        updatePage(with: artists.count)
     }
-
+    
     
     /// group the songs by artist
     /// - Parameter list: list of songs for every Artist
@@ -103,7 +105,7 @@ final class ArtistsListViewModel: ArtistsViewModel {
     func songsOf(user: Artist) {
         currentUser = user
         let songs = allSongsList.filter { $0.userId == user.id }
-        artistSongsList.onNext(songs)
+        didSelectArtistsAlbum.onNext(songs)
     }
     
     func loadMoreCells(prefetchRowsAt indexPaths: [IndexPath]) {

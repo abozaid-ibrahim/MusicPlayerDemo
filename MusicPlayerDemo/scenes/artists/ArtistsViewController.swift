@@ -37,7 +37,7 @@ final class ArtistsViewController: UIViewController, Loadable {
        tableView.rx.prefetchRows.bind(onNext: viewModel.loadMoreCells(prefetchRowsAt:)).disposed(by: disposeBag)
 
         tableView.rx.modelSelected(Artist.self).bind(onNext: viewModel.songsOf(user:)).disposed(by: disposeBag)
-        viewModel.artistSongsList.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
+        viewModel.didSelectArtistsAlbum.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
 
         viewModel.error.map { $0.localizedDescription }.bind(to: errorLbl.rx.text).disposed(by: disposeBag)
         viewModel.artistsList.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)

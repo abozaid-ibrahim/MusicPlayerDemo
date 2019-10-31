@@ -11,13 +11,14 @@ import RxOptional
 import RxSwift
 protocol ApiClient {
     func getData(of request: RequestBuilder) -> Observable<SongsList?>
+    
 }
 
 /// api handler, wrapper for the Url session
 final class HTTPClient: ApiClient {
     private let disposeBag = DisposeBag()
     func getData(of request: RequestBuilder) -> Observable<SongsList?> {
-        print("REQ>>\(request)")
+        log(.info,"\(request)")
         return excute(request).map { $0?.toModel() }.filterNil()
     }
 
@@ -43,20 +44,4 @@ final class HTTPClient: ApiClient {
         }
         .share(replay: 0, scope: .forever)
     }
-}
-
-extension Data {
-    func toModel<T: Decodable>() -> T? {
-        do {
-            let object = try JSONDecoder().decode(T.self, from: self)
-            return object
-        } catch {
-            print(">>> parsing error \(error)")
-            return nil
-        }
-    }
-}
-
-enum NetworkFailure: Error {
-    case generalFailure, failedToParseData
 }
