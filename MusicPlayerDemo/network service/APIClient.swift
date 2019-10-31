@@ -11,7 +11,6 @@ import RxOptional
 import RxSwift
 protocol ApiClient {
     func getData<T:Decodable>(of request: RequestBuilder) -> Observable<T?>
-//    func getData<T:Decodable>(of request: RequestBuilder) -> Observable<T?>
 }
 
 /// api handler, wrapper for the Url session
@@ -38,6 +37,7 @@ final class HTTPClient: ApiClient {
                 }
                 print(String(data: data!, encoding: .utf8) ?? "")
                 observer.onNext(data)
+//                observer.onCompleted()
             }
             task.resume()
             return Disposables.create()

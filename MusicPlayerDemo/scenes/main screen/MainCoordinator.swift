@@ -8,27 +8,40 @@
 
 import Foundation
 import UIKit
+
+
 /// The App Coordinator creates the The Root ViewController of the Window
-final class AppCoordinator: Coordinator {
+final class MainCoordinator: Coordinator {
     weak var window: UIWindow?
 
-    private(set) weak var rootNavigationController: MainViewController?
-
+    private(set) weak var mainController: MainViewController?
+    private let navigationController = UINavigationController()
+    private lazy var albumsCoordinator: AlbumsCoordinator = {
+       AlbumsCoordinator(navigationController)
+    }()
     /// Creates a new instance of the App Coordinator
     ///
     /// - Parameter window: The main widnow of the application
     init(window: UIWindow?) {
         self.window = window
     }
-
+   
     func start(completion: (() -> Void)?) {
         guard let window = self.window else { completion?(); return }
         let main = MainViewController()
-        rootNavigationController = main
-        
-        window.rootViewController = rootNavigationController
-        
+        mainController = main
+        window.rootViewController = mainController
+        setMainContainer()    
         completion?()
+        showAlbums(for: nil)
+    }
+    func showAlbums(for artist:Artist?){
+        albumsCoordinator.start(completion: nil, for: artist)
+    }
+    private func setMainContainer() {
+        mainController?.addChild(navigationController)
+        mainController?.addToMainContainer(navigationController.view)
+        navigationController.view.equalToSuperViewEdges()
     }
 
     func finish(completion: (() -> Void)?) {

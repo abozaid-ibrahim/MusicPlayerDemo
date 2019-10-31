@@ -21,16 +21,29 @@
                         <rect key="frame" x="8" y="8" width="133" height="140"/>
                         <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojO-3Q-2vQ">
+                        <rect key="frame" x="8" y="130" width="133" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="GCe-Qx-IPb" secondAttribute="trailing" constant="8" id="0uh-au-h4F"/>
                 <constraint firstItem="GCe-Qx-IPb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="Lk0-XN-pgs"/>
                 <constraint firstAttribute="bottom" secondItem="GCe-Qx-IPb" secondAttribute="bottom" constant="8" id="ORa-jq-B6s"/>
+                <constraint firstAttribute="bottom" secondItem="ojO-3Q-2vQ" secondAttribute="bottom" constant="8" id="QJM-iE-Wus"/>
+                <constraint firstItem="ojO-3Q-2vQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="bTu-rf-78J"/>
+                <constraint firstAttribute="trailing" secondItem="ojO-3Q-2vQ" secondAttribute="trailing" constant="8" id="hdw-Oe-Gh2"/>
                 <constraint firstItem="GCe-Qx-IPb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="lyr-oB-XcG"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="149" height="156"/>
+            <connections>
+                <outlet property="coverImageView" destination="GCe-Qx-IPb" id="DzG-3R-9E3"/>
+                <outlet property="titleLbl" destination="ojO-3Q-2vQ" id="dzp-mh-bGZ"/>
+            </connections>
             <point key="canvasLocation" x="209.42028985507247" y="180.13392857142856"/>
         </collectionViewCell>
     </objects>

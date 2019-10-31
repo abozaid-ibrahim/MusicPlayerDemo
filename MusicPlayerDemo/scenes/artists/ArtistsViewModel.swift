@@ -11,14 +11,13 @@ import RxOptional
 import RxSwift
 
 protocol ArtistsViewModel {
-    func loadData(showLoader: Bool,for artist:String)
-    func songsOf(user: Artist)
+    func loadData(showLoader: Bool, for artist: String)
     var showProgress: PublishSubject<Bool> { get }
     var artistsList: BehaviorSubject<[Artist]> { get }
     var artistSongsList: PublishSubject<[Artist]> { get }
     var error: PublishSubject<Error> { get }
-
     var currentCount: Int { get }
+    func loadPages(for index:[IndexPath])
 }
 
 final class ArtistsListViewModel: ArtistsViewModel {
@@ -39,7 +38,7 @@ final class ArtistsListViewModel: ArtistsViewModel {
     var currentCount: Int = 0
     var showProgress = PublishSubject<Bool>()
     var error = PublishSubject<Error>()
-
+//    private let coordinator  = AlbumsCoordinator(UINavigationController())
     /// initializier
     /// - Parameter apiClient: network handler
     init(apiClient: ApiClient = HTTPClient()) {
@@ -48,43 +47,38 @@ final class ArtistsListViewModel: ArtistsViewModel {
 
     /// load the data from the endpoint
     /// - Parameter showLoader: show indicator on screen to till user data is loading
-    func loadData(showLoader: Bool ,for artist:String) {
-        if self.isFetchingData {
+    func loadData(showLoader: Bool, for artist: String) {
+        if isFetchingData {
             return
         }
-        self.isFetchingData = true
+        isFetchingData = true
         if showLoader {
-            self.showProgress.onNext(true)
+            showProgress.onNext(true)
         }
-//        self.apiClient.getData<ArtistsSearchRespose>(of: ArtistsApi.searchFor(artist: artist, page: page, count: countPerPage))
-//            .subscribe(onNext: { [unowned self] value in
-//                self.allSongsList.append(contentsOf: value ?? [])
-//                if showLoader {
-//                    self.showProgress.onNext(false)
-//                }
-//                self.isFetchingData = false
-//                self.page += 1
-//                self.updateUIWithArtists()
-//
-//            }, onError: { err in
-//                self.error.onNext(err)
-//            }).disposed(by: self.disposeBag)
+
+        let result: Observable<ArtistsSearchRespose?> = apiClient.getData(of: ArtistsApi.searchFor(artist: artist, page: page, count: countPerPage))
+
+        result.subscribe(onNext: { [unowned self] value in
+            if showLoader {
+                self.showProgress.onNext(false)
+            }
+            
+            self.isFetchingData = false
+            self.page += 1
+            self.updateUIWithArtists(value?.results?.artistmatches?.artist)
+
+        }, onError: { err in
+            self.error.onNext(err)
+        }).disposed(by: disposeBag)
     }
 
+    func loadPages(for index:[IndexPath]){
+        
+    }
     /// emit values to ui to fill the table view if the data is a littlet reload untill fill the table
-    private func updateUIWithArtists() {
+    private func updateUIWithArtists(_ artists: [Artist]?) {
+        artistsList.onNext(artists ?? [])
+    }
+
     
-//        self.artistsList.onNext(artists)
-//        self.currentCount = artists.count
-    }
-
-   
-
-    /// return songs list for th singer
-    /// - Parameter user: the current user that will display his songs
-    func songsOf(user: Artist) {
-//        self.currentUser = user
-//        let songs = self.allSongsList.filter { $0.userId == user.id }
-//        self.artistSongsList.onNext(songs)
-    }
 }

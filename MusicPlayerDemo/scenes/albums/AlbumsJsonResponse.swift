@@ -12,42 +12,42 @@ import Foundation
 import Foundation
 
 // MARK: - Response
- struct Response: Codable {
-    public let topalbums: Topalbums?
+ struct AlbumsResponse: Codable {
+     let topalbums: Topalbums?
 
     enum CodingKeys: String, CodingKey {
         case topalbums = "topalbums"
     }
 
-    public init(topalbums: Topalbums?) {
+     init(topalbums: Topalbums?) {
         self.topalbums = topalbums
     }
 }
 
 // MARK: - Topalbums
-public struct Topalbums: Codable {
-    public let album: [Album]?
-    public let attr: Attr?
+ struct Topalbums: Codable {
+     let album: [Album]?
+     let attr: Attr?
 
     enum CodingKeys: String, CodingKey {
         case album = "album"
         case attr = "@attr"
     }
 
-    public init(album: [Album]?, attr: Attr?) {
+     init(album: [Album]?, attr: Attr?) {
         self.album = album
         self.attr = attr
     }
 }
 
 // MARK: - Album
-public struct Album: Codable {
-    public let name: String?
-    public let playcount: Int?
-    public let mbid: String?
-    public let url: String?
-    public let artist: ArtistEntity?
-    public let image: [Image]?
+ struct Album: Codable {
+     let name: String?
+     let playcount: Int?
+     let mbid: String?
+     let url: String?
+     let artist: ArtistEntity?
+     let image: [Image]?
 
     enum CodingKeys: String, CodingKey {
         case name = "name"
@@ -58,7 +58,7 @@ public struct Album: Codable {
         case image = "image"
     }
 
-    public init(name: String?, playcount: Int?, mbid: String?, url: String?, artist: ArtistEntity?, image: [Image]?) {
+     init(name: String?, playcount: Int?, mbid: String?, url: String?, artist: ArtistEntity?, image: [Image]?) {
         self.name = name
         self.playcount = playcount
         self.mbid = mbid
@@ -69,10 +69,10 @@ public struct Album: Codable {
 }
 
 // MARK: - ArtistClass
-public struct ArtistEntity: Codable {
-    public let name: String?
-    public let mbid: String?
-    public let url: String?
+ struct ArtistEntity: Codable {
+     let name: String?
+     let mbid: String?
+     let url: String?
 
     enum CodingKeys: String, CodingKey {
         case name = "name"
@@ -80,7 +80,7 @@ public struct ArtistEntity: Codable {
         case url = "url"
     }
 
-    public init(name: String?, mbid: String?, url: String?) {
+     init(name: String?, mbid: String?, url: String?) {
         self.name = name
         self.mbid = mbid
         self.url = url

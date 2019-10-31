@@ -25,15 +25,9 @@ final class AlbumsViewController: UIViewController, Loadable {
     }
 
     private lazy var results: ArtistsViewController = {
-        print("GET REsutl>>>>")
-        let artistsController = ArtistsViewController()
-        artistsController.title = "Your Albums"
-        artistsController.viewModel = ArtistsListViewModel()
-        return artistsController
+        return ArtistCoordinator(self.navigationController).getArtistView()
     }()
     private func addSearchToNavigationBar() {
-//        let searchBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search))
-//        navigationItem.leftBarButtonItem = searchBtn
         let searchController = UISearchController(searchResultsController: results)
         searchController.searchResultsUpdater = results
         searchController.obscuresBackgroundDuringPresentation = false
@@ -43,7 +37,6 @@ final class AlbumsViewController: UIViewController, Loadable {
 //ios10
         navigationItem.titleView = searchController.searchBar;
 
-        
     }
 
     @objc private func search(_ text: String){
@@ -58,28 +51,24 @@ final class AlbumsViewController: UIViewController, Loadable {
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: showLoading(show:)).disposed(by: disposeBag)
 
-        viewModel.artistsList
-            .bind(to: albumsCollectionView.rx.items(cellIdentifier: cellId, cellType: AlbumCollectionCell.self)) { index, _, cell in
-                cell.setData("\(index)")
+        viewModel.albums
+            .bind(to: albumsCollectionView.rx.items(cellIdentifier: cellId, cellType: AlbumCollectionCell.self)) { index, model, cell in
+                cell.setData(model)
             }.disposed(by: disposeBag)
 
         // add this line you can provide the cell size from delegate method
         albumsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
-        albumsCollectionView.rx.modelSelected(Artist.self).bind(onNext: viewModel.songsOf(user:)).disposed(by: disposeBag)
-//        viewModel.artistSongsList.bind(onNext: showSongsList(element:)).disposed(by: disposeBag)
+        albumsCollectionView.rx.modelSelected(Album.self).bind(onNext:showSongsList(album:)).disposed(by: disposeBag)
         viewModel.error.map { $0.localizedDescription }.bind(to: errorLbl.rx.text).disposed(by: disposeBag)
-        viewModel.artistsList.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
+        viewModel.albums.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
     }
 
-    /// show list of songs for spacific arist
-    /// - Parameter element: list of songs for the artist
-//    private func showSongsList(element: [SongEntity]) {
-//        let songsView = SongsViewController()
-//        let songsViewModel = SongsListViewModel(songs: element)
-//        songsView.viewModel = songsViewModel
-////        navigationController?.pushViewController(songsView, animated: true)
-//    }
+   
+    private func showSongsList(album: Album) {
+       //detail page
+        
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

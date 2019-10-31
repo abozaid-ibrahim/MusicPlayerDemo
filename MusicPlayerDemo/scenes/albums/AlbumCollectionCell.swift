@@ -9,9 +9,12 @@
 import UIKit
 
 final class AlbumCollectionCell: UICollectionViewCell {
-
-     func setData(_ model:String){
-        
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var coverImageView: UIImageView!
+    
+     func setData(_ model:Album){
+        coverImageView.setImage(with: model.image?.first?.text)
+        titleLbl.text = model.name
     }
     
     override func awakeFromNib() {

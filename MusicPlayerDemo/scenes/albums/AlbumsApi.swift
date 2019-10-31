@@ -9,31 +9,29 @@
 import Foundation
 
 enum AlbumsApi {
-    case feed(type: String, page: Int, count: Int)
+    case albumsFor(artist: String, page: Int, count: Int)
 }
 
 extension AlbumsApi: RequestBuilder {
-    public var baseURL: URL {
+    var baseURL: URL {
         return URL(string: APIConstants.baseURL)!
     }
     
-    public var path: String {
-        return "https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=Cher&api_key=faa9a8a5cdd536094362c2b4da41c2e5&format=json"
+    var path: String {
+        return ""
     }
-    
-    var endpoint: URL {
-        return URL(string: "\(baseURL)\(path)")!
-    }
-    
-    public var method: HttpMethod {
+    var method: HttpMethod {
         return .get
     }
     
-    public var task: URLRequest {
+    var task: URLRequest {
         switch self {
-        case .feed(let prm):
+        case .albumsFor(let prm):
             let prmDic = [
-                "type": prm.type,
+                "method": "artist.gettopalbums",
+                "api_key": APIConstants.apiKey,
+                "format": "json",
+                "artist": prm.artist,
                 "page": prm.page,
                 "count": prm.count
             ] as [String: Any]
@@ -43,13 +41,9 @@ extension AlbumsApi: RequestBuilder {
                 items.append(URLQueryItem(name: key, value: "\(value)"))
             }
             myURL?.queryItems = items
-            var request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
-            request.httpMethod = method.rawValue
+            let request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
+//            request.httpMethod = method.rawValue
             return request
         }
-    }
-    
-    public var headers: [String: String]? {
-        return ["Content-Type": "application/x-www-form-urlencoded"]
     }
 }

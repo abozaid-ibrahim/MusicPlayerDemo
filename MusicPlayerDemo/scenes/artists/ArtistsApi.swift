@@ -13,28 +13,25 @@ enum ArtistsApi {
 }
 
 extension ArtistsApi: RequestBuilder {
-    public var baseURL: URL {
+    var baseURL: URL {
         return URL(string: APIConstants.baseURL)!
     }
     
-    public var path: String {
-        return "?method=artist.search"
+    var path: String {
+        return ""
     }
     
-    var endpoint: URL {
-        return URL(string: "\(baseURL)\(path)")!
-    }
-    
-    public var method: HttpMethod {
+    var method: HttpMethod {
         return .get
     }
     
-    public var task: URLRequest {
+    var task: URLRequest {
         switch self {
         case .searchFor(let prm):
             let prmDic = [
-                "api_key":APIConstants.apiKey,
-                "format":"json",
+                "method": "artist.search",
+                "api_key": APIConstants.apiKey,
+                "format": "json",
                 "artist": prm.artist,
                 "page": prm.page,
                 "count": prm.count
@@ -45,13 +42,9 @@ extension ArtistsApi: RequestBuilder {
                 items.append(URLQueryItem(name: key, value: "\(value)"))
             }
             myURL?.queryItems = items
-            var request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
-            request.httpMethod = method.rawValue
+            let request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
+//            request.httpMethod = method.rawValue
             return request
         }
-    }
-    
-    public var headers: [String: String]? {
-        return ["Content-Type": "application/x-www-form-urlencoded"]
     }
 }

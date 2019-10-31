@@ -17,9 +17,13 @@ public protocol RequestBuilder {
 
     var task: URLRequest { get }
 
-    var headers: [String: String]? { get }
+//    var headers: [String: String]? { get }
 }
-
+extension RequestBuilder{
+    var endpoint: URL {
+        return URL(string: "\(baseURL)\(path)")!
+    }
+}
 public enum HttpMethod:String {
     case get, post
 }

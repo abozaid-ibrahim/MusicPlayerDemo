@@ -10,19 +10,19 @@ import Foundation
 
 // MARK: - Respose
 
-public struct ArtistsSearchRespose: Codable {
-    public let results: ArtistsSearchResults?
+ struct ArtistsSearchRespose: Codable {
+     let results: ArtistsSearchResults?
 }
 
 // MARK: - Results
 
-public struct ArtistsSearchResults: Codable {
-    public let opensearchQuery: OpensearchQuery?
-    public let opensearchTotalResults: String?
-    public let opensearchStartIndex: String?
-    public let opensearchItemsPerPage: String?
-    public let artistmatches: Artistmatches?
-    public let attr: Attr?
+ struct ArtistsSearchResults: Codable {
+     let opensearchQuery: OpensearchQuery?
+     let opensearchTotalResults: String?
+     let opensearchStartIndex: String?
+     let opensearchItemsPerPage: String?
+     let artistmatches: Artistmatches?
+     let attr: Attr?
 
     enum CodingKeys: String, CodingKey {
         case opensearchQuery = "opensearch:Query"
@@ -33,7 +33,7 @@ public struct ArtistsSearchResults: Codable {
         case attr = "@attr"
     }
 
-    public init(opensearchQuery: OpensearchQuery?, opensearchTotalResults: String?, opensearchStartIndex: String?, opensearchItemsPerPage: String?, artistmatches: Artistmatches?, attr: Attr?) {
+     init(opensearchQuery: OpensearchQuery?, opensearchTotalResults: String?, opensearchStartIndex: String?, opensearchItemsPerPage: String?, artistmatches: Artistmatches?, attr: Attr?) {
         self.opensearchQuery = opensearchQuery
         self.opensearchTotalResults = opensearchTotalResults
         self.opensearchStartIndex = opensearchStartIndex
@@ -45,27 +45,27 @@ public struct ArtistsSearchResults: Codable {
 
 // MARK: - Artistmatches
 
-public struct Artistmatches: Codable {
-    public let artist: [Artist]?
+ struct Artistmatches: Codable {
+     let artist: [Artist]?
 
     enum CodingKeys: String, CodingKey {
         case artist
     }
 
-    public init(artist: [Artist]?) {
+     init(artist: [Artist]?) {
         self.artist = artist
     }
 }
 
 // MARK: - Artist
 
-public struct Artist: Codable {
-    public let name: String?
-    public let listeners: String?
-    public let mbid: String?
-    public let url: String?
-    public let streamable: String?
-    public let image: [Image]?
+ struct Artist: Codable {
+     let name: String?
+     let listeners: String?
+     let mbid: String?
+     let url: String?
+     let streamable: String?
+     let image: [Image]?
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -76,7 +76,7 @@ public struct Artist: Codable {
         case image
     }
 
-    public init(name: String?, listeners: String?, mbid: String?, url: String?, streamable: String?, image: [Image]?) {
+     init(name: String?, listeners: String?, mbid: String?, url: String?, streamable: String?, image: [Image]?) {
         self.name = name
         self.listeners = listeners
         self.mbid = mbid
@@ -88,22 +88,22 @@ public struct Artist: Codable {
 
 // MARK: - Image
 
-public struct Image: Codable {
-    public let text: String?
-    public let size: Size?
+ struct Image: Codable {
+     let text: String?
+     let size: Size?
 
     enum CodingKeys: String, CodingKey {
         case text = "#text"
         case size
     }
 
-    public init(text: String?, size: Size?) {
+     init(text: String?, size: Size?) {
         self.text = text
         self.size = size
     }
 }
 
-public enum Size: String, Codable {
+ enum Size: String, Codable {
     case extralarge
     case large
     case medium
@@ -113,25 +113,25 @@ public enum Size: String, Codable {
 
 // MARK: - Attr
 
-public struct Attr: Codable {
-    public let attrFor: String?
+ struct Attr: Codable {
+     let attrFor: String?
 
     enum CodingKeys: String, CodingKey {
         case attrFor = "for"
     }
 
-    public init(attrFor: String?) {
+     init(attrFor: String?) {
         self.attrFor = attrFor
     }
 }
 
 // MARK: - OpensearchQuery
 
-public struct OpensearchQuery: Codable {
-    public let text: String?
-    public let role: String?
-    public let searchTerms: String?
-    public let startPage: String?
+ struct OpensearchQuery: Codable {
+     let text: String?
+     let role: String?
+     let searchTerms: String?
+     let startPage: String?
 
     enum CodingKeys: String, CodingKey {
         case text = "#text"
@@ -140,7 +140,7 @@ public struct OpensearchQuery: Codable {
         case startPage
     }
 
-    public init(text: String?, role: String?, searchTerms: String?, startPage: String?) {
+     init(text: String?, role: String?, searchTerms: String?, startPage: String?) {
         self.text = text
         self.role = role
         self.searchTerms = searchTerms

@@ -11,32 +11,30 @@ import UIKit
 class MainViewController: UIViewController {
     @IBOutlet private var miniPlayerView: UIView!
     @IBOutlet private var mainViewContainer: UIView!
+    private var subView: UIView?
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addFeedsView()
+        addToMainContainer(self.subView)
         addMiniPlayer()
+    }
+
+    func addToMainContainer(_ subView: UIView?) {
+        self.subView = subView
+        if isViewLoaded {
+            mainViewContainer.addSubview(subView!)
+            subView?.equalToSuperViewEdges()
+        }
     }
 }
 
 private extension MainViewController {
-    private func addFeedsView() {
-        let artistsController = AlbumsViewController()
-        artistsController.title = "Your Albums"
-        artistsController.viewModel = AlbumsListViewModel()
-        let navigationController = UINavigationController(rootViewController: artistsController)
-        addChild(navigationController)
-        mainViewContainer.addSubview(navigationController.view)
-        navigationController.view.equalToSuperViewEdges()
-    }
-
     private func addMiniPlayer() {
         let miniPlayer: MiniPlayerViewController = MiniPlayerViewController()
         addChild(miniPlayer)
         miniPlayerView.addSubview(miniPlayer.view)
         miniPlayer.view.equalToSuperViewEdges()
-
         AudioPlayer.shared.state.map { $0 == .sleep }.bind(to: miniPlayerView.rx.isHidden)
             .disposed(by: disposeBag)
     }
