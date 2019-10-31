@@ -63,7 +63,6 @@ final class ArtistsListViewModel: ArtistsViewModel {
                 self.allSongsList.append(contentsOf: value ?? [])
                 showLoader ? self.showLoader.onNext(false) : ()
                 self.handleApiResponse()
-                
                 }, onError: { err in
                     self.error.onNext(err)
             }).disposed(by: disposeBag)
@@ -115,6 +114,6 @@ final class ArtistsListViewModel: ArtistsViewModel {
     }
     
     private func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        return indexPath.row + 15 >= page.fetchedItemsCount
+        return indexPath.row+10 >= page.fetchedItemsCount
     }
 }
