@@ -10,14 +10,9 @@ import RxSwift
 import UIKit
 /// list of artists
 final class ArtistsViewController: UIViewController, Loadable {
-    var didSelectArtist:Observable<Artist> {
-        return subject.asObservable()
-    }
-        
-    var subject: PublishSubject<Artist> = PublishSubject()
-    
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var errorLbl: UILabel!
+    private var subject: PublishSubject<Artist> = PublishSubject()
     private let disposeBag = DisposeBag()
     var viewModel: ArtistsViewModel!
     
@@ -26,11 +21,9 @@ final class ArtistsViewController: UIViewController, Loadable {
         super.viewDidLoad()
         tableView.registerNib(ArtistsTableCell.self)
         tableView.seperatorStyle()
-        tableView.rx.prefetchRows.bind(onNext: viewModel.loadPages(for:)).disposed(by: disposeBag)
         bindToViewModel()
     }
     
-    /// bind views to viewmodel attributes
     private func bindToViewModel() {
         viewModel.showProgress
             .observeOn(MainScheduler.instance)
@@ -40,6 +33,8 @@ final class ArtistsViewController: UIViewController, Loadable {
             .bind(to: tableView.rx.items(cellIdentifier: String(describing: ArtistsTableCell.self), cellType: ArtistsTableCell.self)) { _, model, cell in
                 cell.setData(with: model)
         }.disposed(by: disposeBag)
+        tableView.rx.prefetchRows.bind(onNext: viewModel.loadCells(for:)).disposed(by: disposeBag)
+        
         tableView.rx.modelSelected(Artist.self).bind(onNext: showAlbumsOf(artist:)).disposed(by: disposeBag)
         viewModel.error.map { $0.localizedDescription }.bind(to: errorLbl.rx.text).disposed(by: disposeBag)
         viewModel.artistsList.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
@@ -49,28 +44,19 @@ final class ArtistsViewController: UIViewController, Loadable {
         self.dismiss(animated: true, completion: {
             self.subject.onNext(artist)
         })
-        
-      
     }
-}
-
-// MARK: - UITableViewDataSourcePrefetching
-
-extension ArtistsViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.contains(where: isLoadingCell) {
-            //            viewModel.loadData(showLoader: false)
-        }
+    var didSelectArtist:Observable<Artist> {
+        return subject.asObservable()
     }
     
-    func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        return indexPath.row >= viewModel.currentCount
-    }
+    
 }
+
 
 extension ArtistsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = (searchController.searchBar.text ?? "")
-        viewModel.loadData(showLoader: true, for: searchText)
+//        viewModel.loadData(showLoader: true, for: searchText)
+        viewModel.textToSearch.onNext(searchText)
     }
 }

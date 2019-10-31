@@ -59,18 +59,12 @@ final class AlbumsViewController: UIViewController, Loadable {
                 cell.setData(model)
             }.disposed(by: disposeBag)
 
-        // add this line you can provide the cell size from delegate method
         albumsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-
-        albumsCollectionView.rx.modelSelected(Album.self).bind(onNext: showSongsList(album:)).disposed(by: disposeBag)
+        albumsCollectionView.rx.modelSelected(Album.self).bind(onNext: viewModel.showSongsList(album:)).disposed(by: disposeBag)
         viewModel.error.map { $0.localizedDescription }.bind(to: errorLbl.rx.text).disposed(by: disposeBag)
         viewModel.albums.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
-    }
+    
 
-    private func showSongsList(album: Album) {
-        let songs = SongsViewController()
-        songs.viewModel = SongsListViewModel(album: album)
-        navigationController?.pushViewController(songs, animated: true)
     }
 }
 

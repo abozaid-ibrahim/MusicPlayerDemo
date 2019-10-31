@@ -16,20 +16,37 @@ protocol SongsViewModel {
 /// viewModel of songs list,
 final class SongsListViewModel: SongsViewModel {
     private let disposeBag = DisposeBag()
-    var songsList = BehaviorSubject<[String]>(value: [])
-    var artist = BehaviorSubject<Artist?>(value: .none)
-
-    init(album: Album) {
-//        songsList.onNext(songs)
-//        artist.onNext(songs.first?.user)
+    var tracksList = BehaviorSubject<[Track]>(value: [])
+    var showProgress = PublishSubject<Bool>()
+    var error = PublishSubject<Error>()
+    private var album:Album
+    private var artist:Artist?
+    private var apiClient:ApiClient
+    init(apiClient: ApiClient = HTTPClient(),album: Album,artist:Artist?) {
+        self.album = album
+        self.artist = artist
+        self.apiClient = apiClient
     }
-
+    
+    func loadData() {
+        showProgress.onNext(true)
+        let result: Observable<AlbumTracksResponse?> = apiClient.getData(of:AlbumsApi.songs(artist: artist?.name, album: album.name ?? ""))
+        result.subscribe(onNext: { [unowned self] value in
+            self.showProgress.onNext(false)
+            self.tracksList.onNext(value?.album?.tracks?.track ?? [] )
+            }, onError: { err in
+                self.error.onNext(err)
+        }).disposed(by: disposeBag)
+    }
+    
+    
+    
     /// fire audio player to start playing the seleced song
     /// - Parameter index: the item index that player should start playing from
     func playSong(index: IndexPath) {
-//        songsList.subscribe(onNext: { value in
-//            AudioPlayer.shared.playAudio(value)
-//        }).disposed(by: disposeBag)
+        //        songsList.subscribe(onNext: { value in
+        //            AudioPlayer.shared.playAudio(value)
+        //        }).disposed(by: disposeBag)
     }
 }
 

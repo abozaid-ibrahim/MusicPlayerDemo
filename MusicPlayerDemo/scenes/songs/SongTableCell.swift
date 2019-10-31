@@ -21,11 +21,11 @@ final class SongTableCell: UITableViewCell {
     /// - Parameter name: song title
     /// - Parameter auther: auther name
     /// - Parameter duration: duration of the song
-    func setData(_ icon: String?, name: String?, auther: String?, duration: String?) {
-        self.songImgView.setImage(with: icon)
-        self.autherLbl.text = auther
-        self.songNameLbl.text = name
-        self.durationLbl.text = duration
+    func setData(_ model: Track) {
+//        self.songImgView.setImage(with: model.artist.)
+        self.autherLbl.text = model.artist?.name
+        self.songNameLbl.text = model.name
+        self.durationLbl.text = model.duration
     }
 
     override func awakeFromNib() {

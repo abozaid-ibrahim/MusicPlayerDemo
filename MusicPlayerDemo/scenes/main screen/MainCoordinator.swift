@@ -33,7 +33,6 @@ final class MainCoordinator: Coordinator {
         window.rootViewController = mainController
         setMainContainer()    
         showAlbums(for: nil)
-//        showAlbums(for: nil)
         completion?()
 
     }

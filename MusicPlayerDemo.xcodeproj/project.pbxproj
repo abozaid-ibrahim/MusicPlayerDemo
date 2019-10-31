@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		6C4A90EB236A2E0300FAD60F /* AlbumsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A90EA236A2E0300FAD60F /* AlbumsCoordinator.swift */; };
 		6C4A90ED236ABC1200FAD60F /* ArtistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A90EC236ABC1200FAD60F /* ArtistCoordinator.swift */; };
+		6C5C5494236B1D80009E6A44 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C5493236B1D80009E6A44 /* Page.swift */; };
+		6C5C5496236B1E75009E6A44 /* SongsJsonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C5495236B1E75009E6A44 /* SongsJsonResponse.swift */; };
+		6C5C5498236B30C9009E6A44 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C5497236B30C9009E6A44 /* DictionaryExtension.swift */; };
 		6C60E49F2351B85B007DDCF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C60E49E2351B85B007DDCF6 /* AppDelegate.swift */; };
 		6C60E4A82351B85B007DDCF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C60E4A72351B85B007DDCF6 /* Assets.xcassets */; };
 		6C60E4AB2351B85B007DDCF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C60E4A92351B85B007DDCF6 /* LaunchScreen.storyboard */; };
@@ -82,6 +85,9 @@
 		5F134094A9062749AFF9DED1 /* Pods-MusicPlayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicPlayerDemo.debug.xcconfig"; path = "Target Support Files/Pods-MusicPlayerDemo/Pods-MusicPlayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		6C4A90EA236A2E0300FAD60F /* AlbumsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsCoordinator.swift; sourceTree = "<group>"; };
 		6C4A90EC236ABC1200FAD60F /* ArtistCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistCoordinator.swift; sourceTree = "<group>"; };
+		6C5C5493236B1D80009E6A44 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		6C5C5495236B1E75009E6A44 /* SongsJsonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsJsonResponse.swift; sourceTree = "<group>"; };
+		6C5C5497236B30C9009E6A44 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		6C60E49B2351B85B007DDCF6 /* MusicPlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C60E49E2351B85B007DDCF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C60E4A72351B85B007DDCF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -275,6 +281,7 @@
 			children = (
 				6C60E4C82351BB11007DDCF6 /* APIClient.swift */,
 				6C60E4DC2351C61B007DDCF6 /* RequestBuilder.swift */,
+				6C5C5493236B1D80009E6A44 /* Page.swift */,
 			);
 			path = "network service";
 			sourceTree = "<group>";
@@ -285,6 +292,7 @@
 				6C60E4CE2351C259007DDCF6 /* UIView+Constrains.swift */,
 				6C60E4E02351CC7C007DDCF6 /* UITableView+Cell.swift */,
 				6CD07EDC2353B1CD005040CF /* UIView+layer.swift */,
+				6C5C5497236B30C9009E6A44 /* DictionaryExtension.swift */,
 			);
 			path = "swifter swift";
 			sourceTree = "<group>";
@@ -306,6 +314,7 @@
 				6C60E4F623526C84007DDCF6 /* SongsViewController.swift */,
 				6C60E4F723526C84007DDCF6 /* SongsViewController.xib */,
 				6C60E4FA23526C97007DDCF6 /* SongsViewModel.swift */,
+				6C5C5495236B1E75009E6A44 /* SongsJsonResponse.swift */,
 			);
 			path = songs;
 			sourceTree = "<group>";
@@ -542,6 +551,7 @@
 				6CA3AA702368D1320095CE38 /* AlbumCollectionCell.swift in Sources */,
 				6C60E4DF2351CB26007DDCF6 /* ArtistsViewModel.swift in Sources */,
 				6C60E4C62351B9D6007DDCF6 /* MiniPlayerViewController.swift in Sources */,
+				6C5C5496236B1E75009E6A44 /* SongsJsonResponse.swift in Sources */,
 				6C60E49F2351B85B007DDCF6 /* AppDelegate.swift in Sources */,
 				6C60E4FB23526C97007DDCF6 /* SongsViewModel.swift in Sources */,
 				6CD07EDB23539E54005040CF /* ActivityIndicator.swift in Sources */,
@@ -549,10 +559,12 @@
 				6C60E4E12351CC7C007DDCF6 /* UITableView+Cell.swift in Sources */,
 				6C60E4C12351B86E007DDCF6 /* ArtistsApi.swift in Sources */,
 				6C60E4FE235270C5007DDCF6 /* AudioPlayer.swift in Sources */,
+				6C5C5494236B1D80009E6A44 /* Page.swift in Sources */,
 				6C60E4CC2351C23B007DDCF6 /* ArtistsViewController.swift in Sources */,
 				6C60E4DD2351C61B007DDCF6 /* RequestBuilder.swift in Sources */,
 				6C60E4F423526950007DDCF6 /* SongTableCell.swift in Sources */,
 				6C60E4CF2351C259007DDCF6 /* UIView+Constrains.swift in Sources */,
+				6C5C5498236B30C9009E6A44 /* DictionaryExtension.swift in Sources */,
 				6C60E4D72351C379007DDCF6 /* MainViewController.swift in Sources */,
 				6C747C9A2368C8E900E33C43 /* Coordinator.swift in Sources */,
 			);

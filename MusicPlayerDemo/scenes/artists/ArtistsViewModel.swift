@@ -11,74 +11,102 @@ import RxOptional
 import RxSwift
 
 protocol ArtistsViewModel {
-    func loadData(showLoader: Bool, for artist: String)
+    
     var showProgress: PublishSubject<Bool> { get }
     var artistsList: BehaviorSubject<[Artist]> { get }
     var artistSongsList: PublishSubject<[Artist]> { get }
     var error: PublishSubject<Error> { get }
-    var currentCount: Int { get }
-    func loadPages(for index:[IndexPath])
+    func loadCells(for indexPaths: [IndexPath])
+    var textToSearch:BehaviorSubject<String?>{get }
+    
 }
 
 final class ArtistsListViewModel: ArtistsViewModel {
+    var textToSearch =  BehaviorSubject<String?>(value: .none)
+    
+    
     // MARK: private state
-
+    
     private let disposeBag = DisposeBag()
     private let apiClient: ApiClient
-    private var page = 1
-    private let countPerPage = 15
     private var allSongsList: [Artist] = []
     private var currentUser: Artist?
-    private var isFetchingData = false
-
+    private var page = Page()
+    
+    
     // MARK: Observers
-
+    
     var artistsList = BehaviorSubject<[Artist]>(value: [])
     var artistSongsList = PublishSubject<[Artist]>()
-    var currentCount: Int = 0
     var showProgress = PublishSubject<Bool>()
     var error = PublishSubject<Error>()
-//    private let coordinator  = AlbumsCoordinator(UINavigationController())
+    //    private let coordinator  = AlbumsCoordinator(UINavigationController())
     /// initializier
     /// - Parameter apiClient: network handler
     init(apiClient: ApiClient = HTTPClient()) {
         self.apiClient = apiClient
+        textToSearch
+            .throttle(DispatchTimeInterval.milliseconds(1000) , scheduler: MainScheduler.instance)
+            .bind(onNext: loadData(for:)).disposed(by: disposeBag)
     }
-
+    func loadMoreData(for artist: String?) {
+        loadData(for: artist)
+    }
     /// load the data from the endpoint
     /// - Parameter showLoader: show indicator on screen to till user data is loading
-    func loadData(showLoader: Bool, for artist: String) {
-        if isFetchingData {
+    func loadData(for artist: String?) {
+        guard let name = artist else{
+            updateUI(with: true, artists: [])
             return
         }
-        isFetchingData = true
-        if showLoader {
-            showProgress.onNext(true)
+        guard page.shouldLoadMore else {
+            return
         }
-
-        let result: Observable<ArtistsSearchRespose?> = apiClient.getData(of: ArtistsApi.searchFor(artist: artist, page: page, count: countPerPage))
-
+        page.isFetchingData = true
+        showProgress.onNext(true)
+        
+        let result: Observable<ArtistsSearchRespose?> = apiClient.getData(of: ArtistsApi.searchFor(artist: name, page: page.currentPage, count: page.countPerPage))
+        
         result.subscribe(onNext: { [unowned self] value in
-            if showLoader {
-                self.showProgress.onNext(false)
-            }
             
-            self.isFetchingData = false
-            self.page += 1
-            self.updateUIWithArtists(value?.results?.artistmatches?.artist)
-
-        }, onError: { err in
-            self.error.onNext(err)
+            self.showProgress.onNext(false)
+            self.updateUI(with: true,artists: value?.results?.artistmatches?.artist ?? [])
+            
+            }, onError: { err in
+                self.error.onNext(err)
         }).disposed(by: disposeBag)
     }
-
-    func loadPages(for index:[IndexPath]){
-        
+    func loadCells(for indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: shouldLoadMoreData) {
+            loadData( for:try! (self.textToSearch.value() ?? ""))
+        }
     }
+    
+    /// should load more items
+    /// - Parameter indexPath: nearest unvisible indexpath
+    private func shouldLoadMoreData(for indexPath: IndexPath) -> Bool {
+        return (indexPath.row + 10) >= page.fetchedItemsCount
+    }
+    
+    
     /// emit values to ui to fill the table view if the data is a littlet reload untill fill the table
-    private func updateUIWithArtists(_ artists: [Artist]?) {
-        artistsList.onNext(artists ?? [])
-    }
+    private func updateUI(with newSearchResult:Bool, artists: [Artist]) {
+        if newSearchResult{
+            artistsList.onNext(artists )
+            self.page.isFetchingData = false
+            
+        }else{//pagination
+            artistsList.onNext(artists )
 
+//            artistsList.scan(artists) { (A, arts)  in
+//
+//            }
+            self.page.isFetchingData = false
+            self.page.currentPage += 1
+            self.page.fetchedItemsCount += artists.count
+            
+        }
+    }
+    
     
 }

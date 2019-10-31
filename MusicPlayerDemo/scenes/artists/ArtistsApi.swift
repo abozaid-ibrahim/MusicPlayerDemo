@@ -34,7 +34,7 @@ extension ArtistsApi: RequestBuilder {
                 "format": "json",
                 "artist": prm.artist,
                 "page": prm.page,
-                "count": prm.count
+                "limit": prm.count
             ] as [String: Any]
             var items = [URLQueryItem]()
             var myURL = URLComponents(string: endpoint.absoluteString)

@@ -15,7 +15,7 @@ protocol AlbumsViewModel {
     var showProgress: PublishSubject<Bool> { get }
     var albums: BehaviorSubject<[Album]> { get }
     var error: PublishSubject<Error> { get }
-
+    func showSongsList(album: Album)
     var currentCount: Int { get }
 }
 
@@ -78,7 +78,10 @@ final class AlbumsListViewModel: AlbumsViewModel {
         self.albums.onNext(albums?.album ?? [])
 //        self.currentCount = artists.count
     }
-
+    
+    func showSongsList(album: Album) {
+        coordinator?.showTracks(of: currentArtist, album: album)
+    }
  
    
 }

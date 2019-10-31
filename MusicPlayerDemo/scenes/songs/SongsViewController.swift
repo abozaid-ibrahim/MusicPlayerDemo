@@ -11,15 +11,16 @@ import RxOptional
 import RxSwift
 import UIKit
 
-final class SongsViewController: UIViewController {
+final class SongsViewController: UIViewController,Loadable {
     @IBOutlet private var tableView: UITableView!
     private let disposeBag = DisposeBag()
-    var viewModel: SongsListViewModel?
+    var viewModel: SongsListViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         binding()
+        viewModel.loadData()
     }
 
     /// set table view style and reigster cells
@@ -30,16 +31,14 @@ final class SongsViewController: UIViewController {
 
     /// bind ui attributes to view model state variables for example, title, and datasource
     private func binding() {
-//        viewModel?.artist.filterNil().map { ($0.username ?? "") }.bind(to: rx.title).disposed(by: disposeBag)
-//        viewModel!.songsList
-//            .bind(to: tableView.rx.items(cellIdentifier:
-//                String(describing: SongTableCell.self), cellType: SongTableCell.self)) { _, model, cell in
-//                cell.setData(model.artworkUrl,
-//                             name: model.title,
-//                             auther: model.user?.username,
-//                             duration: (model.duration ?? "").songDurationFormat)
-//            }.disposed(by: disposeBag)
-//
-//        tableView.rx.itemSelected.bind(onNext: viewModel!.playSong(index:)).disposed(by: disposeBag)
+        viewModel.showProgress
+                  .asDriver(onErrorJustReturn: false)
+                  .drive(onNext: showLoading(show:)).disposed(by: disposeBag)
+        viewModel.tracksList
+            .bind(to: tableView.rx.items(cellIdentifier:
+                String(describing: SongTableCell.self), cellType: SongTableCell.self)) { _, model, cell in
+                cell.setData(model)
+            }.disposed(by: disposeBag)
+
     }
 }
