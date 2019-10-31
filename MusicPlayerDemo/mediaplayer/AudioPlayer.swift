@@ -101,17 +101,12 @@ final class AudioPlayer: NSObject {
     enum State: Equatable {
         case playing(item: SongEntity), paused(item: SongEntity), sleep, error(String)
         static func == (lhs: AudioPlayer.State, rhs: AudioPlayer.State) -> Bool {
-            switch (lhs, rhs) {
-                case let (.playing(a), .playing(item: b)),
-                     let (.paused(a), .paused(b)):
-//                    return a.id == b.id
-                case (.sleep, .sleep):
-                    return true
-                case let (.error(a), .error(item: b)):
-                    return a == b
-                default:
-                    return false
-            }
+//            switch (lhs, rhs) {
+//                return true
+//            case (_, _):
+//                return false
+//            }
+        return true
         }
     }
 }
