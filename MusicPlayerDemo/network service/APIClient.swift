@@ -17,7 +17,7 @@ protocol ApiClient {
 final class HTTPClient: ApiClient {
     private let disposeBag = DisposeBag()
     func getData<T:Decodable>(of request: RequestBuilder) -> Observable<T?> {
-        print("REQ>>\(request.endpoint)")
+        log(.info,"\(request)")
         return excute(request).map { $0?.toModel() }.filterNil()
     }
 
@@ -31,7 +31,7 @@ final class HTTPClient: ApiClient {
                     return
                 }
                 guard let httpResponse = response as? HTTPURLResponse,
-                    (200...299).contains(httpResponse.statusCode) else {
+                    (200 ... 299).contains(httpResponse.statusCode) else {
                     observer.onError(NetworkFailure.generalFailure)
                     return
                 }
@@ -44,20 +44,4 @@ final class HTTPClient: ApiClient {
         }
         .share(replay: 0, scope: .forever)
     }
-}
-
-extension Data {
-    func toModel<T: Decodable>() -> T? {
-        do {
-            let object = try JSONDecoder().decode(T.self, from: self)
-            return object
-        } catch {
-            print(">>> parsing error \(error)")
-            return nil
-        }
-    }
-}
-
-enum NetworkFailure: Error {
-    case generalFailure, failedToParseData
 }

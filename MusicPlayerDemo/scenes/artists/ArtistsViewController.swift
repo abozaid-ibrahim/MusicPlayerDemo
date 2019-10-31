@@ -26,11 +26,11 @@ final class ArtistsViewController: UIViewController, Loadable {
     
     private func bindToViewModel() {
         viewModel.showProgress
-            .observeOn(MainScheduler.instance)
-            .bind(onNext: showLoading(show:)).disposed(by: disposeBag)
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: showLoading(show:)).disposed(by: disposeBag)
         viewModel.artistsList
-            .observeOn(MainScheduler.instance)
-            .bind(to: tableView.rx.items(cellIdentifier: String(describing: ArtistsTableCell.self), cellType: ArtistsTableCell.self)) { _, model, cell in
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(cellIdentifier: String(describing: ArtistsTableCell.self), cellType: ArtistsTableCell.self)) { _, model, cell in
                 cell.setData(with: model)
         }.disposed(by: disposeBag)
         tableView.rx.prefetchRows.bind(onNext: viewModel.loadCells(for:)).disposed(by: disposeBag)

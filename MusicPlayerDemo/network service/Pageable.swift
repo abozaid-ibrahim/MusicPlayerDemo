@@ -1,16 +1,17 @@
 //
-//  Page.swift
+//  Pageable.swift
 //  MusicPlayerDemo
 //
-//  Created by abuzeid on 10/31/19.
+//  Created by abuzeid on 10/12/19.
 //  Copyright © 2019 abuzeid. All rights reserved.
 //
 
 import Foundation
+import Foundation
 
 final class Page {
     var currentPage: Int = 0
-    var maxPages: Int = 1
+    var maxPages: Int = 10
     var countPerPage: Int = 15
     var isFetchingData = false
     var fetchedItemsCount = 0

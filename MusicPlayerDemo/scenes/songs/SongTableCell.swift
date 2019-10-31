@@ -31,6 +31,6 @@ final class SongTableCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .blue
-        self.songImgView.circle()
+        songImgView.circle()
     }
 }

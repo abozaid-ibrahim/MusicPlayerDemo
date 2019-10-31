@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MainCoordinator(window: self.window)
     }()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         coordinator.start {
             self.window?.makeKeyAndVisible()

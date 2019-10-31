@@ -47,7 +47,7 @@ DEPENDENCIES:
   - RxNimble
   - RxOptional
   - RxSwift
-  - RxSwiftExt (~> 5)
+  - RxSwiftExt
   - RxTest
 
 SPEC REPOS:
@@ -80,6 +80,6 @@ SPEC CHECKSUMS:
   RxSwiftExt: 0d2fd77523a169d1459be34961b996a194bdef0e
   RxTest: 0132f952a61da82d5233abedaa559df91e5330e5
 
-PODFILE CHECKSUM: efcc74bdaae2eaccbaa9bba448cb864af3294a8d
+PODFILE CHECKSUM: e34fb645efbd7781e0070c6cfd7ffb52e4fc8cc2
 
 COCOAPODS: 1.8.4

@@ -28,6 +28,7 @@ final class ArtistsListViewModel: ArtistsViewModel {
     // MARK: private state
     
     private let disposeBag = DisposeBag()
+    private let showLoader = PublishSubject<Bool>()
     private let apiClient: ApiClient
     private var allSongsList: [Artist] = []
     private var currentUser: Artist?

@@ -15,7 +15,7 @@ target 'MusicPlayerDemo' do
 
   target 'MusicPlayerDemoTests' do
     inherit! :search_paths
-
+    
     pod 'RxBlocking'
     pod 'RxTest'
     pod 'Quick'
