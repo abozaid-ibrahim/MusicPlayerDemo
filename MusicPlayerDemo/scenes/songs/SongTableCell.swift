@@ -22,15 +22,15 @@ final class SongTableCell: UITableViewCell {
     /// - Parameter auther: auther name
     /// - Parameter duration: duration of the song
     func setData(_ icon: String?, name: String?, auther: String?, duration: String?) {
-        self.songImgView.setImage(with: icon)
-        self.autherLbl.text = auther
-        self.songNameLbl.text = name
-        self.durationLbl.text = duration
+        songImgView.setImage(with: icon)
+        autherLbl.text = auther
+        songNameLbl.text = name
+        durationLbl.text = duration
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .blue
-        self.songImgView.circle()
+        songImgView.circle()
     }
 }

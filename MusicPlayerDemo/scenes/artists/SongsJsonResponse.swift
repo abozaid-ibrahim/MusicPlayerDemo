@@ -81,24 +81,24 @@ public struct SongEntity: Codable {
 
     public init(id: String?, userId: String?, user: Artist?, streamUrl: String?) {
         self.id = id
-        self.createdAt = .none
+        createdAt = .none
         self.userId = userId
-        self.duration = .none
-        self.permalink = .none
-        self.SongsListDescription = .none
-        self.genre = .none
-        self.genreSlush = .none
-        self.title = .none
-        self.uri = .none
-        self.permalinkUrl = .none
-        self.artworkUrl = .none
-        self.backgroundUrl = .none
-        self.waveformData = .none
-        self.waveformUrl = .none
+        duration = .none
+        permalink = .none
+        SongsListDescription = .none
+        genre = .none
+        genreSlush = .none
+        title = .none
+        uri = .none
+        permalinkUrl = .none
+        artworkUrl = .none
+        backgroundUrl = .none
+        waveformData = .none
+        waveformUrl = .none
         self.user = user
         self.streamUrl = streamUrl
-        self.downloadUrl = .none
-        self.favorited = .none
+        downloadUrl = .none
+        favorited = .none
     }
 }
 

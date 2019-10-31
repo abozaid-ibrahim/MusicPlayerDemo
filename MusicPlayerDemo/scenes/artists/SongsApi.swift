@@ -13,29 +13,29 @@ enum SongsApi {
 }
 
 extension SongsApi: RequestBuilder {
-    public var baseURL: URL {
+    var baseURL: URL {
         return URL(string: APIConstants.baseURL)!
     }
-    
-    public var path: String {
+
+    var path: String {
         return "feed"
     }
-    
+
     var endpoint: URL {
         return URL(string: "\(baseURL)\(path)")!
     }
-    
-    public var method: HttpMethod {
+
+    var method: HttpMethod {
         return .get
     }
-    
-    public var task: URLRequest {
+
+    var task: URLRequest {
         switch self {
-        case .feed(let prm):
+        case let .feed(prm):
             let prmDic = [
                 "type": prm.type,
                 "page": prm.page,
-                "count": prm.count
+                "count": prm.count,
             ] as [String: Any]
             var items = [URLQueryItem]()
             var myURL = URLComponents(string: endpoint.absoluteString)
@@ -48,8 +48,8 @@ extension SongsApi: RequestBuilder {
             return request
         }
     }
-    
-    public var headers: [String: String]? {
+
+    var headers: [String: String]? {
         return ["Content-Type": "application/x-www-form-urlencoded"]
     }
 }

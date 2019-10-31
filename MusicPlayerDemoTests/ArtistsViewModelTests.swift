@@ -44,7 +44,7 @@ class FeedViewModelTests: XCTestCase {
 }
 
 class MockedApi: ApiClient {
-    func getData(of request: RequestBuilder) -> Observable<SongsList?> {
+    func getData(of _: RequestBuilder) -> Observable<SongsList?> {
         return Observable.create { observer in
             let user0 = Artist(id: "100", permalink: .none, username: .none, uri: .none, permalinkUrl: .none, avatarUrl: .none)
             let user1 = Artist(id: "101", permalink: .none, username: .none, uri: .none, permalinkUrl: .none, avatarUrl: .none)

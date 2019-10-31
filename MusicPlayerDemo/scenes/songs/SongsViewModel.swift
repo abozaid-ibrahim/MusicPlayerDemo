@@ -26,7 +26,7 @@ final class SongsListViewModel: SongsViewModel {
 
     /// fire audio player to start playing the seleced song
     /// - Parameter index: the item index that player should start playing from
-    func playSong(index: IndexPath) {
+    func playSong(index _: IndexPath) {
         songsList.subscribe(onNext: { value in
             AudioPlayer.shared.playAudio(value)
         }).disposed(by: disposeBag)

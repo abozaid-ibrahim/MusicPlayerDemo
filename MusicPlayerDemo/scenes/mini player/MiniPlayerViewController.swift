@@ -38,10 +38,10 @@ final class MiniPlayerViewController: UIViewController {
     /// - Parameter state: the new state of the audio player
     private func updateIcon(for state: AudioPlayer.State) {
         switch state {
-        case .playing(let item):
+        case let .playing(item):
             playPauseBtn.image = UIImage(named: "pauseIcon")
             titleLbl.text = item.title
-        case .paused(let item):
+        case let .paused(item):
             playPauseBtn.image = UIImage(named: "playicon")
             titleLbl.text = item.title
         default:
