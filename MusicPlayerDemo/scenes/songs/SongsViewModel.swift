@@ -10,7 +10,8 @@ import Foundation
 import RxSwift
 
 protocol SongsViewModel {
-    func playSong(index: IndexPath)
+    func playSong(track: Track)
+    
 }
 
 /// viewModel of songs list,
@@ -43,10 +44,10 @@ final class SongsListViewModel: SongsViewModel {
     
     /// fire audio player to start playing the seleced song
     /// - Parameter index: the item index that player should start playing from
-    func playSong(index: IndexPath) {
-        //        songsList.subscribe(onNext: { value in
-        //            AudioPlayer.shared.playAudio(value)
-        //        }).disposed(by: disposeBag)
+    func playSong(track: Track) {
+        let song =    SongEntity(streamUrl: track.url ?? "", title: track.name ?? "")
+//        AudioPlayer.shared.playAudio(form: [song] )
+        
     }
 }
 

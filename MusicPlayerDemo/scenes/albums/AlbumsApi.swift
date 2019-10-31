@@ -44,6 +44,7 @@ extension AlbumsApi: RequestBuilder {
             myURL?.queryItems = items
             let request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
             //            request.httpMethod = method.rawValue
+            log(.info,prmDic)
             return request
         case .songs(let prm):
             var prmDic = [

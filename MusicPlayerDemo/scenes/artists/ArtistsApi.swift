@@ -32,9 +32,9 @@ extension ArtistsApi: RequestBuilder {
                 "method": "artist.search",
                 "api_key": APIConstants.apiKey,
                 "format": "json",
-                "artist": prm.artist,
-                "page": prm.page,
-                "limit": prm.count
+                "artist": prm.artist
+//                "page": prm.page,
+//                "limit": prm.count
             ] as [String: Any]
             var items = [URLQueryItem]()
             var myURL = URLComponents(string: endpoint.absoluteString)

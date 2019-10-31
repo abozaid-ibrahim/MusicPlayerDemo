@@ -39,10 +39,6 @@ final class AlbumsViewController: UIViewController, Loadable {
         searchController.searchBar.placeholder = "Search for artist"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-//        searchController.dimsBackgroundDuringPresentation = true // The default is true.
-
-        // ios10
-//        navigationItem.titleView = searchController.searchBar
     }
 
     private var cellId: String {

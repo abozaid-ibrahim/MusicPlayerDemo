@@ -22,7 +22,7 @@ final class SongTableCell: UITableViewCell {
     /// - Parameter auther: auther name
     /// - Parameter duration: duration of the song
     func setData(_ model: Track) {
-//        self.songImgView.setImage(with: model.artist.)
+        self.songImgView.setImage(with: model.image?.first?.text)
         self.autherLbl.text = model.artist?.name
         self.songNameLbl.text = model.name
         self.durationLbl.text = model.duration

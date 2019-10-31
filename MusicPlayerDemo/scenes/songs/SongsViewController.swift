@@ -39,6 +39,7 @@ final class SongsViewController: UIViewController,Loadable {
                 String(describing: SongTableCell.self), cellType: SongTableCell.self)) { _, model, cell in
                 cell.setData(model)
             }.disposed(by: disposeBag)
+        tableView.rx.modelSelected(Track.self).bind(onNext: viewModel.playSong(track:)).disposed(by: disposeBag)
 
     }
 }

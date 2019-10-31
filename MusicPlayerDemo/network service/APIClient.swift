@@ -17,7 +17,7 @@ protocol ApiClient {
 final class HTTPClient: ApiClient {
     private let disposeBag = DisposeBag()
     func getData<T:Decodable>(of request: RequestBuilder) -> Observable<T?> {
-        log(.info,"\(request)")
+        log(.info,"\(request.endpoint)")
         return excute(request).map { $0?.toModel() }.filterNil()
     }
 
@@ -37,7 +37,7 @@ final class HTTPClient: ApiClient {
                 }
                 print(String(data: data!, encoding: .utf8) ?? "")
                 observer.onNext(data)
-//                observer.onCompleted()
+                observer.onCompleted()
             }
             task.resume()
             return Disposables.create()
