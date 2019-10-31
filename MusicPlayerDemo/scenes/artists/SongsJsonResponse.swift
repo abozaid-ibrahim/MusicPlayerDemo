@@ -12,27 +12,27 @@ import Foundation
 
 // MARK: - SongsListElement
 
-public typealias SongsList = [SongEntity]
-public struct SongEntity: Codable {
-    public let id: String?
-    public let createdAt: String?
-    public let userId: String?
-    public let duration: String?
-    public let permalink: String?
-    public let SongsListDescription: String?
-    public let genre: String?
-    public let genreSlush: String?
-    public let title: String?
-    public let uri: String?
-    public let permalinkUrl: String?
-    public let artworkUrl: String?
-    public let backgroundUrl: String?
-    public let waveformData: String?
-    public let waveformUrl: String?
-    public let user: Artist?
-    public let streamUrl: String?
-    public let downloadUrl: String?
-    public let favorited: Bool?
+ typealias SongsList = [SongEntity]
+ struct SongEntity: Codable {
+     let id: String?
+     let createdAt: String?
+     let userId: String?
+     let duration: String?
+     let permalink: String?
+     let SongsListDescription: String?
+     let genre: String?
+     let genreSlush: String?
+     let title: String?
+     let uri: String?
+     let permalinkUrl: String?
+     let artworkUrl: String?
+     let backgroundUrl: String?
+     let waveformData: String?
+     let waveformUrl: String?
+     let user: Artist?
+     let streamUrl: String?
+     let downloadUrl: String?
+     let favorited: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -56,7 +56,7 @@ public struct SongEntity: Codable {
         case favorited
     }
 
-    public init(id: String?, createdAt: String?, userId: String?, duration: String?, permalink: String?, SongsListDescription: String?, genre: String?, genreSlush: String?, title: String?, uri: String?, permalinkUrl: String?, artworkUrl: String?, backgroundUrl: String?, waveformData: String?, waveformUrl: String?, user: Artist?, streamUrl: String?, downloadUrl: String?, favorited: Bool?) {
+     init(id: String?, createdAt: String?, userId: String?, duration: String?, permalink: String?, SongsListDescription: String?, genre: String?, genreSlush: String?, title: String?, uri: String?, permalinkUrl: String?, artworkUrl: String?, backgroundUrl: String?, waveformData: String?, waveformUrl: String?, user: Artist?, streamUrl: String?, downloadUrl: String?, favorited: Bool?) {
         self.id = id
         self.createdAt = createdAt
         self.userId = userId
@@ -79,38 +79,38 @@ public struct SongEntity: Codable {
         self.favorited = favorited
     }
 
-    public init(id: String?, userId: String?, user: Artist?, streamUrl: String?) {
+     init(id: String?, userId: String?, user: Artist?, streamUrl: String?) {
         self.id = id
-        self.createdAt = .none
+        createdAt = .none
         self.userId = userId
-        self.duration = .none
-        self.permalink = .none
-        self.SongsListDescription = .none
-        self.genre = .none
-        self.genreSlush = .none
-        self.title = .none
-        self.uri = .none
-        self.permalinkUrl = .none
-        self.artworkUrl = .none
-        self.backgroundUrl = .none
-        self.waveformData = .none
-        self.waveformUrl = .none
+        duration = .none
+        permalink = .none
+        SongsListDescription = .none
+        genre = .none
+        genreSlush = .none
+        title = .none
+        uri = .none
+        permalinkUrl = .none
+        artworkUrl = .none
+        backgroundUrl = .none
+        waveformData = .none
+        waveformUrl = .none
         self.user = user
         self.streamUrl = streamUrl
-        self.downloadUrl = .none
-        self.favorited = .none
+        downloadUrl = .none
+        favorited = .none
     }
 }
 
 // MARK: - User
 
-public struct Artist: Codable {
-    public let id: String?
-    public let permalink: String?
-    public let username: String?
-    public let uri: String?
-    public let permalinkUrl: String?
-    public let avatarUrl: String?
+ struct Artist: Codable {
+     let id: String?
+     let permalink: String?
+     let username: String?
+     let uri: String?
+     let permalinkUrl: String?
+     let avatarUrl: String?
 
     var songsCount: Int = 0
     enum CodingKeys: String, CodingKey {
@@ -122,7 +122,7 @@ public struct Artist: Codable {
         case avatarUrl = "avatar_url"
     }
 
-    public init(id: String?, permalink: String?, username: String?, uri: String?, permalinkUrl: String?, avatarUrl: String?) {
+     init(id: String?, permalink: String?, username: String?, uri: String?, permalinkUrl: String?, avatarUrl: String?) {
         self.id = id
         self.permalink = permalink
         self.username = username

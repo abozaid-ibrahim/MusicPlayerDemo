@@ -10,15 +10,15 @@ import AVFoundation
 import Foundation
 import MobileCoreServices
 import RxSwift
-
 /// the audio player file that plays the songs
 final class AudioPlayer: NSObject {
     private let disposeBag = DisposeBag()
     private var audioPlayer: AVPlayer?
-    private var items: [AVPlayerItem] = []
+    private var items: [AVPlayerItem?] = []
     private var list: [SongEntity] = []
     private var currentSongIndex = 0
     var state = BehaviorSubject<State>(value: .sleep)
+    private var localState:State = .sleep
     static let shared = AudioPlayer()
     
     //    MARK: - Action Methods
@@ -26,67 +26,75 @@ final class AudioPlayer: NSObject {
     /// initialize the audio palyer and set default values of the player attributes
     /// - Parameter list: list of songs model
     /// - Parameter startFrom: the index that should start playing the song from
-    func playAudio(_ list: [SongEntity], startFrom: Int = 0) {
-        self.currentSongIndex = startFrom
-        self.items.removeAll()
-        let songs = list.map { URL(string: $0.streamUrl ?? "")! }
+    func playAudio(form list: [SongEntity], startFrom: Int = 0) {
+        currentSongIndex = startFrom
+        items.removeAll()
+        let songs = list.map { URL(string: $0.streamUrl ?? "") }
         self.list = list
-        self.items.append(contentsOf: songs.map { AVPlayerItem(url: $0) })
+        let corruptUrl = URL(string:"https://api-v2.hearthis.at/")!
+        items.append(contentsOf: songs.map { AVPlayerItem(url: $0 ?? corruptUrl) })
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-            self.audioPlayer = AVPlayer(playerItem: self.items[startFrom])
-            self.audioPlayer?.play()
-            self.state.onNext(.playing(item: list[startFrom]))
-            self.notifyUI()
+            audioPlayer = AVPlayer(playerItem: items[startFrom])
+            audioPlayer?.play()
+            notifyUIWithPlayingState()
         } catch {
-            self.state.onNext(.error(error.localizedDescription))
+            state.onNext(.error(error.localizedDescription))
         }
     }
     
     /// stop playing the current song
     func stopAudio() {
-        self.audioPlayer?.pause()
-        self.state.onNext(.paused(item: self.list[currentSongIndex]))
+        audioPlayer?.pause()
+        state.onNext(.paused(item: list[currentSongIndex]))
     }
     
     /// update the ui with the new state of the app
-    private func notifyUI() {
-        self.state.onNext(.playing(item: self.list[currentSongIndex]))
+    private func notifyUIWithPlayingState() {
+        state.onNext(.playing(item: list[currentSongIndex]))
     }
-    
-    /// play the next song
-    func playNext() {
-        guard (self.currentSongIndex + 1) < self.items.count else {
+    func resume() {
+        guard items.count > 0 else{
             return
         }
-        self.currentSongIndex += 1
-        self.audioPlayer?.replaceCurrentItem(with: self.items[currentSongIndex])
-        self.audioPlayer?.play()
-        self.notifyUI()
+        audioPlayer?.play()
+        notifyUIWithPlayingState()
+    }
+    /// play the next song
+    func playNext() {
+        guard (currentSongIndex + 1) < items.count else {
+            return
+        }
+        currentSongIndex += 1
+        audioPlayer?.replaceCurrentItem(with: items[currentSongIndex])
+        audioPlayer?.play()
+        notifyUIWithPlayingState()
     }
     
     /// play backword song
     func playPrev() {
-        guard (self.currentSongIndex - 1) >= 0 else {
+        guard (currentSongIndex - 1) >= 0 else {
             return
         }
-        self.currentSongIndex -= 1
-        self.audioPlayer?.replaceCurrentItem(with: self.items[currentSongIndex])
-        self.audioPlayer?.play()
-        self.notifyUI()
+        currentSongIndex -= 1
+        audioPlayer?.replaceCurrentItem(with: items[currentSongIndex])
+        audioPlayer?.play()
+        notifyUIWithPlayingState()
     }
     
     /// play or pause according to the current player state
     /// - Parameter action: the tap gesture event from the ui
     func playPause(_ action: Observable<UITapGestureRecognizer>) {
-        Observable.combineLatest(self.state, action).subscribe(onNext: { [unowned self] state, _ in
+        action.withLatestFrom(state).subscribe(onNext: {[unowned self] state in
             if case .playing = state {
                 self.stopAudio()
-            } else {
-                self.playNext()
+            } else if case .paused = state {
+                self.resume()
+            }else{
+                
             }
             
-        }).disposed(by: self.disposeBag)
+        }).disposed(by: disposeBag)
     }
     
     /// enum to define the current state of the player
@@ -94,15 +102,15 @@ final class AudioPlayer: NSObject {
         case playing(item: SongEntity), paused(item: SongEntity), sleep, error(String)
         static func == (lhs: AudioPlayer.State, rhs: AudioPlayer.State) -> Bool {
             switch (lhs, rhs) {
-                case let (.playing(a), .playing(item: b)),
-                     let (.paused(a), .paused(b)):
-                    return a.id == b.id
-                case (.sleep, .sleep):
-                    return true
-                case let (.error(a), .error(item: b)):
-                    return a == b
-                default:
-                    return false
+            case let (.playing(a), .playing(item: b)),
+                 let (.paused(a), .paused(b)):
+                return a.id == b.id
+            case (.sleep, .sleep):
+                return true
+            case let (.error(a), .error(item: b)):
+                return a == b
+            default:
+                return false
             }
         }
     }
