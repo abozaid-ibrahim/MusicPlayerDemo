@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B12BB18F-5C91-44AE-962A-17B36C71C666"
+            uuid = "E0E4004E-AE61-43D8-93F5-EE79E345744F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusicPlayerDemo/scenes/albums/AlbumsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "addSearchToNavigationBar()"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "showAlbumsFor(artist:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -8,14 +8,20 @@
 
 import RxSwift
 import UIKit
-
 /// list of artists
 final class ArtistsViewController: UIViewController, Loadable {
+    var didSelectArtist:Observable<Artist> {
+        return subject.asObservable()
+    }
+        
+    var subject: PublishSubject<Artist> = PublishSubject()
+    
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var errorLbl: UILabel!
-
     private let disposeBag = DisposeBag()
     var viewModel: ArtistsViewModel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerNib(ArtistsTableCell.self)
@@ -23,7 +29,7 @@ final class ArtistsViewController: UIViewController, Loadable {
         tableView.rx.prefetchRows.bind(onNext: viewModel.loadPages(for:)).disposed(by: disposeBag)
         bindToViewModel()
     }
-
+    
     /// bind views to viewmodel attributes
     private func bindToViewModel() {
         viewModel.showProgress
@@ -33,17 +39,18 @@ final class ArtistsViewController: UIViewController, Loadable {
             .observeOn(MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: String(describing: ArtistsTableCell.self), cellType: ArtistsTableCell.self)) { _, model, cell in
                 cell.setData(with: model)
-            }.disposed(by: disposeBag)
-        tableView.rx.modelSelected(Artist.self).bind(onNext: showAlbumsOf).disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
+        tableView.rx.modelSelected(Artist.self).bind(onNext: showAlbumsOf(artist:)).disposed(by: disposeBag)
         viewModel.error.map { $0.localizedDescription }.bind(to: errorLbl.rx.text).disposed(by: disposeBag)
         viewModel.artistsList.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
     }
-
-    private func showAlbumsOf(_ artist: Artist) {
-//        (parent as? UISearchController)?.isActive = false
-        DispatchQueue.main.async {
-            AlbumsCoordinator(self.navigationController).start(completion: nil, for: artist)
-        }
+    
+    private func showAlbumsOf(artist:Artist){
+        self.dismiss(animated: true, completion: {
+            self.subject.onNext(artist)
+        })
+        
+      
     }
 }
 
@@ -55,7 +62,7 @@ extension ArtistsViewController: UITableViewDataSourcePrefetching {
             //            viewModel.loadData(showLoader: false)
         }
     }
-
+    
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
         return indexPath.row >= viewModel.currentCount
     }

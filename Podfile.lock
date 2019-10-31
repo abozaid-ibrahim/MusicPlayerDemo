@@ -36,6 +36,7 @@ PODS:
     - RxSwiftExt/Core
   - RxTest (5.0.1):
     - RxSwift (~> 5)
+  - Swinject (1.1.5)
 
 DEPENDENCIES:
   - Kingfisher
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - RxSwift
   - RxSwiftExt (~> 5)
   - RxTest
+  - Swinject (~> 1.1.4)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -65,6 +67,7 @@ SPEC REPOS:
     - RxNimble
     - RxSwiftExt
     - RxTest
+    - Swinject
 
 SPEC CHECKSUMS:
   Kingfisher: 3adc15096595f5aed800bb0d5cb757fc58b2d2dd
@@ -79,7 +82,8 @@ SPEC CHECKSUMS:
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   RxSwiftExt: 0d2fd77523a169d1459be34961b996a194bdef0e
   RxTest: 0132f952a61da82d5233abedaa559df91e5330e5
+  Swinject: 49b2b23850829e0a6074681264dcb1aa64c0dbca
 
-PODFILE CHECKSUM: efcc74bdaae2eaccbaa9bba448cb864af3294a8d
+PODFILE CHECKSUM: 34fca208fafdc974d87e707bc0bc6780b25c2f34
 
 COCOAPODS: 1.8.4

@@ -12,6 +12,7 @@ target 'MusicPlayerDemo' do
   pod 'Kingfisher'
   pod "RxGesture"
   pod 'RxSwiftExt', '~> 5'
+  pod 'Swinject', '~> 1.1.4'
 
   target 'MusicPlayerDemoTests' do
     inherit! :search_paths

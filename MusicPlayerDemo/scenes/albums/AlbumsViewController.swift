@@ -27,23 +27,22 @@ final class AlbumsViewController: UIViewController, Loadable {
     private lazy var results: ArtistsViewController = {
         ArtistCoordinator(self.navigationController).getArtistView()
     }()
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //self.navigationController?.setNavigationBarHidden(false, animated: true)
-        //navigationItem.searchController?.isActive = true
+    private func showAlbumsFor(artist:Artist){
+        AlbumsCoordinator(self.navigationController).start(completion: nil, for: artist)
     }
-
     private func addSearchToNavigationBar() {
         let searchController = UISearchController(searchResultsController: results)
+        results.didSelectArtist.bind(onNext: showAlbumsFor(artist:)).disposed(by: disposeBag)
         searchController.searchResultsUpdater = results
+        searchController.searchBar.isTranslucent = false
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search artists"
+        searchController.searchBar.placeholder = "Search for artist"
         navigationItem.searchController = searchController
-        definesPresentationContext = false
-        searchController.dimsBackgroundDuringPresentation = true // The default is true.
+        definesPresentationContext = true
+//        searchController.dimsBackgroundDuringPresentation = true // The default is true.
 
         // ios10
-        navigationItem.titleView = searchController.searchBar
+//        navigationItem.titleView = searchController.searchBar
     }
 
     private var cellId: String {

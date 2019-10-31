@@ -22,11 +22,10 @@ final class AlbumsCoordinator: Coordinator {
 
     func start(completion: (() -> Void)?, for artist: Artist?) {
         let albumsController = AlbumsViewController()
-        albumsController.title = artist == nil ? "Your Albums" : "A albums"
+        albumsController.title = artist == nil ? "Your Albums" : artist?.name ?? ""
         albumsController.viewModel = AlbumsListViewModel(artist: artist, co: self)
         self.albumsController = albumsController
         nv?.pushViewController(albumsController, animated: true)
-
         completion?()
     }
 
