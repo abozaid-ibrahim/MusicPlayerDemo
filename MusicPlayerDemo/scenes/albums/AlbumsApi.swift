@@ -14,7 +14,7 @@ enum AlbumsApi {
 }
 
 extension AlbumsApi: RequestBuilder {
-    var parameters: [String : String] {
+    var parameters: [String : Any] {
         switch self {
         case .albumsFor(let prm):
             return [

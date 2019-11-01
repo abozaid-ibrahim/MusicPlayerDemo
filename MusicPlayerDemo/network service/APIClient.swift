@@ -17,7 +17,7 @@ protocol ApiClient {
 final class HTTPClient: ApiClient {
     private let disposeBag = DisposeBag()
     func getData<T:Decodable>(of request: RequestBuilder) -> Observable<T?> {
-        log(.info,"\(request.endpoint)")
+        log(.info,(String(describing: request.task.url)))
         return excute(request).map { $0?.toModel() }.filterNil()
     }
 

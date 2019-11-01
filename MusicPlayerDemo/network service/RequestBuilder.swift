@@ -15,7 +15,7 @@ public protocol RequestBuilder {
     
     var method: HttpMethod { get }
     
-    var parameters:[String:String]{get}
+    var parameters:[String:Any]{get}
     var task: URLRequest { get }
     
 }

@@ -13,14 +13,16 @@ enum ArtistsApi {
 }
 
 extension ArtistsApi: RequestBuilder {
-    var parameters: [String : String] {
+    var parameters: [String : Any] {
         switch self {
         case .searchFor(let prm):
             return [
                 "method": "artist.search",
                 "api_key": APIConstants.apiKey,
                 "format": "json",
-                "artist": prm.artist
+                "artist": prm.artist,
+                "limit" : prm.count,
+                "page": prm.page
             ]
         }
     }

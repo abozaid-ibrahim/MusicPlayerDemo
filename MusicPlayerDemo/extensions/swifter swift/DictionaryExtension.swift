@@ -15,3 +15,8 @@ extension Dictionary {
     }
 }
 
+extension Optional where Wrapped == String{
+    var toInt:Int{
+        return Int(self ?? "0") ?? 0
+    }
+}

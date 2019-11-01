@@ -10,8 +10,8 @@ import Foundation
 import Foundation
 
 final class Page {
-    var currentPage: Int = 0
-    var maxPages: Int = 10
+    var currentPage: Int = 1
+    var maxPages: Int = 1
     var countPerPage: Int = 15
     var isFetchingData = false
     var fetchedItemsCount = 0
