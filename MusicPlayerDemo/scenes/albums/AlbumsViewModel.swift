@@ -16,6 +16,7 @@ protocol AlbumsViewModel {
     var albums: BehaviorSubject<[Album]> { get }
     var error: PublishSubject<Error> { get }
     func showSongsList(album: Album)
+    func changeOfflineMode(for album:Album, index:Int)
     var currentCount: Int { get }
 }
 
@@ -78,7 +79,9 @@ final class AlbumsListViewModel: AlbumsViewModel {
         self.albums.onNext(albums?.album ?? [])
 //        self.currentCount = artists.count
     }
-    
+    func changeOfflineMode(for album:Album, index:Int){
+        
+    }
     func showSongsList(album: Album) {
         coordinator?.showTracks(of: currentArtist, album: album)
     }
