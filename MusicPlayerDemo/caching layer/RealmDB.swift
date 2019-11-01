@@ -21,6 +21,7 @@ class RealmDb: DataBaseOperations {
                 try! self.realm?.write {
                     self.realm?.add(obj)
                 }
+                log(.info,"RLM \(obj.description) is saved")
             }
         }
     }
@@ -29,6 +30,7 @@ class RealmDb: DataBaseOperations {
         try? realm?.write {
             realm?.delete(obj)
         }
+        log(.info,"RLM  \(obj.description) is deleted ")
     }
     func getAll(of obj: Object.Type) -> [Object] {
         return realm?.objects(obj).map{$0} ?? []

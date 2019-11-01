@@ -35,7 +35,7 @@ final class SongsListViewModel: SongsViewModel {
          album: Album,
          artist:Artist?,
          repo:RealmDb = RealmDb(),
-         type:ScreenDataType = .online) {
+         type:ScreenDataType) {
         self.album = album
         self.artist = artist
         self.apiClient = apiClient
@@ -63,22 +63,23 @@ final class SongsListViewModel: SongsViewModel {
         let list  = repository.get(obj: AlbumTracks.self, filter: "mbid", value: album.mbid ?? "")
         guard let tracks = list as? AlbumTracks,
             let result = tracks.tracks?.track else{return}
+        self.albumTrack = tracks
         self.tracksList.onNext(Array(result))
     }
     
     @objc func changeOfflineMode(sender:Any){
-//        if isCached{
-//            
-//            repository.delete(obj: album)
-//            if let obj =  self.albumTrack{
-//                repository.delete(obj:obj)
-//            }
-//        }else{
-//            repository.save(obj: album)
-//            if let obj =  self.albumTrack{
-//                repository.save(obj:obj)
-//            }
-//        }
+        if isCached{
+            
+            repository.delete(obj: album)
+            if let obj =  self.albumTrack{
+                repository.delete(obj:obj)
+            }
+        }else{
+            repository.save(obj: album)
+            if let obj =  self.albumTrack{
+                repository.save(obj:obj)
+            }
+        }
         isCached.toggle()
         
     }
