@@ -12,7 +12,7 @@ extension Data {
         do {
             return try JSONDecoder().decode(T.self, from: self)
         } catch {
-            log(.error,">>> parsing error \(error)")
+            log(.error, ">>> parsing error \(error)")
             return nil
         }
     }

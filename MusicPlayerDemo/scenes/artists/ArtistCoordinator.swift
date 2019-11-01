@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 /// The App Coordinator creates the The Root ViewController of the Window
 final class ArtistCoordinator: Coordinator {
-    func start(completion: (() -> Void)?) {}
+    func start(completion _: (() -> Void)?) {}
 
     private(set) weak var artistsController: ArtistsViewController?
     var nv: UINavigationController?

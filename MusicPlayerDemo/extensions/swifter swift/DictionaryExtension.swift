@@ -8,15 +8,15 @@
 
 import Foundation
 extension Dictionary {
-    mutating func merge(dict: [Key: Value]){
+    mutating func merge(dict: [Key: Value]) {
         for (k, v) in dict {
             updateValue(v, forKey: k)
         }
     }
 }
 
-extension Optional where Wrapped == String{
-    var toInt:Int{
+extension Optional where Wrapped == String {
+    var toInt: Int {
         return Int(self ?? "0") ?? 0
     }
 }

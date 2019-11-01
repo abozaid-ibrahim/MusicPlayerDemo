@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 /// The App Coordinator creates the The Root ViewController of the Window
 final class MainCoordinator: Coordinator {
     weak var window: UIWindow?
@@ -17,28 +16,30 @@ final class MainCoordinator: Coordinator {
     private(set) weak var mainController: MainViewController?
     private let navigationController = UINavigationController()
     private lazy var albumsCoordinator: AlbumsCoordinator = {
-       AlbumsCoordinator(navigationController)
+        AlbumsCoordinator(navigationController)
     }()
+
     /// Creates a new instance of the App Coordinator
     ///
     /// - Parameter window: The main widnow of the application
     init(window: UIWindow?) {
         self.window = window
     }
-   
+
     func start(completion: (() -> Void)?) {
         guard let window = self.window else { completion?(); return }
         let main = MainViewController()
         mainController = main
         window.rootViewController = mainController
-        setMainContainer()    
+        setMainContainer()
         showAlbums(for: nil)
         completion?()
-
     }
-    func showAlbums(for artist:Artist?){
+
+    func showAlbums(for artist: Artist?) {
         albumsCoordinator.start(completion: nil, for: artist)
     }
+
     private func setMainContainer() {
         mainController?.addChild(navigationController)
         mainController?.loadViewIfNeeded()

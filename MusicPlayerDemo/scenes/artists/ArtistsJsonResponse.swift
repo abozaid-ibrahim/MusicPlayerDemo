@@ -10,19 +10,19 @@ import Foundation
 
 // MARK: - Respose
 
- struct ArtistsSearchRespose: Codable {
-     let results: ArtistsSearchResults?
+struct ArtistsSearchRespose: Codable {
+    let results: ArtistsSearchResults?
 }
 
 // MARK: - Results
 
- struct ArtistsSearchResults: Codable {
-     let opensearchQuery: OpensearchQuery?
-     let opensearchTotalResults: String?
-     let opensearchStartIndex: String?
-     let opensearchItemsPerPage: String?
-     let artistmatches: Artistmatches?
-     let attr: Attr?
+struct ArtistsSearchResults: Codable {
+    let opensearchQuery: OpensearchQuery?
+    let opensearchTotalResults: String?
+    let opensearchStartIndex: String?
+    let opensearchItemsPerPage: String?
+    let artistmatches: Artistmatches?
+    let attr: Attr?
 
     enum CodingKeys: String, CodingKey {
         case opensearchQuery = "opensearch:Query"
@@ -33,7 +33,7 @@ import Foundation
         case attr = "@attr"
     }
 
-     init(opensearchQuery: OpensearchQuery?, opensearchTotalResults: String?, opensearchStartIndex: String?, opensearchItemsPerPage: String?, artistmatches: Artistmatches?, attr: Attr?) {
+    init(opensearchQuery: OpensearchQuery?, opensearchTotalResults: String?, opensearchStartIndex: String?, opensearchItemsPerPage: String?, artistmatches: Artistmatches?, attr: Attr?) {
         self.opensearchQuery = opensearchQuery
         self.opensearchTotalResults = opensearchTotalResults
         self.opensearchStartIndex = opensearchStartIndex
@@ -45,27 +45,27 @@ import Foundation
 
 // MARK: - Artistmatches
 
- struct Artistmatches: Codable {
-     let artist: [Artist]?
+struct Artistmatches: Codable {
+    let artist: [Artist]?
 
     enum CodingKeys: String, CodingKey {
         case artist
     }
 
-     init(artist: [Artist]?) {
+    init(artist: [Artist]?) {
         self.artist = artist
     }
 }
 
 // MARK: - Artist
 
- struct Artist: Codable {
-     let name: String?
-     let listeners: String?
-     let mbid: String?
-     let url: String?
-     let streamable: String?
-     let image: [Image]?
+struct Artist: Codable {
+    let name: String?
+    let listeners: String?
+    let mbid: String?
+    let url: String?
+    let streamable: String?
+    let image: [Image]?
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -76,7 +76,7 @@ import Foundation
         case image
     }
 
-     init(name: String?, listeners: String?, mbid: String?, url: String?, streamable: String?, image: [Image]?) {
+    init(name: String?, listeners: String?, mbid: String?, url: String?, streamable: String?, image: [Image]?) {
         self.name = name
         self.listeners = listeners
         self.mbid = mbid
@@ -88,9 +88,7 @@ import Foundation
 
 // MARK: - Image
 
-
-
- enum Size: String, Codable {
+enum Size: String, Codable {
     case extralarge
     case large
     case medium
@@ -100,25 +98,25 @@ import Foundation
 
 // MARK: - Attr
 
- struct Attr: Codable {
-     let attrFor: String?
+struct Attr: Codable {
+    let attrFor: String?
 
     enum CodingKeys: String, CodingKey {
         case attrFor = "for"
     }
 
-     init(attrFor: String?) {
+    init(attrFor: String?) {
         self.attrFor = attrFor
     }
 }
 
 // MARK: - OpensearchQuery
 
- struct OpensearchQuery: Codable {
-     let text: String?
-     let role: String?
-     let searchTerms: String?
-     let startPage: String?
+struct OpensearchQuery: Codable {
+    let text: String?
+    let role: String?
+    let searchTerms: String?
+    let startPage: String?
 
     enum CodingKeys: String, CodingKey {
         case text = "#text"
@@ -127,7 +125,7 @@ import Foundation
         case startPage
     }
 
-     init(text: String?, role: String?, searchTerms: String?, startPage: String?) {
+    init(text: String?, role: String?, searchTerms: String?, startPage: String?) {
         self.text = text
         self.role = role
         self.searchTerms = searchTerms

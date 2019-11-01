@@ -12,27 +12,27 @@ import Foundation
 
 // MARK: - SongsListElement
 
- typealias SongsList = [SongEntity]
- struct SongEntity: Codable {
-     let id: String?
-     let createdAt: String?
-     let userId: String?
-     let duration: String?
-     let permalink: String?
-     let SongsListDescription: String?
-     let genre: String?
-     let genreSlush: String?
-     let title: String?
-     let uri: String?
-     let permalinkUrl: String?
-     let artworkUrl: String?
-     let backgroundUrl: String?
-     let waveformData: String?
-     let waveformUrl: String?
-     let user: Artist?
-     let streamUrl: String?
-     let downloadUrl: String?
-     let favorited: Bool?
+typealias SongsList = [SongEntity]
+struct SongEntity: Codable {
+    let id: String?
+    let createdAt: String?
+    let userId: String?
+    let duration: String?
+    let permalink: String?
+    let SongsListDescription: String?
+    let genre: String?
+    let genreSlush: String?
+    let title: String?
+    let uri: String?
+    let permalinkUrl: String?
+    let artworkUrl: String?
+    let backgroundUrl: String?
+    let waveformData: String?
+    let waveformUrl: String?
+    let user: Artist?
+    let streamUrl: String?
+    let downloadUrl: String?
+    let favorited: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -56,7 +56,7 @@ import Foundation
         case favorited
     }
 
-     init(id: String?, createdAt: String?, userId: String?, duration: String?, permalink: String?, SongsListDescription: String?, genre: String?, genreSlush: String?, title: String?, uri: String?, permalinkUrl: String?, artworkUrl: String?, backgroundUrl: String?, waveformData: String?, waveformUrl: String?, user: Artist?, streamUrl: String?, downloadUrl: String?, favorited: Bool?) {
+    init(id: String?, createdAt: String?, userId: String?, duration: String?, permalink: String?, SongsListDescription: String?, genre: String?, genreSlush: String?, title: String?, uri: String?, permalinkUrl: String?, artworkUrl: String?, backgroundUrl: String?, waveformData: String?, waveformUrl: String?, user: Artist?, streamUrl: String?, downloadUrl: String?, favorited: Bool?) {
         self.id = id
         self.createdAt = createdAt
         self.userId = userId
@@ -79,7 +79,7 @@ import Foundation
         self.favorited = favorited
     }
 
-     init(id: String?, userId: String?, user: Artist?, streamUrl: String?) {
+    init(id: String?, userId: String?, user: Artist?, streamUrl: String?) {
         self.id = id
         createdAt = .none
         self.userId = userId
@@ -104,13 +104,13 @@ import Foundation
 
 // MARK: - User
 
- struct Artist: Codable {
-     let id: String?
-     let permalink: String?
-     let username: String?
-     let uri: String?
-     let permalinkUrl: String?
-     let avatarUrl: String?
+struct Artist: Codable {
+    let id: String?
+    let permalink: String?
+    let username: String?
+    let uri: String?
+    let permalinkUrl: String?
+    let avatarUrl: String?
 
     var songsCount: Int = 0
     enum CodingKeys: String, CodingKey {
@@ -122,7 +122,7 @@ import Foundation
         case avatarUrl = "avatar_url"
     }
 
-     init(id: String?, permalink: String?, username: String?, uri: String?, permalinkUrl: String?, avatarUrl: String?) {
+    init(id: String?, permalink: String?, username: String?, uri: String?, permalinkUrl: String?, avatarUrl: String?) {
         self.id = id
         self.permalink = permalink
         self.username = username

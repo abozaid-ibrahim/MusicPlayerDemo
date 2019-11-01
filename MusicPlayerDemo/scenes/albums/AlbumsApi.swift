@@ -10,39 +10,35 @@ import Foundation
 
 enum AlbumsApi {
     case albumsFor(artist: String)
-    case songs(artist:String?,album:String)
+    case songs(artist: String?, album: String)
 }
 
 extension AlbumsApi: RequestBuilder {
-    var parameters: [String : Any] {
+    var parameters: [String: Any] {
         switch self {
-        case .albumsFor(let prm):
+        case let .albumsFor(prm):
             return [
                 "method": "artist.gettopalbums",
                 "api_key": APIConstants.apiKey,
                 "format": "json",
-                "artist": prm
+                "artist": prm,
             ]
-            
-            
-        case .songs(let prm):
+
+        case let .songs(prm):
             return [
                 "method": "album.getinfo",
                 "api_key": APIConstants.apiKey,
                 "format": "json",
-                "album": prm.album
+                "album": prm.album,
             ]
         }
-        
     }
-    
+
     var baseURL: URL {
         return URL(string: APIConstants.baseURL)!
     }
-    
-   
+
     var method: HttpMethod {
         return .get
     }
-    
 }

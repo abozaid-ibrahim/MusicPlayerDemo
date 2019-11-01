@@ -13,13 +13,13 @@ final class AlbumsCoordinator: Coordinator {
     func start(completion: (() -> Void)?) {
         start(completion: completion, for: .none)
     }
-    
+
     private(set) weak var albumsController: AlbumsViewController?
     var nv: UINavigationController?
     init(_ nv: UINavigationController?) {
         self.nv = nv
     }
-    
+
     func start(completion: (() -> Void)?, for artist: Artist?) {
         let albumsController = AlbumsViewController()
         albumsController.title = artist == nil ? "Offline Albums" : artist?.name ?? ""
@@ -28,14 +28,15 @@ final class AlbumsCoordinator: Coordinator {
         nv?.pushViewController(albumsController, animated: true)
         completion?()
     }
-    func showTracks(of artist: Artist?,album:Album,dataType:ScreenDataType) {
+
+    func showTracks(of artist: Artist?, album: Album, dataType: ScreenDataType) {
         let songsVC = SongsViewController()
         songsVC.title = album.name
-        songsVC.viewModel = SongsListViewModel(album: album, artist: artist,type:dataType)
+        songsVC.viewModel = SongsListViewModel(album: album, artist: artist, type: dataType)
         nv?.pushViewController(songsVC, animated: true)
     }
+
     func finish(completion: (() -> Void)?) {
         completion?()
     }
 }
-
