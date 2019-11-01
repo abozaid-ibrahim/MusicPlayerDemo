@@ -20,6 +20,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         coordinator.start {
             self.window?.makeKeyAndVisible()
         }
+
         RealmDb().printConfigUrl()
         return true
     }

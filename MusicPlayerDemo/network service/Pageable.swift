@@ -11,12 +11,12 @@ import Foundation
 
 final class Page {
     var currentPage: Int = 1
-    var maxPages: Int = 1
+    var maxPages: Int = 2
     var countPerPage: Int = 15
     var isFetchingData = false
     var fetchedItemsCount = 0
     var shouldLoadMore: Bool {
-        (currentPage < maxPages) && (!isFetchingData)
+        (currentPage <= maxPages) && (!isFetchingData)
     }
 }
 

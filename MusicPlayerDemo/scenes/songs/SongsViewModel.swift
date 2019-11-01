@@ -49,7 +49,8 @@ final class SongsListViewModel: SongsViewModel {
     }
     private func loadOnlineData() {
         showProgress.onNext(true)
-        let result: Observable<AlbumTracksResponse?> = apiClient.getData(of: AlbumsApi.songs(artist: artist?.name, album: album.name ?? ""))
+        let api = AlbumsApi.songs(artist: artist?.name, album: album.name ?? "")
+        let result: Observable<AlbumTracksResponse?> = apiClient.getData(of: api)
         result.subscribe(onNext: { [unowned self] value in
             self.showProgress.onNext(false)
             self.albumTrack = value?.album

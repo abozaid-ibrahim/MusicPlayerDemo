@@ -30,6 +30,7 @@ extension AlbumsApi: RequestBuilder {
                 "api_key": APIConstants.apiKey,
                 "format": "json",
                 "album": prm.album,
+                "artist": prm.artist  ?? ""
             ]
         }
     }
