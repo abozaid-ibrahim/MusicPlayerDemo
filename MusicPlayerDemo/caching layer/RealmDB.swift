@@ -21,7 +21,8 @@ class RealmDb: DataBaseOperations {
                 try! self.realm?.write {
                     self.realm?.add(obj)
                 }
-                log(.info,"RLM \(obj.description) is saved")
+                log(.info,"RLM \(obj.classForCoder.className()) is saved open it ")
+                self.printConfigUrl()
             }
         }
     }
@@ -36,7 +37,7 @@ class RealmDb: DataBaseOperations {
         return realm?.objects(obj).map{$0} ?? []
     }
     func get(obj: Object.Type,filter key:String,value:String) -> Object? {
-        return realm?.objects(obj).filter("\(key) == \(value)").first.map{$0}
+        return realm?.objects(obj).filter("\(key) = '\(value)'").first.map{$0}
     }
     
     

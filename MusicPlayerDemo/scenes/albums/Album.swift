@@ -16,6 +16,9 @@ class Album:Object, Codable {
     @objc dynamic var playcount: Int = 0
     @objc dynamic var mbid: String? = .none
     @objc dynamic var url: String? = .none
+    override static func primaryKey() -> String? {
+        return "mbid"
+    }
     @objc dynamic var artist: ArtistEntity? = .none
     var image:List<Image>? = List<Image>()
 
