@@ -9,7 +9,7 @@
 import Foundation
 
 enum AlbumsApi {
-    case albumsFor(artist: String, page: Int, count: Int)
+    case albumsFor(artist: String)
     case songs(artist:String?,album:String)
 }
 
@@ -32,9 +32,7 @@ extension AlbumsApi: RequestBuilder {
                 "method": "artist.gettopalbums",
                 "api_key": APIConstants.apiKey,
                 "format": "json",
-                "artist": prm.artist,
-                "page": prm.page,
-                "count": prm.count
+                "artist": prm
                 ] as [String: Any]
             var items = [URLQueryItem]()
             var myURL = URLComponents(string: endpoint.absoluteString)

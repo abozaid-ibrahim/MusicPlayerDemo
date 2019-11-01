@@ -17,23 +17,18 @@ protocol AlbumsViewModel {
     var error: PublishSubject<Error> { get }
     func showSongsList(album: Album)
     func changeOfflineMode(for album:Album, index:Int)
-    var currentCount: Int { get }
 }
 
 final class AlbumsListViewModel: AlbumsViewModel {
     // MARK: private state
-
+    
     private let disposeBag = DisposeBag()
     private let apiClient: ApiClient
-    private var page = 1
-    private let countPerPage = 15
     private var currentArtist: Artist?
-    private var isFetchingData = false
-
+    private let repository = RealmDb()
     // MARK: Observers
-
+    
     let albums = BehaviorSubject<[Album]>(value: [])
-    var currentCount: Int = 0
     var showProgress = PublishSubject<Bool>()
     var error = PublishSubject<Error>()
     var coordinator:AlbumsCoordinator?
@@ -44,47 +39,51 @@ final class AlbumsListViewModel: AlbumsViewModel {
         self.currentArtist = artist
         self.coordinator = co
     }
-
+    
     /// load the data from the endpoint
     /// - Parameter showLoader: show indicator on screen to till user data is loading
     func loadData(showLoader: Bool = true) {
-        if self.isFetchingData {
-            return
+        if currentArtist == nil{
+            loadOfflineData(showLoader)
+        }else{
+            loadOnlineData(showLoader)
         }
-        self.isFetchingData = true
+    }
+    private func loadOfflineData(_ showLoader: Bool ){
+        let data  = repository.getAll(of: Album.self)
+        self.updateUIWithArtists(data as! [Album])
+        
+    }
+    private func loadOnlineData(_ showLoader: Bool){
         if showLoader {
             self.showProgress.onNext(true)
         }
-        let result :Observable<AlbumsResponse?> = apiClient.getData(of: AlbumsApi.albumsFor(artist: currentArtist?.name ?? "C", page: 0, count: 0))
+        let result :Observable<AlbumsResponse?> = apiClient.getData(of: AlbumsApi.albumsFor(artist: currentArtist?.name ?? ""))
         
         
-       result.subscribe(onNext: { [unowned self] value in
-        
-                
-        
-                if showLoader {
-                    self.showProgress.onNext(false)
-                }
-                self.isFetchingData = false
-                self.page += 1
-                self.updateUIWithArtists(value?.topalbums)
-
-            }, onError: { err in
+        result.subscribe(onNext: { [unowned self] value in
+            showLoader ? self.showProgress.onNext(false) : ()
+            self.updateUIWithArtists(value?.topalbums?.album ?? [])
+            }, onError: {[unowned self] err in
                 self.error.onNext(err)
-            }).disposed(by: self.disposeBag)
+        }).disposed(by: self.disposeBag)
     }
-
+    
     /// emit values to ui to fill the table view if the data is a littlet reload untill fill the table
-    private func updateUIWithArtists(_ albums:Topalbums?) {
-        self.albums.onNext(albums?.album ?? [])
-//        self.currentCount = artists.count
+    private func updateUIWithArtists(_ albums:[Album]) {
+        let sorted = albums.sorted(by: { $0.playcount > $1.playcount})
+        self.albums.onNext(sorted)
     }
     func changeOfflineMode(for album:Album, index:Int){
-        
+        //        if screenType == .online{
+        //            repository.delete(obj: album)
+        //        }else{
+        //            repository.save(obj: album)
+        //        }
     }
     func showSongsList(album: Album) {
         coordinator?.showTracks(of: currentArtist, album: album)
     }
- 
-   
+    
+    
 }

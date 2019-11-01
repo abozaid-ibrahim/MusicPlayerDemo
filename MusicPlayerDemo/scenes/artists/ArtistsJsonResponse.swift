@@ -88,20 +88,7 @@ import Foundation
 
 // MARK: - Image
 
- struct Image: Codable {
-     let text: String?
-     let size: Size?
 
-    enum CodingKeys: String, CodingKey {
-        case text = "#text"
-        case size
-    }
-
-     init(text: String?, size: Size?) {
-        self.text = text
-        self.size = size
-    }
-}
 
  enum Size: String, Codable {
     case extralarge

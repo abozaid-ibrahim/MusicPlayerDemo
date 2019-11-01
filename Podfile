@@ -5,7 +5,7 @@ target 'MusicPlayerDemo' do
 
 
 
-
+  pod 'RealmSwift'
   pod 'RxSwift'
   pod 'RxOptional'
   pod 'RxCocoa'

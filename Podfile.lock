@@ -4,6 +4,11 @@ PODS:
   - Kingfisher/Core (5.8.2)
   - Nimble (7.3.4)
   - Quick (2.2.0)
+  - Realm (3.20.0):
+    - Realm/Headers (= 3.20.0)
+  - Realm/Headers (3.20.0)
+  - RealmSwift (3.20.0):
+    - Realm (= 3.20.0)
   - RxBlocking (5.0.0):
     - RxSwift (~> 5)
   - RxCocoa (5.0.0):
@@ -41,6 +46,7 @@ DEPENDENCIES:
   - Kingfisher
   - Nimble
   - Quick
+  - RealmSwift
   - RxBlocking
   - RxCocoa
   - RxGesture
@@ -62,6 +68,8 @@ SPEC REPOS:
   trunk:
     - Nimble
     - Quick
+    - Realm
+    - RealmSwift
     - RxNimble
     - RxSwiftExt
     - RxTest
@@ -70,6 +78,8 @@ SPEC CHECKSUMS:
   Kingfisher: 3adc15096595f5aed800bb0d5cb757fc58b2d2dd
   Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
   Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
+  Realm: 8b2ca5bc6479a91f379b6b42b5922e396cd5ba5a
+  RealmSwift: 1949ef26a279e1845bd51d591b9103adfcd121df
   RxBlocking: c67185d26498ea3cbe3e121917c3c16739e43123
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxGesture: 0cd8e37ff9a266e1c31f46bcaed6de1c536bc81e
@@ -80,6 +90,6 @@ SPEC CHECKSUMS:
   RxSwiftExt: 0d2fd77523a169d1459be34961b996a194bdef0e
   RxTest: 0132f952a61da82d5233abedaa559df91e5330e5
 
-PODFILE CHECKSUM: 8cc789d31f300f3c641b44adc7bc9393e8c4df6f
+PODFILE CHECKSUM: 56351763c1e52c89118e6fb51f3c7f05824536dd
 
 COCOAPODS: 1.8.4
