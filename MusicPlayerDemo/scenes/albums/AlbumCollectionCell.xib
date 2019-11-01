@@ -27,13 +27,6 @@
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download" translatesAutoresizingMaskIntoConstraints="NO" id="QyQ-Pt-hzh">
-                        <rect key="frame" x="167" y="12" width="40" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="NQO-De-nON"/>
-                            <constraint firstAttribute="width" secondItem="QyQ-Pt-hzh" secondAttribute="height" id="dcj-bC-rIZ"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
             </view>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -43,9 +36,7 @@
                 <constraint firstItem="ojO-3Q-2vQ" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="LCT-lC-BpE"/>
                 <constraint firstItem="GCe-Qx-IPb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Lk0-XN-pgs"/>
                 <constraint firstAttribute="bottom" secondItem="GCe-Qx-IPb" secondAttribute="bottom" id="ORa-jq-B6s"/>
-                <constraint firstItem="QyQ-Pt-hzh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="Xpd-r2-NGA"/>
                 <constraint firstItem="ojO-3Q-2vQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="bTu-rf-78J"/>
-                <constraint firstAttribute="trailing" secondItem="QyQ-Pt-hzh" secondAttribute="trailing" constant="12" id="ddB-vv-eeV"/>
                 <constraint firstAttribute="trailing" secondItem="ojO-3Q-2vQ" secondAttribute="trailing" constant="8" id="hdw-Oe-Gh2"/>
                 <constraint firstItem="GCe-Qx-IPb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="lyr-oB-XcG"/>
             </constraints>
@@ -53,13 +44,9 @@
             <size key="customSize" width="219" height="240"/>
             <connections>
                 <outlet property="coverImageView" destination="GCe-Qx-IPb" id="DzG-3R-9E3"/>
-                <outlet property="offlineAlbums" destination="QyQ-Pt-hzh" id="HPU-8U-SqN"/>
                 <outlet property="titleLbl" destination="ojO-3Q-2vQ" id="dzp-mh-bGZ"/>
             </connections>
             <point key="canvasLocation" x="258.69565217391306" y="208.25892857142856"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="download" width="32" height="32"/>
-    </resources>
 </document>

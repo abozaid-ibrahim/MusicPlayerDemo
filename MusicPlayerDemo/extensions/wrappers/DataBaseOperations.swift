@@ -12,4 +12,5 @@ protocol DataBaseOperations {
     func save(obj:Cachable)
     func getAll(of obj: Cachable.Type)->[Cachable]
     func delete(obj:Cachable)
+    func get(obj: Cachable.Type,filter key:String,value:String) -> Cachable?
 }

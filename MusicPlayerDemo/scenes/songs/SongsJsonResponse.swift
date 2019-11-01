@@ -7,33 +7,29 @@
 //
 
 import Foundation
-
+import Realm
+import RealmSwift
 
 // MARK: - AlbumTracksResponse
 struct AlbumTracksResponse: Codable {
-    let album: SongAlbum?
-    
-    
-    init(album: SongAlbum?) {
+    let album: AlbumTracks?
+    init(album: AlbumTracks?) {
         self.album = album
     }
 }
 
 // MARK: - Album
-struct SongAlbum: Codable {
-    let name: String?
-    let artist: String?
-    let mbid: String?
-    let url: String?
-    let listeners: String?
-    let playcount: String?
-    let tracks: Tracks?
-    let tags: Tags?
-    let wiki: Wiki?
+class AlbumTracks:Object, Codable {
+    @objc dynamic var name: String?
+    @objc dynamic var artist: String?
+    @objc dynamic var mbid: String?
+    @objc dynamic var url: String?
+    @objc dynamic var listeners: String?
+    @objc dynamic var playcount: String?
+    @objc dynamic var tracks: Tracks?
     
-    
-    
-    init(name: String?, artist: String?, mbid: String?, url: String?,  listeners: String?, playcount: String?, tracks: Tracks?, tags: Tags?, wiki: Wiki?) {
+    convenience init(name: String?, artist: String?, mbid: String?, url: String?,  listeners: String?, playcount: String?, tracks: Tracks?) {
+        self.init()
         self.name = name
         self.artist = artist
         self.mbid = mbid
@@ -41,120 +37,31 @@ struct SongAlbum: Codable {
         self.listeners = listeners
         self.playcount = playcount
         self.tracks = tracks
-        self.tags = tags
-        self.wiki = wiki
-    }
-}
-
-
-// MARK: - Tags
-struct Tags: Codable {
-    let tag: [Tag]?
-    
-    
-    init(tag: [Tag]?) {
-        self.tag = tag
-    }
-}
-
-// MARK: - Tag
-struct Tag: Codable {
-    let name: String?
-    let url: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case url = "url"
-    }
-    
-    init(name: String?, url: String?) {
-        self.name = name
-        self.url = url
     }
 }
 
 // MARK: - Tracks
-struct Tracks: Codable {
-    let track: [Track]?
-    
-    enum CodingKeys: String, CodingKey {
-        case track = "track"
-    }
-    
-    init(track: [Track]?) {
+class Tracks: Object ,Codable {
+    var track:List<Track>? = List<Track>()
+    convenience init(track: List <Track>?) {
+        self.init()
         self.track = track
     }
 }
 
 // MARK: - Track
-struct Track: Codable {
-    let name: String?
-     let image: [SongImage]?
-    let url: String?
-    let duration: String?
-    let attr: Attr?
-    let streamable: Streamable?
-    let artist: ArtistEntity?
+class Track: Object, Codable {
+    @objc dynamic var name: String? = .none
+    var image:List<Image>? = List<Image>()
+    @objc dynamic var url: String? = .none
+    @objc dynamic var duration: String? = .none
     
-    enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case url = "url"
-        case duration = "duration"
-        case attr = "@attr"
-        case streamable = "streamable"
-        case artist = "artist"
-        case image = "image"
-    }
-    
-    init(name: String?, image:[SongImage]?,url: String?, duration: String?, attr: Attr?, streamable: Streamable?, artist: ArtistEntity?) {
+    convenience init(name: String?, image:List<Image>?,url: String?, duration: String?) {
+        self.init()
         self.name = name
         self.url = url
         self.duration = duration
-        self.attr = attr
-        self.streamable = streamable
-        self.artist = artist
         self.image = image
-    }
-}
-// MARK: - Image
- struct SongImage: Codable {
-     let text: String?
-
-    
-    enum CodingKeys: String, CodingKey {
-        case text = "#text"
-    }
-
-     init(text: String?) {
-        self.text = text
-//        self.size = size
-    }
-}
-// MARK: - Streamable
-struct Streamable: Codable {
-    let text: String?
-    let fulltrack: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case text = "#text"
-        case fulltrack = "fulltrack"
-    }
-    
-    init(text: String?, fulltrack: String?) {
-        self.text = text
-        self.fulltrack = fulltrack
-    }
-}
-
-// MARK: - Wiki
-struct Wiki: Codable {
-    let published: String?
-    let summary: String?
-    let content: String?
-    init(published: String?, summary: String?, content: String?) {
-        self.published = published
-        self.summary = summary
-        self.content = content
     }
 }
 

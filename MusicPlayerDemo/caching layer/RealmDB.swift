@@ -11,8 +11,6 @@ import RealmSwift
 import Realm
 class RealmDb: DataBaseOperations {
     typealias Cachable = Object
-    
-    
     lazy var realm = try? Realm()
     func printConfigUrl(){
         log(.info,"Realm is located at:", realm?.configuration.fileURL ?? "")
@@ -25,11 +23,6 @@ class RealmDb: DataBaseOperations {
                 }
             }
         }
-        
-        
-        
-        
-        
     }
     
     func delete(obj: Object) {
@@ -39,6 +32,9 @@ class RealmDb: DataBaseOperations {
     }
     func getAll(of obj: Object.Type) -> [Object] {
         return realm?.objects(obj).map{$0} ?? []
+    }
+    func get(obj: Object.Type,filter key:String,value:String) -> Object? {
+        return realm?.objects(obj).filter("\(key) == \(value)").first.map{$0}
     }
     
     

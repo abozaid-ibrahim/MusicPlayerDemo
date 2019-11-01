@@ -53,8 +53,6 @@ final class AlbumsViewController: UIViewController, Loadable {
         viewModel.albums
             .bind(to: albumsCollectionView.rx.items(cellIdentifier: cellId, cellType: AlbumCollectionCell.self)) { index, model, cell in
                 cell.setData(model)
-                cell.onClickOffline.map{_ in (model,index)}
-                    .bind(onNext: self.viewModel.changeOfflineMode).disposed(by: cell.disposeBag)
         }.disposed(by: disposeBag)
         
         albumsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)

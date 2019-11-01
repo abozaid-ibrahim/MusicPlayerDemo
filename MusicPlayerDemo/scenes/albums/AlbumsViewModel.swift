@@ -16,7 +16,6 @@ protocol AlbumsViewModel {
     var albums: BehaviorSubject<[Album]> { get }
     var error: PublishSubject<Error> { get }
     func showSongsList(album: Album)
-    func changeOfflineMode(for album:Album, index:Int)
 }
 
 final class AlbumsListViewModel: AlbumsViewModel {
@@ -25,7 +24,7 @@ final class AlbumsListViewModel: AlbumsViewModel {
     private let disposeBag = DisposeBag()
     private let apiClient: ApiClient
     private var currentArtist: Artist?
-    private let repository = RealmDb()
+    private let repository: RealmDb
     // MARK: Observers
     
     let albums = BehaviorSubject<[Album]>(value: [])
@@ -34,20 +33,22 @@ final class AlbumsListViewModel: AlbumsViewModel {
     var coordinator:AlbumsCoordinator?
     /// initializier
     /// - Parameter apiClient: network handler
-    init(apiClient: ApiClient = HTTPClient(),artist:Artist? = .none,co:AlbumsCoordinator) {
+    init(apiClient: ApiClient = HTTPClient(),
+         artist:Artist? = .none,
+         co:AlbumsCoordinator,
+         db:RealmDb = RealmDb()) {
         self.apiClient = apiClient
         self.currentArtist = artist
         self.coordinator = co
+        self.repository = db
     }
-    
+    var screenDataType:ScreenDataType{
+        return currentArtist == nil ? .offline : .online
+    }
     /// load the data from the endpoint
     /// - Parameter showLoader: show indicator on screen to till user data is loading
     func loadData(showLoader: Bool = true) {
-        if currentArtist == nil{
-            loadOfflineData(showLoader)
-        }else{
-            loadOnlineData(showLoader)
-        }
+        screenDataType == .offline ? loadOfflineData(showLoader) : loadOnlineData(showLoader)
     }
     private func loadOfflineData(_ showLoader: Bool ){
         let data  = repository.getAll(of: Album.self)
@@ -55,12 +56,8 @@ final class AlbumsListViewModel: AlbumsViewModel {
         
     }
     private func loadOnlineData(_ showLoader: Bool){
-        if showLoader {
-            self.showProgress.onNext(true)
-        }
+        showLoader ? self.showProgress.onNext(true) : ()
         let result :Observable<AlbumsResponse?> = apiClient.getData(of: AlbumsApi.albumsFor(artist: currentArtist?.name ?? ""))
-        
-        
         result.subscribe(onNext: { [unowned self] value in
             showLoader ? self.showProgress.onNext(false) : ()
             self.updateUIWithArtists(value?.topalbums?.album ?? [])
@@ -74,15 +71,9 @@ final class AlbumsListViewModel: AlbumsViewModel {
         let sorted = albums.sorted(by: { $0.playcount > $1.playcount})
         self.albums.onNext(sorted)
     }
-    func changeOfflineMode(for album:Album, index:Int){
-        //        if screenType == .online{
-        //            repository.delete(obj: album)
-        //        }else{
-        //            repository.save(obj: album)
-        //        }
-    }
+    
     func showSongsList(album: Album) {
-        coordinator?.showTracks(of: currentArtist, album: album)
+        coordinator?.showTracks(of: currentArtist, album: album, dataType: screenDataType)
     }
     
     

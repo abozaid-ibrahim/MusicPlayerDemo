@@ -28,13 +28,14 @@ final class AlbumsCoordinator: Coordinator {
         nv?.pushViewController(albumsController, animated: true)
         completion?()
     }
-    func showTracks(of artist: Artist?,album:Album) {
+    func showTracks(of artist: Artist?,album:Album,dataType:ScreenDataType) {
         let songsVC = SongsViewController()
         songsVC.title = album.name
-        songsVC.viewModel = SongsListViewModel(album: album, artist: artist)
+        songsVC.viewModel = SongsListViewModel(album: album, artist: artist,type:dataType)
         nv?.pushViewController(songsVC, animated: true)
     }
     func finish(completion: (() -> Void)?) {
         completion?()
     }
 }
+
