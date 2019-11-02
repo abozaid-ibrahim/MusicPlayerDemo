@@ -14,7 +14,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         let _ = AppNavigator(window: window!)
-        RealmDb().printConfigUrl()
         return true
     }
 }

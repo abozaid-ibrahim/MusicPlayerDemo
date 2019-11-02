@@ -220,15 +220,10 @@
 		6C60E49D2351B85B007DDCF6 /* MusicPlayerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				6C558DA0236C4A840031ABD3 /* caching layer */,
-				6C60E4FC235270AF007DDCF6 /* mediaplayer */,
-				6C60E4DB2351C59E007DDCF6 /* network service */,
+				6CD27256236D96100067B94D /* modules */,
 				6C60E4D22351C350007DDCF6 /* extensions */,
 				6C60E4D02351C33E007DDCF6 /* scenes */,
 				6C60E49E2351B85B007DDCF6 /* AppDelegate.swift */,
-				6C60E4E62351D49D007DDCF6 /* Destinations.swift */,
-				6C747C992368C8E900E33C43 /* Navigator.swift */,
-				6C60E4A72351B85B007DDCF6 /* Assets.xcassets */,
 				6C60E4A92351B85B007DDCF6 /* LaunchScreen.storyboard */,
 				6C60E4AC2351B85B007DDCF6 /* Info.plist */,
 			);
@@ -248,8 +243,8 @@
 		6C60E4D02351C33E007DDCF6 /* scenes */ = {
 			isa = PBXGroup;
 			children = (
-				6C60E4D32351C35F007DDCF6 /* artists */,
 				6CB30713236898A4002DC96C /* albums */,
+				6C60E4D32351C35F007DDCF6 /* artists */,
 				6C60E4F12352693C007DDCF6 /* songs */,
 				6C60E4D12351C342007DDCF6 /* mini player */,
 			);
@@ -259,6 +254,7 @@
 		6C60E4D12351C342007DDCF6 /* mini player */ = {
 			isa = PBXGroup;
 			children = (
+				6C60E4A72351B85B007DDCF6 /* Assets.xcassets */,
 				6C60E4C42351B9D6007DDCF6 /* MiniPlayerViewController.swift */,
 				6C60E4C52351B9D6007DDCF6 /* MiniPlayerViewController.xib */,
 			);
@@ -356,6 +352,26 @@
 				6C558D9E236C38FF0031ABD3 /* Album.swift */,
 			);
 			path = albums;
+			sourceTree = "<group>";
+		};
+		6CD27256236D96100067B94D /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				6CD27257236D961E0067B94D /* navigation */,
+				6C558DA0236C4A840031ABD3 /* caching layer */,
+				6C60E4FC235270AF007DDCF6 /* mediaplayer */,
+				6C60E4DB2351C59E007DDCF6 /* network service */,
+			);
+			path = modules;
+			sourceTree = "<group>";
+		};
+		6CD27257236D961E0067B94D /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+				6C60E4E62351D49D007DDCF6 /* Destinations.swift */,
+				6C747C992368C8E900E33C43 /* Navigator.swift */,
+			);
+			path = navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
