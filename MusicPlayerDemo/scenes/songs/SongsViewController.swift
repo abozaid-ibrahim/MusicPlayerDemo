@@ -43,7 +43,6 @@ private extension SongsViewController {
 
     func configureTableView() {
         tableView.registerNib(SongTableCell.self)
-        tableView.seperatorStyle()
     }
 
     func bindToViewModel() {
