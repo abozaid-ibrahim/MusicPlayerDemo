@@ -20,9 +20,9 @@ final class AudioPlayer: NSObject {
     var state = BehaviorSubject<State>(value: .sleep)
     private var localState: State = .sleep
     static let shared = AudioPlayer()
-
+    
     //    MARK: - Action Methods
-
+    
     /// initialize the audio palyer and set default values of the player attributes
     /// - Parameter list: list of songs model
     /// - Parameter startFrom: the index that should start playing the song from
@@ -42,18 +42,18 @@ final class AudioPlayer: NSObject {
             state.onNext(.error(error.localizedDescription))
         }
     }
-
+    
     /// stop playing the current song
     func stopAudio() {
         audioPlayer?.pause()
         state.onNext(.paused(item: list[currentSongIndex]))
     }
-
+    
     /// update the ui with the new state of the app
     private func notifyUIWithPlayingState() {
         state.onNext(.playing(item: list[currentSongIndex]))
     }
-
+    
     func resume() {
         guard items.count > 0 else {
             return
@@ -61,7 +61,7 @@ final class AudioPlayer: NSObject {
         audioPlayer?.play()
         notifyUIWithPlayingState()
     }
-
+    
     /// play the next song
     func playNext() {
         guard (currentSongIndex + 1) < items.count else {
@@ -72,7 +72,7 @@ final class AudioPlayer: NSObject {
         audioPlayer?.play()
         notifyUIWithPlayingState()
     }
-
+    
     /// play backword song
     func playPrev() {
         guard (currentSongIndex - 1) >= 0 else {
@@ -83,7 +83,7 @@ final class AudioPlayer: NSObject {
         audioPlayer?.play()
         notifyUIWithPlayingState()
     }
-
+    
     /// play or pause according to the current player state
     /// - Parameter action: the tap gesture event from the ui
     func playPause(_ action: Observable<UITapGestureRecognizer>) {
@@ -93,10 +93,10 @@ final class AudioPlayer: NSObject {
             } else if case .paused = state {
                 self.resume()
             } else {}
-
+            
         }).disposed(by: disposeBag)
     }
-
+    
     /// enum to define the current state of the player
     enum State: Equatable {
         case playing(item: SongEntity), paused(item: SongEntity), sleep, error(String)
@@ -116,7 +116,9 @@ final class AudioPlayer: NSObject {
     }
 }
 
-struct SongEntity {
-    var streamUrl: String?
+struct SongEntity {    
+    let id:String
     let title: String
+    var streamUrl: String?
+    
 }

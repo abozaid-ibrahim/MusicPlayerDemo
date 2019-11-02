@@ -9,7 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
-final class RealmDb: DataBaseOperations {
+class RealmDb: DataBaseOperations {
     typealias Cachable = Object
     private let config: Realm.Configuration = {
         var config = Realm.Configuration()

@@ -68,10 +68,10 @@ final class MiniPlayerTests: QuickSpec {
 }
 
 struct MocksRepo{
-    static let songs = [SongEntity.init(id: "11", userId: "11", user: nil, streamUrl: "http:ww"),
-                        SongEntity.init(id: "12", userId: "11", user: nil, streamUrl: "http:ww"),
-                        SongEntity.init(id: "13", userId: "11", user: nil, streamUrl: "http:ww"),
-                        SongEntity.init(id: "14", userId: "11", user: nil, streamUrl: nil),
-                        SongEntity.init(id: "15", userId: "11", user: nil, streamUrl: "http:ww")
+    static let songs = [SongEntity(id: "11", title: "title", streamUrl: "http://hhh.com"),
+                        SongEntity(id: "12", title: "title", streamUrl: "http://hhh.com"),
+                        SongEntity(id: "13", title: "title", streamUrl: "http://hhh.com"),
+                        SongEntity(id: "14", title: "title", streamUrl: "http://hhh.com"),
+                        SongEntity(id: "15", title: "title", streamUrl: "http://hhh.com")
     ]
 }
