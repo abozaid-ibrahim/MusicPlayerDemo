@@ -16,7 +16,7 @@ final class SongTableCell: UITableViewCell {
 
     func setData(_ model: Track) {
         songNameLbl.text = model.name
-        durationLbl.text = model.duration
+        durationLbl.text = (model.duration ?? "0").songDurationFormat
     }
 
     override func awakeFromNib() {
