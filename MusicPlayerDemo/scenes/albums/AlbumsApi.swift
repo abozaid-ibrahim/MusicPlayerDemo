@@ -13,14 +13,14 @@ enum AlbumsApi {
 }
 
 extension AlbumsApi: RequestBuilder {
-    
     var baseURL: URL {
         return URL(string: APIConstants.baseURL)!
     }
-    
+
     var method: HttpMethod {
         return .get
     }
+
     var parameters: [String: Any] {
         switch self {
         case let .albumsFor(prm):
@@ -28,14 +28,13 @@ extension AlbumsApi: RequestBuilder {
                     "api_key": APIConstants.apiKey,
                     "format": "json",
                     "artist": prm]
-            
+
         case let .songs(prm):
             return ["method": "album.getinfo",
                     "api_key": APIConstants.apiKey,
                     "format": "json",
                     "album": prm.album,
-                    "artist": prm.artist  ?? ""]
+                    "artist": prm.artist ?? ""]
         }
     }
-    
 }

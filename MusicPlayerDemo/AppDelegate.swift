@@ -13,7 +13,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let _ = AppNavigator(window: window!)
+        _ = AppNavigator(window: window!)
         return true
     }
 }

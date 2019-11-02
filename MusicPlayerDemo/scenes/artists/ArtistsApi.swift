@@ -13,14 +13,14 @@ enum ArtistsApi {
 }
 
 extension ArtistsApi: RequestBuilder {
-    
     var baseURL: URL {
         return URL(string: APIConstants.baseURL)!
     }
-    
+
     var method: HttpMethod {
         return .get
     }
+
     var parameters: [String: Any] {
         switch self {
         case let .searchFor(prm):
@@ -32,5 +32,4 @@ extension ArtistsApi: RequestBuilder {
                     "page": prm.page]
         }
     }
-    
 }

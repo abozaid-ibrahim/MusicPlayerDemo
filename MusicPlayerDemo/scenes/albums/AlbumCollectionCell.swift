@@ -13,7 +13,7 @@ final class AlbumCollectionCell: UICollectionViewCell {
     @IBOutlet private var titleLbl: UILabel!
     @IBOutlet private var coverImageView: UIImageView!
     private(set) var disposeBag = DisposeBag()
-    
+
     func setData(_ model: Album) {
         coverImageView.setImage(with: model.image?.first?.text)
         titleLbl.text = model.name

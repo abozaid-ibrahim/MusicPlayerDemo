@@ -1,4 +1,5 @@
 //
+import Foundation
 //  Navigator.swift
 //  MusicPlayerDemo
 //
@@ -6,7 +7,6 @@
 //  Copyright © 2019 abuzeid. All rights reserved.
 //
 import UIKit
-import Foundation
 
 protocol Navigator {
     func push(_ dest: Destination)
@@ -18,28 +18,25 @@ final class AppNavigator: Navigator {
     private static var rootController: UINavigationController!
     init(window: UIWindow) {
         AppNavigator.rootController = UINavigationController(rootViewController: Destination.albums(artist: nil).controller())
-        window.rootViewController =  AppNavigator.rootController
+        window.rootViewController = AppNavigator.rootController
         window.makeKeyAndVisible()
     }
-    
+
     init() throws {
         if AppNavigator.rootController == nil {
             throw NavigatorError.noRoot
         }
     }
-    
+
     func present(_ dest: Destination) {
         AppNavigator.rootController.present(dest.controller(), animated: true, completion: nil)
     }
+
     func push(_ dest: Destination) {
         AppNavigator.rootController.pushViewController(dest.controller(), animated: true)
     }
-    
 }
 
 enum NavigatorError: Error {
     case noRoot
 }
-
-
-

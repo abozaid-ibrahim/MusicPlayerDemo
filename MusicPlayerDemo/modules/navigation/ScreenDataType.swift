@@ -8,9 +8,9 @@
 
 import Foundation
 
-enum ScreenDataType:Equatable {
+enum ScreenDataType: Equatable {
     case offline, online
-    static public func ==(lhs: ScreenDataType, rhs: ScreenDataType) -> Bool {
+    public static func == (lhs: ScreenDataType, rhs: ScreenDataType) -> Bool {
         switch (lhs, rhs) {
         case (.offline, .offline),
              (.online, .online):
