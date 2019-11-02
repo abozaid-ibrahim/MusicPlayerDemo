@@ -8,7 +8,6 @@
 
 import RxSwift
 import UIKit
-/// list of artists
 final class ArtistsViewController: UIViewController, Loadable {
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var errorLbl: UILabel!

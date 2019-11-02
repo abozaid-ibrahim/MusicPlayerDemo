@@ -20,26 +20,24 @@ final class AlbumsViewModelTests: QuickSpec {
     override func spec() {
         describe("Albums ViewModel") {
             context("show list of albums from online api") {
-                var player: AudioPlayer!
                 var schedular: TestScheduler!
                 var viewModel: AlbumsListViewModel!
-                var stateObserver: TestableObserver<AudioPlayer.State>!
+                var albumsObserver: TestableObserver<[Album]>!
                 var disposeBag = DisposeBag()
                 beforeEach {
-                    player = AudioPlayer()
                     schedular = TestScheduler(initialClock: 0)
                      viewModel =  AlbumsListViewModel(apiClient: SuccessMockedApi(), artist: nil)
-                    stateObserver = schedular.createObserver(AudioPlayer.State.self)
+                    albumsObserver = schedular.createObserver([Album].self)
                     disposeBag = DisposeBag()
                 }
                 it("update ui with list of artists") {
-//                    viewModel =  AlbumsListViewModel(apiClient: SuccessMockedApi(), artist: nil)
-//                    player.state.bind(to: stateObserver).disposed(by: disposeBag)
-//                    player.playAudio(form: MocksRepo.songs)
-//                    schedular.start()
-//                    expect(stateObserver.events)
-//                        .to(equal([Recorded.next(0, .sleep),
-//                                   Recorded.next(0, AudioPlayer.State.playing(item: MocksRepo.songs.first!))]))
+                    //artist == nil datasoruce is offline
+                    viewModel =  AlbumsListViewModel(apiClient: SuccessMockedApi(), artist: nil,db: MockedDB() )
+                    viewModel.albums.bind(to: albumsObserver).disposed(by: disposeBag)
+                    schedular.start()
+                    expect(albumsObserver.events)
+                        .to(equal([Recorded.next(0, Album()),
+                                   Recorded.next(0, Album())]))
                 }
                 it("show error if we have") {
 //                    player.state.bind(to: stateObserver).disposed(by: disposeBag)
@@ -73,6 +71,17 @@ final class AlbumsViewModelTests: QuickSpec {
 }
 class SuccessMockedApi:ApiClient{
     func getData<T>(of request: RequestBuilder) -> Observable<T?> where T : Decodable {
-        return
+
+            return Observable.create { observer in
+                let x = AlbumsResponse.init(topalbums: nil)
+                observer.onNext(x)
+                return Disposables.create()
+            }
+        }
+}
+class MockedDB :DataBaseOperations{
+    func getAll(of obj: MockedDB.Cachable.Type) -> [MockedDB.Cachable] {
+        return [Album(),Album()]
     }
+    
 }

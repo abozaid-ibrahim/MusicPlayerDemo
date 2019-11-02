@@ -60,6 +60,7 @@ final class SongsListViewModel: SongsViewModel {
             if let obj = self.albumTrack {
                 repository.delete(obj: obj)
             }
+            try? AppNavigator().back()
         } else {
             repository.save(obj: album)
             if let obj = self.albumTrack {

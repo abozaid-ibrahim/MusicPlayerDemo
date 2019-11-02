@@ -31,7 +31,9 @@ final class AppNavigator: Navigator {
     func present(_ dest: Destination) {
         AppNavigator.rootController.present(dest.controller(), animated: true, completion: nil)
     }
-
+    func back() {
+           AppNavigator.rootController.popViewController(animated: true)
+       }
     func push(_ dest: Destination) {
         AppNavigator.rootController.pushViewController(dest.controller(), animated: true)
     }

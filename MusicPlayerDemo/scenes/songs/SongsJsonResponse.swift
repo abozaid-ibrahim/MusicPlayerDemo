@@ -56,15 +56,13 @@ class Tracks: Object, Codable {
 
 class Track: Object, Codable {
     @objc dynamic var name: String? = .none
-    var image: List<Image>? = List<Image>()
     @objc dynamic var url: String? = .none
     @objc dynamic var duration: String? = .none
 
-    convenience init(name: String?, image: List<Image>?, url: String?, duration: String?) {
+    convenience init(name: String?,url: String?, duration: String?) {
         self.init()
         self.name = name
         self.url = url
         self.duration = duration
-        self.image = image
     }
 }
