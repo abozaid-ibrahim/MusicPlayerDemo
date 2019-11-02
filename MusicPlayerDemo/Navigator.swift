@@ -17,7 +17,7 @@ protocol Navigator {
 final class AppNavigator: Navigator {
     private static var rootController: UINavigationController!
     init(window: UIWindow) {
-        AppNavigator.rootController = UINavigationController(rootViewController: Destination.main.controller())
+        AppNavigator.rootController = UINavigationController(rootViewController: Destination.albums(artist: nil).controller())
         window.rootViewController =  AppNavigator.rootController
         window.makeKeyAndVisible()
     }

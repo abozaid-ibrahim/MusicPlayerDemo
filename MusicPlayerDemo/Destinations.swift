@@ -9,17 +9,11 @@
 import Foundation
 import UIKit
 enum Destination {
-    case main,
-    albums(artist:Artist),
+    case albums(artist:Artist?),
     albumTracks(artist:Artist?,album:Album,dataType:ScreenDataType)
     
     func controller() -> UIViewController {
         switch self {
-        case .main:
-            let main = MainViewController()
-            setMainContainer(mainController: main)
-            
-            return main
         case .albums(let artist):
             return getAlbums(with: artist)
             
@@ -45,11 +39,5 @@ extension Destination{
         return albumsController
     }
     
-    private func setMainContainer(mainController:MainViewController) {
-        let navigationController = UINavigationController(rootViewController: getAlbums(with: nil))
-        mainController.addChild(navigationController)
-        mainController.loadViewIfNeeded()
-        mainController.addToMainContainer(navigationController.view)
-        navigationController.view.equalToSuperViewEdges()
-    }
+  
 }

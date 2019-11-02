@@ -25,10 +25,10 @@ final class AlbumsViewController: UIViewController, Loadable {
     }
     
     private lazy var results: ArtistsViewController = {
-           let artistsController = ArtistsViewController()
-           artistsController.title = "Your Albums"
+        let artistsController = ArtistsViewController()
+        artistsController.title = "Artists"
         artistsController.viewModel = ArtistsListViewModel()
-           return artistsController
+        return artistsController
     }()
     
     private func showAlbumsFor(artist: Artist) {
@@ -54,7 +54,7 @@ final class AlbumsViewController: UIViewController, Loadable {
         viewModel.showProgress
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: showLoading(show:)).disposed(by: disposeBag)
-        //set tableview
+        //set collectionview
         viewModel.albums
             .bind(to: albumsCollectionView.rx.items(cellIdentifier: cellId, cellType: AlbumCollectionCell.self)) { _, model, cell in
                 cell.setData(model)
