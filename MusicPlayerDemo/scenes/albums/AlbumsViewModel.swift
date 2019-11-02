@@ -19,10 +19,7 @@ protocol AlbumsViewModel {
     func showAlbums(of artist: Artist)
     func loadData(showLoader: Bool)
 }
-//@available(iOS 13.0.0, *)
-//struct X<T>{
-//    var t: some DataBaseOperations
-//}
+
 final class AlbumsListViewModel: AlbumsViewModel {
     // MARK: private state
 
