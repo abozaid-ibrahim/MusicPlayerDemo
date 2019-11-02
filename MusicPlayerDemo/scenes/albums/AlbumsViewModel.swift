@@ -11,14 +11,20 @@ import RxOptional
 import RxSwift
 
 protocol AlbumsViewModel {
-    func loadData(showLoader: Bool)
     var showProgress: PublishSubject<Bool> { get }
     var albums: BehaviorSubject<[Album]> { get }
     var error: PublishSubject<Error> { get }
     func showSongsList(album: Album)
+    func showAlbums(of artist:Artist)
+    func loadData(showLoader: Bool)
+
 }
 
 final class AlbumsListViewModel: AlbumsViewModel {
+    func showAlbums(of artist: Artist) {
+        try? AppNavigator().push(.albums(artist: artist))
+    }
+    
     // MARK: private state
 
     private let disposeBag = DisposeBag()
@@ -31,16 +37,14 @@ final class AlbumsListViewModel: AlbumsViewModel {
     let albums = BehaviorSubject<[Album]>(value: [])
     var showProgress = PublishSubject<Bool>()
     var error = PublishSubject<Error>()
-    var coordinator: AlbumsCoordinator?
     /// initializier
     /// - Parameter apiClient: network handler
     init(apiClient: ApiClient = HTTPClient(),
          artist: Artist? = .none,
-         co: AlbumsCoordinator,
+       
          db: RealmDb = RealmDb()) {
         self.apiClient = apiClient
         currentArtist = artist
-        coordinator = co
         repository = db
     }
 
@@ -77,6 +81,6 @@ final class AlbumsListViewModel: AlbumsViewModel {
     }
 
     func showSongsList(album: Album) {
-        coordinator?.showTracks(of: currentArtist, album: album, dataType: screenDataType)
+//        coordinator?.start()// showTracks(of: currentArtist, album: album, dataType: screenDataType)
     }
 }

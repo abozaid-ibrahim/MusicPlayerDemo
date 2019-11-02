@@ -16,6 +16,7 @@ protocol ArtistsViewModel {
     var error: PublishSubject<Error> { get }
     var textToSearch: BehaviorSubject<String?> { get }
     func loadCells(for indexPaths: [IndexPath])
+    func showAlbum(of artist:Artist)
 }
 
 final class ArtistsListViewModel: ArtistsViewModel {
@@ -28,7 +29,6 @@ final class ArtistsListViewModel: ArtistsViewModel {
     private var currentUser: Artist?
     private var page = Page()
     private var artistsListSubj = PublishSubject<[Artist]>()
-
     // MARK: Observers
 
     var artistsList: Observable<[Artist]> {
@@ -44,6 +44,11 @@ final class ArtistsListViewModel: ArtistsViewModel {
         textToSearch
             .throttle(.milliseconds(500), scheduler: MainScheduler.asyncInstance)
             .bind(onNext: search(for:)).disposed(by: disposeBag)
+    }
+
+    func showAlbum(of artist:Artist){
+        try? AppNavigator().push(.albums(artist: artist))
+        
     }
 
     

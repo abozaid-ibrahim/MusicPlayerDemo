@@ -14,7 +14,7 @@ import UIKit
 final class SongsViewController: UIViewController, Loadable {
     @IBOutlet private var tableView: UITableView!
     private let disposeBag = DisposeBag()
-    var viewModel: SongsListViewModel!
+    var viewModel: SongsViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +25,16 @@ final class SongsViewController: UIViewController, Loadable {
     }
 
     private func addSaveBarButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: viewModel, action: #selector(viewModel.changeOfflineMode(sender:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onBarButtonClicked(s:)))
         viewModel.isCachedState
             .map { $0 ? "Delete" : "Save" }
+        .debug()
             .bind(to: navigationItem.rightBarButtonItem!.rx.title)
             .disposed(by: disposeBag)
     }
-
+    @objc private func onBarButtonClicked(s:Any){
+        viewModel.changeOfflineMode()
+    }
     private func configureTableView() {
         tableView.registerNib(SongTableCell.self)
         tableView.seperatorStyle()

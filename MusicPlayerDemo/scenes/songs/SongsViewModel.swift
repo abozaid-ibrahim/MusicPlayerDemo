@@ -9,8 +9,16 @@
 import Foundation
 import RxSwift
 
-protocol SongsViewModel {
+protocol SongsViewModel:class {
+    var tracksList: BehaviorSubject<[Track]>{get}
+    var showProgress: PublishSubject<Bool>{get}
+    var error: PublishSubject<Error>{get}
+    var isCachedState: BehaviorSubject<Bool>{get}
+    
     func playSong(track: Track)
+    func loadData()
+    func changeOfflineMode()
+    
 }
 
 /// viewModel of songs list,
@@ -22,15 +30,15 @@ final class SongsListViewModel: SongsViewModel {
     private let repository: RealmDb
     private let screenType: ScreenDataType
     private var albumTrack: AlbumTracks?
-    private var isCached = false { didSet { isCachedState.onNext(isCached) } }
-
+    private var isCached = false
+    
     // MARK: UI notifier
-
+    
     let tracksList = BehaviorSubject<[Track]>(value: [])
     let showProgress = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
-    let isCachedState = PublishSubject<Bool>()
-
+    let isCachedState = BehaviorSubject<Bool>(value: false)
+    
     init(apiClient: ApiClient = HTTPClient(),
          album: Album,
          artist: Artist?,
@@ -42,8 +50,9 @@ final class SongsListViewModel: SongsViewModel {
         repository = repo
         screenType = type
         isCached = type == .offline ? true : false
+        isCachedState.onNext(isCached)
     }
-
+    
     func loadData() {
         screenType == .online ? loadOnlineData() : loadOfflineData()
     }
@@ -56,8 +65,8 @@ final class SongsListViewModel: SongsViewModel {
             self.albumTrack = value?.album
             let objs = self.albumTrack?.tracks?.track
             self.tracksList.onNext(objs?.map { $0 } ?? [])
-        }, onError: { [unowned self] err in
-            self.error.onNext(err)
+            }, onError: { [unowned self] err in
+                self.error.onNext(err)
         }).disposed(by: disposeBag)
     }
     private func loadOfflineData() {
@@ -67,8 +76,8 @@ final class SongsListViewModel: SongsViewModel {
         albumTrack = tracks
         tracksList.onNext(Array(result))
     }
-
-    @objc func changeOfflineMode(sender _: Any) {
+    
+    @objc func changeOfflineMode() {
         if isCached {
             repository.delete(obj: album)
             if let obj = self.albumTrack {
@@ -81,14 +90,24 @@ final class SongsListViewModel: SongsViewModel {
             }
         }
         isCached.toggle()
+        isCachedState.onNext(isCached)
     }
-
+    
     func playSong(track _: Track) {
         //        let song =    SongEntity(streamUrl: track.url ?? "", title: track.name ?? "")
         //       AudioPlayer.shared.playAudio(form: [song] )
     }
 }
 
-enum ScreenDataType {
+enum ScreenDataType:Equatable {
     case offline, online
+    static public func ==(lhs: ScreenDataType, rhs: ScreenDataType) -> Bool {
+        switch (lhs, rhs) {
+        case (.offline, .offline),
+             (.online, .online):
+            return true
+        default:
+            return false
+        }
+    }
 }

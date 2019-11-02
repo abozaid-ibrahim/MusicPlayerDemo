@@ -11,16 +11,9 @@ import UIKit
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    lazy var coordinator: Coordinator = {
-        MainCoordinator(window: self.window)
-    }()
-
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        coordinator.start {
-            self.window?.makeKeyAndVisible()
-        }
-
+        let _ = AppNavigator(window: window!)
         RealmDb().printConfigUrl()
         return true
     }

@@ -11,7 +11,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class Album: Object, Codable {
+final class Album: Object, Codable {
     @objc dynamic var name: String? = .none
     @objc dynamic var playcount: Int = 0
     @objc dynamic var mbid: String? = .none
@@ -36,7 +36,7 @@ class Album: Object, Codable {
 
 // MARK: - ArtistClass
 
-class ArtistEntity: Object, Codable {
+final class ArtistEntity: Object, Codable {
     @objc dynamic var name: String? = .none
     @objc dynamic var mbid: String? = .none
     @objc dynamic var url: String? = .none
@@ -49,7 +49,7 @@ class ArtistEntity: Object, Codable {
     }
 }
 
-class Image: Object, Codable {
+final class Image: Object, Codable {
     @objc dynamic var text: String? = .none
 
     enum CodingKeys: String, CodingKey {
