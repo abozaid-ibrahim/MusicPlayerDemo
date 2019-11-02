@@ -35,7 +35,7 @@ final class AlbumsListViewModel: AlbumsViewModel {
     var error = PublishSubject<Error>()
     /// initializier
     /// - Parameter apiClient: network handler
-    init(apiClient: ApiClient = HTTPClient(), artist: Artist?, db: RealmDb = RealmDb()) {
+    init(apiClient: ApiClient = AlamofireClient(), artist: Artist?, db: RealmDb = RealmDb()) {
         self.apiClient = apiClient
         currentArtist = artist
         repository = db

@@ -40,7 +40,7 @@ final class ArtistsListViewModel: ArtistsViewModel {
     var error = PublishSubject<Error>()
     var textToSearch = BehaviorSubject<String?>(value: .none)
 
-    init(apiClient: ApiClient = HTTPClient()) {
+    init(apiClient: ApiClient = AlamofireClient()) {
         self.apiClient = apiClient
         textToSearch
             .throttle(.milliseconds(500), scheduler: MainScheduler.asyncInstance)

@@ -50,6 +50,7 @@
 		6CD07EDB23539E54005040CF /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD07EDA23539E54005040CF /* ActivityIndicator.swift */; };
 		6CD07EDD2353B1CD005040CF /* UIView+layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD07EDC2353B1CD005040CF /* UIView+layer.swift */; };
 		6CD27259236D997F0067B94D /* ScreenDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD27258236D997F0067B94D /* ScreenDataType.swift */; };
+		6CD2725F236DCD150067B94D /* AlamofireClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD2725E236DCD150067B94D /* AlamofireClient.swift */; };
 		6CD7D454236B432700163DBB /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD7D453236B432700163DBB /* Pageable.swift */; };
 		6CD7D456236B660600163DBB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD7D455236B660600163DBB /* Logger.swift */; };
 		6CD7D458236B663800163DBB /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD7D457236B663800163DBB /* DataExtension.swift */; };
@@ -131,6 +132,7 @@
 		6CD07EDA23539E54005040CF /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		6CD07EDC2353B1CD005040CF /* UIView+layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+layer.swift"; sourceTree = "<group>"; };
 		6CD27258236D997F0067B94D /* ScreenDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenDataType.swift; sourceTree = "<group>"; };
+		6CD2725E236DCD150067B94D /* AlamofireClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireClient.swift; sourceTree = "<group>"; };
 		6CD7D453236B432700163DBB /* Pageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
 		6CD7D455236B660600163DBB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		6CD7D457236B663800163DBB /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 		6C60E4DB2351C59E007DDCF6 /* network service */ = {
 			isa = PBXGroup;
 			children = (
+				6CD2725E236DCD150067B94D /* AlamofireClient.swift */,
 				6C60E4C82351BB11007DDCF6 /* APIClient.swift */,
 				6C60E4DC2351C61B007DDCF6 /* RequestBuilder.swift */,
 				6CD7D453236B432700163DBB /* Pageable.swift */,
@@ -596,6 +599,7 @@
 				6C60E4E12351CC7C007DDCF6 /* UITableView+Cell.swift in Sources */,
 				6C60E4C12351B86E007DDCF6 /* ArtistsApi.swift in Sources */,
 				6C60E4FE235270C5007DDCF6 /* AudioPlayer.swift in Sources */,
+				6CD2725F236DCD150067B94D /* AlamofireClient.swift in Sources */,
 				6C60E4CC2351C23B007DDCF6 /* ArtistsViewController.swift in Sources */,
 				6C60E4DD2351C61B007DDCF6 /* RequestBuilder.swift in Sources */,
 				6C60E4F423526950007DDCF6 /* SongTableCell.swift in Sources */,

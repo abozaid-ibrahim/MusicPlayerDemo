@@ -36,7 +36,7 @@ final class SongsListViewModel: SongsViewModel {
     let error = PublishSubject<Error>()
     let isCachedState = BehaviorSubject<Bool>(value: false)
 
-    init(apiClient: ApiClient = HTTPClient(),
+    init(apiClient: ApiClient = AlamofireClient(),
          album: Album,
          artist: Artist?,
          repo: RealmDb = RealmDb(),

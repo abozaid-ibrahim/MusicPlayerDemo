@@ -2,9 +2,9 @@
 
 target 'MusicPlayerDemo' do
   use_frameworks!
-
-
-
+  
+  
+  
   pod 'RealmSwift'
   pod 'RxSwift'
   pod 'RxOptional'
@@ -12,6 +12,9 @@ target 'MusicPlayerDemo' do
   pod 'Kingfisher'
   pod "RxGesture"
   pod 'RxSwiftExt', '~> 5'
+  pod 'Alamofire'
+  pod 'AlamofireImage'
+  pod 'RxAlamofire'
 
   target 'MusicPlayerDemoTests' do
     inherit! :search_paths
@@ -22,6 +25,6 @@ target 'MusicPlayerDemo' do
     pod 'Nimble'
     pod 'RxNimble'
   end
-
+  
 end
 
