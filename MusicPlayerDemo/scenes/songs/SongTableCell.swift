@@ -16,7 +16,7 @@ final class SongTableCell: UITableViewCell {
     @IBOutlet private var durationLbl: UILabel!
 
     func setData(_ model: Track) {
-        songImgView.setImage(with: model.image?.first?.text)
+        songImgView.setImage(with: model.image?.last?.text)
         songNameLbl.text = model.name
         durationLbl.text = model.duration
     }
