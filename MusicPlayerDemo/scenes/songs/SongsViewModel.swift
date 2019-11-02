@@ -14,8 +14,6 @@ protocol SongsViewModel:class {
     var showProgress: PublishSubject<Bool>{get}
     var error: PublishSubject<Error>{get}
     var isCachedState: BehaviorSubject<Bool>{get}
-    
-    func playSong(track: Track)
     func loadData()
     func changeOfflineMode()
     
@@ -56,26 +54,7 @@ final class SongsListViewModel: SongsViewModel {
     func loadData() {
         screenType == .online ? loadOnlineData() : loadOfflineData()
     }
-    private func loadOnlineData() {
-        showProgress.onNext(true)
-        let api = AlbumsApi.songs(artist: artist?.name, album: album.name ?? "")
-        let result: Observable<AlbumTracksResponse?> = apiClient.getData(of: api)
-        result.subscribe(onNext: { [unowned self] value in
-            self.showProgress.onNext(false)
-            self.albumTrack = value?.album
-            let objs = self.albumTrack?.tracks?.track
-            self.tracksList.onNext(objs?.map { $0 } ?? [])
-            }, onError: { [unowned self] err in
-                self.error.onNext(err)
-        }).disposed(by: disposeBag)
-    }
-    private func loadOfflineData() {
-        let list = repository.get(obj: AlbumTracks.self, filter: "mbid", value: album.mbid ?? "")
-        guard let tracks = list as? AlbumTracks,
-            let result = tracks.tracks?.track else { return }
-        albumTrack = tracks
-        tracksList.onNext(Array(result))
-    }
+ 
     
     @objc func changeOfflineMode() {
         if isCached {
@@ -93,21 +72,27 @@ final class SongsListViewModel: SongsViewModel {
         isCachedState.onNext(isCached)
     }
     
-    func playSong(track _: Track) {
-        //        let song =    SongEntity(streamUrl: track.url ?? "", title: track.name ?? "")
-        //       AudioPlayer.shared.playAudio(form: [song] )
-    }
 }
-
-enum ScreenDataType:Equatable {
-    case offline, online
-    static public func ==(lhs: ScreenDataType, rhs: ScreenDataType) -> Bool {
-        switch (lhs, rhs) {
-        case (.offline, .offline),
-             (.online, .online):
-            return true
-        default:
-            return false
-        }
-    }
+//MARK: AlbumsListViewModel (Private)
+private extension SongsListViewModel{
+     func loadOnlineData() {
+         showProgress.onNext(true)
+         let api = AlbumsApi.songs(artist: artist?.name, album: album.name ?? "")
+         let result: Observable<AlbumTracksResponse?> = apiClient.getData(of: api)
+         result.subscribe(onNext: { [unowned self] value in
+             self.showProgress.onNext(false)
+             self.albumTrack = value?.album
+             let objs = self.albumTrack?.tracks?.track
+             self.tracksList.onNext(objs?.map { $0 } ?? [])
+             }, onError: { [unowned self] err in
+                 self.error.onNext(err)
+         }).disposed(by: disposeBag)
+     }
+      func loadOfflineData() {
+         let list = repository.get(obj: AlbumTracks.self, filter: "mbid", value: album.mbid ?? "")
+         guard let tracks = list as? AlbumTracks,
+             let result = tracks.tracks?.track else { return }
+         albumTrack = tracks
+         tracksList.onNext(Array(result))
+     }
 }

@@ -13,25 +13,24 @@ enum ArtistsApi {
 }
 
 extension ArtistsApi: RequestBuilder {
-    var parameters: [String: Any] {
-        switch self {
-        case let .searchFor(prm):
-            return [
-                "method": "artist.search",
-                "api_key": APIConstants.apiKey,
-                "format": "json",
-                "artist": prm.artist,
-                "limit": prm.count,
-                "page": prm.page,
-            ]
-        }
-    }
-
+    
     var baseURL: URL {
         return URL(string: APIConstants.baseURL)!
     }
-
+    
     var method: HttpMethod {
         return .get
     }
+    var parameters: [String: Any] {
+        switch self {
+        case let .searchFor(prm):
+            return ["method": "artist.search",
+                    "api_key": APIConstants.apiKey,
+                    "format": "json",
+                    "artist": prm.artist,
+                    "limit": prm.count,
+                    "page": prm.page]
+        }
+    }
+    
 }

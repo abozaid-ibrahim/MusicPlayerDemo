@@ -9,21 +9,24 @@
 import RxSwift
 import UIKit
 
-/// list of artists
 final class AlbumsViewController: UIViewController, Loadable {
     @IBOutlet private var albumsCollectionView: UICollectionView!
-    private let hPadding = CGFloat(4)
     @IBOutlet private var errorLbl: UILabel!
+    
+    private let hPadding = CGFloat(4)
     private let disposeBag = DisposeBag()
     var viewModel: AlbumsViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         albumsCollectionView.register(UINib(nibName: cellId, bundle: .none), forCellWithReuseIdentifier: cellId)
         bindToViewModel()
-        viewModel.loadData(showLoader: true)
         addSearchToNavigationBar()
     }
-    
+    override func viewWillAppear(_ animated: Bool){
+        super.viewWillAppear(animated)
+        viewModel.loadData(showLoader: true)
+    }
     private lazy var results: ArtistsViewController = {
         let artistsController = ArtistsViewController()
         artistsController.title = "Artists"
@@ -31,11 +34,15 @@ final class AlbumsViewController: UIViewController, Loadable {
         return artistsController
     }()
     
-    private func showAlbumsFor(artist: Artist) {
+}
+//MARK: AlbumsViewController (Private)
+private extension AlbumsViewController{
+    
+    func showAlbumsFor(artist: Artist) {
         viewModel.showAlbums(of: artist)
     }
     
-    private func addSearchToNavigationBar() {
+    func addSearchToNavigationBar() {
         let searchController = UISearchController(searchResultsController: results)
         (results.didSelectArtist.bind(onNext: showAlbumsFor(artist:)) ).disposed(by: disposeBag)
         searchController.searchResultsUpdater = results
@@ -46,11 +53,11 @@ final class AlbumsViewController: UIViewController, Loadable {
         definesPresentationContext = true
     }
     
-    private var cellId: String {
+    var cellId: String {
         return String(describing: AlbumCollectionCell.self)
     }
     
-    private func bindToViewModel() {
+    func bindToViewModel() {
         viewModel.showProgress
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: showLoading(show:)).disposed(by: disposeBag)
@@ -70,7 +77,6 @@ final class AlbumsViewController: UIViewController, Loadable {
         viewModel.albums.map { $0.count > 0 }.bind(to: errorLbl.rx.isHidden).disposed(by: disposeBag)
     }
 }
-
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension AlbumsViewController: UICollectionViewDelegateFlowLayout {

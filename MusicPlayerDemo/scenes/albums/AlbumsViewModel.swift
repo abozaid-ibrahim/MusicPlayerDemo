@@ -21,9 +21,6 @@ protocol AlbumsViewModel {
 }
 
 final class AlbumsListViewModel: AlbumsViewModel {
-    func showAlbums(of artist: Artist) {
-        try? AppNavigator().push(.albums(artist: artist))
-    }
     
     // MARK: private state
     
@@ -39,10 +36,7 @@ final class AlbumsListViewModel: AlbumsViewModel {
     var error = PublishSubject<Error>()
     /// initializier
     /// - Parameter apiClient: network handler
-    init(apiClient: ApiClient = HTTPClient(),
-         artist: Artist? = .none,
-         
-         db: RealmDb = RealmDb()) {
+    init(apiClient: ApiClient = HTTPClient(),artist: Artist?,db: RealmDb = RealmDb()) {
         self.apiClient = apiClient
         currentArtist = artist
         repository = db
@@ -52,11 +46,20 @@ final class AlbumsListViewModel: AlbumsViewModel {
         return currentArtist == nil ? .offline : .online
     }
     
-    /// load the data from the endpoint
-    /// - Parameter showLoader: show indicator on screen to till user data is loading
     func loadData(showLoader: Bool = true) {
         screenDataType == .offline ? loadOfflineData(showLoader) : loadOnlineData(showLoader)
     }
+    
+    func showAlbums(of artist: Artist) {
+        try? AppNavigator().push(.albums(artist: artist))
+    }
+    
+    func showSongsList(album: Album) {
+        try? AppNavigator().push(.albumTracks(artist: currentArtist, album: album, dataType: screenDataType))
+    }
+}
+//MARK: AlbumsListViewModel (Private)
+extension AlbumsListViewModel{
     
     private func loadOfflineData(_: Bool) {
         let data = repository.getAll(of: Album.self)
@@ -78,9 +81,5 @@ final class AlbumsListViewModel: AlbumsViewModel {
     private func updateUIWithArtists(_ albums: [Album]) {
         let sorted = albums.sorted(by: { $0.playcount > $1.playcount })
         self.albums.onNext(sorted)
-    }
-    
-    func showSongsList(album: Album) {
-        try? AppNavigator().push(.albumTracks(artist: currentArtist, album: album, dataType: screenDataType))
     }
 }
