@@ -11,12 +11,10 @@ import XCTest
 import Nimble
 import Quick
 import RxNimble
-import RxOptional
 import RxSwift
-import RxSwiftExt
 import RxTest
 
-final class MiniPlayerTests: QuickSpec {
+ class MiniPlayerTests: QuickSpec {
     override func spec() {
         describe("Music Player") {
             context("Connection is stable and user have song to play") {
@@ -67,7 +65,7 @@ final class MiniPlayerTests: QuickSpec {
     }
 }
 
-struct MocksRepo{
+fileprivate struct MocksRepo{
     static let songs = [SongEntity(id: "11", title: "title", streamUrl: "http://hhh.com"),
                         SongEntity(id: "12", title: "title", streamUrl: "http://hhh.com"),
                         SongEntity(id: "13", title: "title", streamUrl: "http://hhh.com"),

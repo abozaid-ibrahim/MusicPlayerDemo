@@ -24,7 +24,7 @@ final class SongsListViewModel: SongsViewModel {
     private var album: Album
     private var artist: Artist?
     private var apiClient: ApiClient
-    private let repository: RealmDb
+    private let repository: DataBaseOperations
     private let screenType: ScreenDataType
     private var albumTrack: AlbumTracks?
     private var isCached = false
@@ -39,7 +39,7 @@ final class SongsListViewModel: SongsViewModel {
     init(apiClient: ApiClient = AlamofireClient(),
          album: Album,
          artist: Artist?,
-         repo: RealmDb = RealmDb(),
+         repo: DataBaseOperations = RealmDb(),
          type: ScreenDataType) {
         self.album = album
         self.artist = artist
@@ -60,7 +60,9 @@ final class SongsListViewModel: SongsViewModel {
             if let obj = self.albumTrack {
                 repository.delete(obj: obj)
             }
+            tracksList.onCompleted()
             try? AppNavigator().back()
+            
         } else {
             repository.save(obj: album)
             if let obj = self.albumTrack {

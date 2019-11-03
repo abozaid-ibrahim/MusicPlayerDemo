@@ -9,7 +9,6 @@ target 'MusicPlayerDemo' do
   pod 'RxSwift'
   pod 'RxOptional'
   pod 'RxCocoa'
-  pod 'Kingfisher'
   pod "RxGesture"
   pod 'RxSwiftExt', '~> 5'
   pod 'Alamofire'
