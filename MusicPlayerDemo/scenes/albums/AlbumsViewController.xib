@@ -31,7 +31,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Iki-Bz-mib">
-                    <rect key="frame" x="0.0" y="44" width="414" height="788"/>
+                    <rect key="frame" x="8" y="52" width="398" height="780"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TCA-UX-YrP">
                         <size key="itemSize" width="50" height="50"/>
@@ -45,11 +45,11 @@
             <constraints>
                 <constraint firstItem="8wq-SN-flH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ADf-MP-oP4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8wq-SN-flH" secondAttribute="trailing" id="B4D-kB-KFx"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Iki-Bz-mib" secondAttribute="trailing" id="G8Z-zP-4bb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Iki-Bz-mib" secondAttribute="trailing" constant="8" id="G8Z-zP-4bb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8wq-SN-flH" secondAttribute="bottom" id="R0a-7F-7Zn"/>
-                <constraint firstItem="Iki-Bz-mib" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="RUR-dR-j1B"/>
+                <constraint firstItem="Iki-Bz-mib" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="RUR-dR-j1B"/>
                 <constraint firstItem="8wq-SN-flH" firstAttribute="top" secondItem="Iki-Bz-mib" secondAttribute="bottom" id="mp8-BO-L8r"/>
-                <constraint firstItem="Iki-Bz-mib" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wzg-QB-yC6"/>
+                <constraint firstItem="Iki-Bz-mib" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="wzg-QB-yC6"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="141.96428571428569"/>

@@ -13,7 +13,7 @@ final class AlbumsViewController: UIViewController, Loadable {
     @IBOutlet private var albumsCollectionView: UICollectionView!
     @IBOutlet private var errorLbl: UILabel!
 
-    private let hPadding = CGFloat(4)
+    private let collectionCellsPadding = CGFloat(4)
     private let disposeBag = DisposeBag()
     var viewModel: AlbumsViewModel!
 
@@ -85,15 +85,15 @@ private extension AlbumsViewController {
 extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        let cellWidth = width / 3
-        return CGSize(width: cellWidth - hPadding, height: cellWidth / 0.8)
+        let cellWidth = (width / 3) - collectionCellsPadding
+        return CGSize(width: cellWidth , height: cellWidth / 0.8)
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
-        return hPadding
+        return collectionCellsPadding
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
-        return 0
+        return collectionCellsPadding
     }
 }
