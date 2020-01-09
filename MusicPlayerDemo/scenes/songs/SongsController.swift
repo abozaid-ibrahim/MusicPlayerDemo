@@ -23,12 +23,11 @@ final class SongsController: SongsControllerType {
     private let repository: DataBaseOperations
     private let screenType: ScreenDataType
     private var albumTrack: AlbumTracks?
-    private var isCached = false
+    private var isCached = false { didSet { updateActionTitle() } }
 
     // MARK: UI notifier
 
     var tracksList: [Track] = []
-    var error: Error!
 
     init(apiClient: ApiClient = AlamofireClient(),
          album: Album,
@@ -46,9 +45,10 @@ final class SongsController: SongsControllerType {
     }
 
     func loadData() {
-        view.setActionTitle(with: "Save")
         if let _ = self.repository.get(obj: Album.self, filter: "mbid", value: album.mbid) {
-            view.setActionTitle(with: "Delete")
+            isCached = true
+        }else{
+            isCached = false
         }
         screenType == .online ? loadOnlineData() : loadOfflineData()
     }
@@ -68,13 +68,16 @@ final class SongsController: SongsControllerType {
             }
         }
         isCached.toggle()
-        view.setActionTitle(with: isCached ? "Delete" : "Save")
     }
 }
 
 // MARK: AlbumsListViewModel (Private)
 
 private extension SongsController {
+    func updateActionTitle() {
+        view.setActionTitle(with: isCached ? "Delete" : "Save")
+    }
+
     func loadOnlineData() {
         view.showLoading(show: true)
         let api = AlbumsApi.songs(artist: artist?.name, album: album.name ?? "")
@@ -85,7 +88,7 @@ private extension SongsController {
         }
     }
 
-    private func updateUI(with result: Result<Data, Error>) {
+    func updateUI(with result: Result<Data, Error>) {
         switch result {
         case let .success(data):
             view.showLoading(show: false)

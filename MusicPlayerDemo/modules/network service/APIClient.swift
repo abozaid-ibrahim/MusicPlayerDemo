@@ -11,22 +11,15 @@ import RxOptional
 import RxSwift
 protocol ApiClient {
     func getData<T: Decodable>(of request: RequestBuilder) -> Observable<T?>
-    func getData(of api: RequestBuilder, completion: @escaping (Result<Data,Error>) -> Void)
-
+    func getData(of api: RequestBuilder, completion: @escaping (Result<Data, Error>) -> Void)
 }
 
 /// api handler, wrapper for the Url session
 final class HTTPClient: ApiClient {
     func getData(of api: RequestBuilder, completion: @escaping (Result<Data, Error>) -> Void) {
-//        completion(.success(Data()))
+//        TODO:
     }
-    
-    
-    
-   
-    
-   
-    
+
     private let disposeBag = DisposeBag()
     func getData<T: Decodable>(of request: RequestBuilder) -> Observable<T?> {
         log(.info, String(describing: request.task.url))

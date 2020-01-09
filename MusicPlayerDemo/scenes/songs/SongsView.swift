@@ -49,7 +49,7 @@ extension SongsView: SongsViewType {
 
 private extension SongsView {
     func addSaveBarButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Test", style: .plain, target: self, action: #selector(onBarButtonClicked(s:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onBarButtonClicked(s:)))
     }
 
     @objc func onBarButtonClicked(s _: Any) {
