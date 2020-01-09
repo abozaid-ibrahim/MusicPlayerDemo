@@ -91,6 +91,10 @@ private struct Mocker {
 }
 
 private struct MockedApi: ApiClient {
+    func getData(of api: RequestBuilder, completion: @escaping (Result<Data, Error>) -> Void) {
+        //
+    }
+    
     func getData<T>(of request: RequestBuilder) -> Observable<T?> where T: Decodable {
         return Observable.create { obs in
             let data = """

@@ -24,13 +24,6 @@ enum Destination {
 }
 
 extension Destination {
-    private func getSongsView(artist: Artist?, album: Album, dataType: ScreenDataType) -> UIViewController {
-        let songsVC = SongsViewController()
-        songsVC.title = album.name
-        songsVC.viewModel = SongsListViewModel(album: album, artist: artist, type: dataType)
-        return songsVC
-    }
-
     private func getAlbums(with artist: Artist?) -> UIViewController {
         let albumsController = AlbumsViewController()
         albumsController.title = artist == nil ? "Offline Albums" : artist?.name ?? ""

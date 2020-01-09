@@ -59,7 +59,7 @@ class Track: Object, Codable {
     @objc dynamic var url: String? = .none
     @objc dynamic var duration: String? = .none
 
-    convenience init(name: String?,url: String?, duration: String?) {
+    convenience init(name: String?, url: String?, duration: String?) {
         self.init()
         self.name = name
         self.url = url

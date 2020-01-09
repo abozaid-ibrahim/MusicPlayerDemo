@@ -47,11 +47,11 @@ final class SongsListViewModel: SongsViewModel {
         repository = repo
         screenType = type
         isCached = type == .offline ? true : false
-        guard let _ = repo.get(obj: Album.self, filter: "mbid", value: album.mbid) else{
-             isCachedState.onNext(isCached )
+        guard let _ = repo.get(obj: Album.self, filter: "mbid", value: album.mbid) else {
+            isCachedState.onNext(isCached)
             return
         }
-        isCachedState.onNext(true )
+        isCachedState.onNext(true)
     }
 
     func loadData() {
@@ -66,7 +66,7 @@ final class SongsListViewModel: SongsViewModel {
             }
             tracksList.onCompleted()
             try? AppNavigator().back()
-            
+
         } else {
             repository.save(obj: album)
             if let obj = self.albumTrack {
@@ -96,19 +96,10 @@ private extension SongsListViewModel {
     }
 
     func loadOfflineData() {
-        let list = repository.get(obj: AlbumTracks.self, filter: "mbid", value: album.mbid ?? "")
+        let list = repository.get(obj: AlbumTracks.self, filter: "mbid", value: album.mbid)
         guard let tracks = list as? AlbumTracks,
             let result = tracks.tracks?.track else { return }
         albumTrack = tracks
         tracksList.onNext(Array(result))
-    }
-}
-extension String {
-    /// convert string to formated duration
-    var songDurationFormat: String {
-        guard let seconds = Int(self) else {
-            return String(format: "%02d:%02d",  0, 0)
-        }
-        return String(format: "%02d:%02d",  (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
 }

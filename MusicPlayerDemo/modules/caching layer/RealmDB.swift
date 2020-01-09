@@ -48,7 +48,7 @@ class RealmDb: DataBaseOperations {
     func getAll(of obj: Object.Type) -> [Object] {
         do {
             let realm = try Realm(configuration: config)
-            return realm.objects(obj).map { $0 } ?? []
+            return realm.objects(obj).map { $0 } 
         } catch {
             log(.error, error)
             return []
