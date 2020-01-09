@@ -78,8 +78,9 @@ extension AlbumsListViewModel {
     }
 
     /// emit values to ui to fill the table view if the data is a littlet reload untill fill the table
-    private func updateUIWithArtists(_ albums: [Album]) {
-        let sorted = albums.sorted(by: { $0.playcount > $1.playcount })
+    private func
+        updateUIWithArtists(_ albums: [Album]) {
+        let sorted = albums.filter{!$0.mbid.isEmpty}.sorted(by: { $0.playcount > $1.playcount })
         self.albums.onNext(sorted)
     }
 }

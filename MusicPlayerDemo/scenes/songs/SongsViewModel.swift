@@ -47,7 +47,11 @@ final class SongsListViewModel: SongsViewModel {
         repository = repo
         screenType = type
         isCached = type == .offline ? true : false
-        isCachedState.onNext(isCached)
+        guard let _ = repo.get(obj: Album.self, filter: "mbid", value: album.mbid) else{
+             isCachedState.onNext(isCached )
+            return
+        }
+        isCachedState.onNext(true )
     }
 
     func loadData() {

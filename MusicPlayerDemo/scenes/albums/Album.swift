@@ -14,16 +14,15 @@ import RealmSwift
 final class Album: Object, Codable {
     @objc dynamic var name: String? = .none
     @objc dynamic var playcount: Int = 0
-    @objc dynamic var mbid: String? = .none
+    @objc dynamic var mbid: String = ""
     @objc dynamic var url: String? = .none
+    @objc dynamic var artist: ArtistEntity? = .none
+    var image: List<Image>? = List<Image>()
     override static func primaryKey() -> String? {
         return "mbid"
     }
 
-    @objc dynamic var artist: ArtistEntity? = .none
-    var image: List<Image>? = List<Image>()
-
-    convenience init(name: String?, playcount: Int, mbid: String?, url: String?, artist: ArtistEntity?, image: List<Image>?) {
+    convenience init(name: String?, playcount: Int, mbid: String, url: String?, artist: ArtistEntity?, image: List<Image>?) {
         self.init()
         self.name = name
         self.playcount = playcount
@@ -31,6 +30,19 @@ final class Album: Object, Codable {
         self.url = url
         self.artist = artist
         self.image = image
+    }
+}
+
+extension Album {
+    convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        mbid = try container.decodeIfPresent(String.self, forKey: .mbid) ?? ""
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        playcount = try container.decodeIfPresent(Int.self, forKey: .playcount) ?? 0
+        url = try container.decodeIfPresent(String.self, forKey: .url)
+        image = try container.decodeIfPresent(List<Image>.self, forKey: .image)
+        artist = try container.decodeIfPresent(ArtistEntity.self, forKey: .artist)
     }
 }
 

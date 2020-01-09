@@ -34,7 +34,7 @@ extension Destination {
     private func getAlbums(with artist: Artist?) -> UIViewController {
         let albumsController = AlbumsViewController()
         albumsController.title = artist == nil ? "Offline Albums" : artist?.name ?? ""
-        albumsController.viewModel = AlbumsListViewModel(artist: artist)
+        albumsController.setViewModel(AlbumsListViewModel(artist: artist))
         return albumsController
     }
 }

@@ -348,8 +348,8 @@
 			isa = PBXGroup;
 			children = (
 				6C558D9E236C38FF0031ABD3 /* Album.swift */,
-				6C747C932368C82600E33C43 /* AlbumsApi.swift */,
 				6C747C942368C82600E33C43 /* AlbumsJsonResponse.swift */,
+				6C747C932368C82600E33C43 /* AlbumsApi.swift */,
 				6C747C982368C82700E33C43 /* AlbumsViewController.swift */,
 				6C747C962368C82700E33C43 /* AlbumsViewController.xib */,
 				6CA3AA6E2368D1320095CE38 /* AlbumCollectionCell.swift */,

@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Foundation
-
 // MARK: - Response
 
 struct AlbumsResponse: Codable {
@@ -35,4 +33,5 @@ struct Topalbums: Codable {
         self.album = album
         self.attr = attr
     }
+    
 }

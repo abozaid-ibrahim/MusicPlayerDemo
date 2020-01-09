@@ -15,7 +15,7 @@ final class AlbumsViewController: UIViewController, Loadable {
 
     private let collectionCellsPadding = CGFloat(4)
     private let disposeBag = DisposeBag()
-    var viewModel: AlbumsViewModel!
+    private var viewModel: AlbumsViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,10 @@ final class AlbumsViewController: UIViewController, Loadable {
         artistsController.viewModel = ArtistsListViewModel()
         return artistsController
     }()
+
+    func setViewModel(_ viewModel: AlbumsViewModel) {
+        self.viewModel = viewModel
+    }
 }
 
 // MARK: AlbumsViewController (Private)
@@ -46,7 +50,7 @@ private extension AlbumsViewController {
 
     func addSearchToNavigationBar() {
         let searchController = UISearchController(searchResultsController: results)
-        (results.didSelectArtist.bind(onNext: showAlbumsFor(artist:))).disposed(by: disposeBag)
+        results.didSelectArtist.bind(onNext: showAlbumsFor(artist:)).disposed(by: disposeBag)
         searchController.searchResultsUpdater = results
         searchController.searchBar.isTranslucent = false
         searchController.obscuresBackgroundDuringPresentation = false
@@ -86,7 +90,7 @@ extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let cellWidth = (width / 3) - collectionCellsPadding
-        return CGSize(width: cellWidth , height: cellWidth / 0.8)
+        return CGSize(width: cellWidth, height: cellWidth / 0.8)
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {

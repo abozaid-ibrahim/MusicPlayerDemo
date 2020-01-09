@@ -10,13 +10,4 @@ import Foundation
 
 enum ScreenDataType: Equatable {
     case offline, online
-    public static func == (lhs: ScreenDataType, rhs: ScreenDataType) -> Bool {
-        switch (lhs, rhs) {
-        case (.offline, .offline),
-             (.online, .online):
-            return true
-        default:
-            return false
-        }
-    }
 }
